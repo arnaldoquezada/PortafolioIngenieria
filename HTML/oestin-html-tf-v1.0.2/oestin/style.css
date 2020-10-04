@@ -394,7 +394,7 @@ form.search-form {
 .nav-tabs>li.active>a,
 .nav-tabs>li.active>a:focus,
 .nav-tabs>li.active>a:hover {
-    background: #b5876d none repeat scroll 0 0;
+    background: #00B5EC none repeat scroll 0 0;
     border: 0 none;
     color: #ffffff;
 }
@@ -863,7 +863,7 @@ span.image.s-img {
 
 .blog-text .time,
 .blog-hover>span {
-    color:
+    color:#00B5EC
 }
 
 .blog-text .time i,

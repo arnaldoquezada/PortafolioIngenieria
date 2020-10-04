@@ -35,7 +35,7 @@ NOTE: This is Slider style file. All Slider related style included in this file.
     color: #032139
 }
 .banner-btn a:before {
-    background: rgba(181, 135, 109, 1); 
+    background: #00B5EC; 
     bottom: 0;
     content: "";
     left: 0;
