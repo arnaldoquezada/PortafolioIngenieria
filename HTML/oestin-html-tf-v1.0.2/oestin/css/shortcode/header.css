@@ -56,7 +56,7 @@ NOTE: This is Header style file. All Header related style included in this file.
     margin: 0 13px;
 }
 .header-links > a:last-child {margin-right: 0;}
-.header-links > a:hover {color: #b5876d;}
+.header-links > a:hover {color: #00B5EC}
 .mainmenu-area {
     background: rgba(237, 237, 237, 0.35) none repeat scroll 0 0;
     position: relative;
@@ -73,7 +73,7 @@ NOTE: This is Header style file. All Header related style included in this file.
     color: #ffffff;
     position: relative;
 }
-.main-menu nav > ul > li:hover > a {color: #B5876D}
+.main-menu nav > ul > li:hover > a {color: #00B5EC}
 .main-menu ul li ul.submenu {
     background: #fff;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);

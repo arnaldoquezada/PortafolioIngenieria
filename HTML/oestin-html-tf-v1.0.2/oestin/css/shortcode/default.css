@@ -242,7 +242,7 @@ textarea:focus {
     04. Scrollup
 *************************/
 #scrollUp {
-    background: #B5876D none repeat scroll 0 0;
+    background: #032139 none repeat scroll 0 0;
     bottom: 40px;
     color: #ffffff;
     cursor: pointer;
@@ -256,7 +256,7 @@ textarea:focus {
     width: 38px;
     z-index: 9999;
 }
-#scrollUp:hover {background-color: #263238;}
+#scrollUp:hover {background-color: #00B5EC;}
 /*************************
     05. Basic margin padding
 *************************/
