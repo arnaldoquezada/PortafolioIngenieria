@@ -1,0 +1,15 @@
+Version: 1.0.2
+Date:    31 December 2019
+=========================== 
+Added: Input Type Date in Reservation form 
+
+Version: 1.0.1
+Date:    13 July 2019
+=========================== 
+Changed: Logo & Name
+
+Version: 1.0.0
+Date:    4 April 17
+=========================== 
+Initial Release
+
