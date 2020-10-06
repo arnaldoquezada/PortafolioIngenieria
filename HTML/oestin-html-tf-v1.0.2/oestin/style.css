@@ -115,7 +115,7 @@ form.search-form {
 
 .about-links>a {
     border: 1px solid #f1f1f1;
-    color: #b5876d;
+    color: #00b5ec;
     display: table;
     float: left;
     font-size: 18px;
@@ -308,7 +308,7 @@ form.search-form {
 }
 
 .hover-text>h3:hover a {
-    color: #b5876d;
+    color: #00b5ec;
 }
 
 .hover-text {
@@ -923,15 +923,15 @@ span.image.s-img {
 }
 
 .blog-hover .default-btn::before {
-    background: #131313 none repeat scroll 0 0;
+    background: #00B5EC none repeat scroll 0 0;
 }
 
 .blog-hover .default-btn::hover {
-    color: #fff;
+    color: #00B5EC;
 }
 
 .blog-hover .default-btn::before {
-    color: #B5876D;
+    color: #ffffff;
 }
 
 .single-blog-wrapper:hover .blog-hover {
