@@ -541,7 +541,7 @@ textarea:focus {
     09. Background variation set 
 **************************************/
 .bg-white { background: #fff }
-.bg-black { background: #010101 }
+.bg-black { background: #FFFF }
 .bg-light {background: #f1f1f1 none repeat scroll 0 0;}
 .bg-dark {background: #131313 none repeat scroll 0 0;}
 .transparent-bg { background: transparent }

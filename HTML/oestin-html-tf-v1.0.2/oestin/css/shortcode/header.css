@@ -46,7 +46,7 @@ NOTE: This is Header style file. All Header related style included in this file.
     font-family: "Open Sans",sans-serif;
     font-size: 13px;
 }
-.header-contact > span.text-theme {color: #032139; padding-right: 9px;}
+.header-contact > span.text-theme {color: #ffff; padding-right: 9px;}
 .header-top {border-bottom: 1px solid #777777;}
 .header-contact {float: left; padding: 16px 0;}
 .header-links {float: right; padding: 14px 0;}

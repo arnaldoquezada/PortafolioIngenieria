@@ -8,13 +8,13 @@ Version: 1.0
 NOTE: This is Footer style file. All footer related style included in this file.
 
 --------------------------------------*/
-.footer-area {color: #f7f7f7}
+.footer-area {color: #032139}
 .footer-widget-area {padding: 130px 0 61px;}
 .footer-logo > a {display: inline-block;}
 .footer-logo {margin-bottom: 29px;}
 .social-icons a {
-    border: 1px solid #b1b1b1;
-    color: #b1b1b1;
+    border: 1px solid #032139;
+    color: #00BCD4;
     display: inline-block;
     font-size: 20px;
     height: 33px;
@@ -27,13 +27,13 @@ NOTE: This is Footer style file. All footer related style included in this file.
 }
 .social-icons > a:last-child {margin-right: 0;}
 .social-icons > a:hover {
-    background: #b5876d none repeat scroll 0 0;
-    border-color: #b5876d;
+    background: #032139 none repeat scroll 0 0;
+    border-color: #00BCD4;
     color: #ffffff;
 }
 .social-icons {margin-top: 43px;}
 .single-footer-widget > h3 {
-    color: #ffffff;
+    color: #032139;
     font-size: 18px;
     line-height: 14px;
     margin-bottom: 45px;
@@ -41,12 +41,12 @@ NOTE: This is Footer style file. All footer related style included in this file.
 }
 .footer-list li {margin-bottom: 4px;}
 .footer-list a {
-  color: #f7f7f7;
+  color: #00BCD4;
   font-size: 15px;
   line-height: 26px;
 }
 .footer-list li a {-webkit-transition: all 0.3s ease 0s;transition: all 0.3s ease 0s}
-.footer-list li a:hover {color: #B5876D;}
+.footer-list li a:hover {color: #00BCD4;}
 .c-info > span:last-child {
     display: block;
     font-size: 15px;
@@ -54,8 +54,8 @@ NOTE: This is Footer style file. All footer related style included in this file.
     padding-left: 50px;
 }
 .c-info > span:first-child {
-    border: 1px solid #ffffff;
-    color: #b5876d;
+    border: 1px solid #032139;
+    color: #00BCD4;
     display: inline-table;
     font-size: 18px;
     height: 33px;
@@ -135,8 +135,8 @@ NOTE: This is Footer style file. All footer related style included in this file.
     -webkit-transition: all 0.5s ease 0s;
     transition: all 0.5s ease 0s;
 }
-.footer-img a:hover:after, .post-content:hover a:after {opacity: 1;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"}
+.footer-img a:hover:after, .post-content:hover a:after {opacity: 1;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"}
 .footer-bottom-area {padding: 24px 0;}
-.footer-text span a {color: #b5876d;}
-.footer-text span a:hover {border-bottom: 1px solid #b5876d;}
+.footer-text span a {color: #032139;}
+.footer-text span a:hover {border-bottom: 1px solid #00BCD4;}
 .footer-text > span {display: block;}
