@@ -1780,14 +1780,14 @@ span.c-text {
 }
 
 .link-social>a {
-    color: #444;
+    color: #032139;
     display: inline-block;
     line-height: 19px;
     margin-right: 27px;
 }
 
 .link-social>a:hover {
-    color: #B5876D
+    color: #00BCD4
 }
 
 .link-social>a i {
