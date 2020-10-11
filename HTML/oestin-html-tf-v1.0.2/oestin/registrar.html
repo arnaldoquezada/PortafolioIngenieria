@@ -40,7 +40,7 @@
                        </div>
                        <div class= "header-links">
                             <a href="login.html">Inicia Sesión</a>
-                            <a href="registrar.html">Registrate</a>
+                            <a href="#">Registrate</a>
                        </div>
                         <div class="header-links">
                             <a href="https://www.facebook.com/"><i class="zmdi zmdi-facebook"></i></a>
@@ -89,30 +89,67 @@
     <!-- Header Area End -->
     <section>
         <div class=" w3l-login-form">
-            <h2>Inicio Sesión</h2>
+            <h2>Registrate Con Nosotros</h2>
             <form action="#" method="POST">
 
                 <div class=" w3l-form-group">
-                    <label>Usuario:</label>
+                    <label>Nombre:</label>
                     <div class="group">
                         <i class="fas fa-user"></i>
-                        <input type="text" class="form-control" placeholder="email@dominio.com" required="required" />
+                        <input type="text" class="form-control" placeholder="Nombre" required="required" />   
+                    </div>
+                    <div class= "group">
+                        <i class="fas fa-user-plus"></i>
+                        <input type="text" class="form-control" placeholder="Ap. Paterno" required="required" />
+                    </div>
+                    <div class="group">
+                        <i class="fas fa-user-plus"></i>
+                        <input type="text" class="form-control" placeholder="Ap. Materno" required="required" />
+                    </div>
+                </div>
+                <div class="w3l-form-group">
+                    <label>Fecha de Nacimiento:</label>
+                    <div class="group select date">
+                        <input type="date" name="arrive">
+                    </div>  
+                </div>
+                <div class=" w3l-form-group">
+                    <label>Datos de Contacto</label>
+                    <div class="group">
+                        <i class="fas fa-at"></i>
+                        <input type="email" class="form-control" placeholder="E-mail" required="required" />
+                    </div>
+                    <div class="group">
+                        <i class="fas fa-phone-alt"></i>
+                        <input type="phone" class="form-control" placeholder="+56912345678" required="required" />
                     </div>
                 </div>
                 <div class=" w3l-form-group">
-                    <label>Contraseña</label>
+                    <label>Dirección</label>
                     <div class="group">
-                        <i class="fas fa-unlock-alt"></i>
-                        <input type="password" class="form-control" placeholder="Contraseña" required="required" />
+                        <i class="fas fa-address-card"></i>
+                        <input type="address" class="form-control" placeholder="Dirección" required="required" />
+                    </div>
+                    <div class="group">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <select name="cars" id="cars">
+                            <option value="#">Selecciona tu Comuna</option>
+                            <option value="san_bernardo">San Bernardo</option>
+                            <option value="el_bosque">El Bosque</option>
+                            <option value="buin">Buin</option>
+                        </select>
                     </div>
                 </div>
-                <div class="forgot">
-                    <a href="#">Olvidaste tu Contraseña?</a>
+                <div class="w3l-form-group">
+                    <label>Contraseña</label>
+                    <div class="group">
+                        <i class="fas fa-key"></i>
+                        <input type="password" name="password" type="text" id="password" />
+                    </div>
+
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">Registrarse</button>
             </form>
-            <p class=" w3l-register-p">No tienes una cuenta?<a href="registrar.html" class="register"> Registrate</a></p>
-        </div>
     </section>
 <!-- Footer Area Start -->
 <footer class="footer-area bg-light">

@@ -57,7 +57,7 @@ form.search-form {
     height: 100%;
 }
 
-.box-select .select input[type="date"]::-webkit-inner-spin-button {
+.box-select .select input[type="date"]::-webkit-inner--button {
     display: none;
 }
 
@@ -1849,7 +1849,7 @@ h2 {
 
 p.w3l-register-p {
     color: #eee;
-    font-size: 13px;
+    font-size: 15px;
     text-align: center;
     margin-top: 2em;
 }
@@ -1883,10 +1883,10 @@ p.w3l-register-p {
     display: block;
     text-transform: uppercase;
     font-size: 13px;
-    color: #d2d2d2;
+    color: #00bcd4;
     letter-spacing: 2px;
     margin-bottom: 10px;
-    font-style: italic;
+    font-weight: 700;
 }
 
 input[type="text"],
@@ -1894,7 +1894,7 @@ input[type="password"] {
     width: 100%;
     border: none;
     box-sizing: border-box;
-    background: transparent;
+    background: #f1f1f1 none repeat scroll 0 0;
     color: #000;
 }
 
@@ -1929,7 +1929,7 @@ button:hover {
 
 a {
     color: #eee;
-    font-size: 14px;
+    font-size: 16px;
     text-decoration: none;
 }
 
@@ -1942,5 +1942,5 @@ a {
 
 .register {
     color: #00BCD4;
-    text-decoration: none;
+    text-decoration: none
 }
