@@ -113,7 +113,7 @@ NOTE: This is Header style file. All Header related style included in this file.
     text-transform: capitalize;
 }
 .main-menu ul li ul.submenu li:hover > a {
-    background: #B5876D none repeat scroll 0 0;
+    background: #00BCD4 none repeat scroll 0 0;
     color: #ffffff;
 }
 .main-menu ul li ul.submenu.megamenu {
@@ -180,6 +180,6 @@ NOTE: This is Header style file. All Header related style included in this file.
 }
 .mean-container .mean-nav ul li li{background: #fff}
 .mean-container a.meanmenu-reveal {color: #2D3E50}
-.mean-container a.meanmenu-reveal:hover span {background: #b5876d none repeat scroll 0 0;}
+.mean-container a.meanmenu-reveal:hover span {background: #00bcd4 none repeat scroll 0 0;}
 .mean-last {margin-bottom: 20px}
 .mobile-menu {position: relative}

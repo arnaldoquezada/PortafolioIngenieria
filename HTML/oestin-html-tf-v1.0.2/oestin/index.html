@@ -34,7 +34,7 @@
                 <div class="col-lg-7 col-md-8 col-sm-8 hidden-xs">
                     <div class="header-top fix">
                         <div class="header-contact">
-                            <span class="text-theme">Puedes lllamarnos al:</span>
+                            <span class="text-theme">Puedes llamarnos al:</span>
                             <span>+56 2 222 2222</span>
                        </div>
                        <div class= "header-links">
@@ -44,47 +44,63 @@
                         <div class="header-links">
                             <a href="https://www.facebook.com/"><i class="zmdi zmdi-facebook"></i></a>
                             <a href="https://twitter.com/"><i class="zmdi zmdi-twitter"></i></a>
-                            <a href="https://plus.google.com/"><i class="zmdi zmdi-google-plus"></i></a>
                             <a href="https://www.instagram.com/"><i class="zmdi zmdi-instagram"></i></a>
-                            <a href="https://www.pinterest.com/"><i class="zmdi zmdi-pinterest"></i></a>
+                            <a href="https://www.youtube.com/"><i class="zmdi zmdi-youtube-play"></i></a>
                         </div>
                     </div>
-                    <!-- Mainmenu Start -->
-                    <div class="main-menu hidden-xs">   
-                        <nav>
-                            <ul>
-                                <li><a href="index.html">RESERVAS</a></li>
-                                <li><a href="room-grid.html">PROPIEDAES</a></li>
-                                <li><a href="team.html">NOSOTROS</a></li>
-                                <li><a href="contact.html">CONTACTO</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- Mainmenu End -->
-                </div>
-            </div>
-        </div>
-        <!-- Mobile Menu Area start -->
-        <div class="mobile-menu-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="mobile-menu">
-                            <nav id="dropdown">
-                                <ul>
-                                    <li><a href="index.html">RESERVAS</a></li>
-                                    <li><a href="room-grid.html">PROPIEDAES</a></li>
-                                    <li><a href="team.html">NOSOTROS</a></li>
-                                    <li><a href="contact.html">CONTACTO</a></li>
-                                    <li><a href="login.html">INICIO SESIÓN</a></li>
+                   <!-- Mainmenu Start -->
+                   <div class="main-menu hidden-xs">   
+                    <nav>
+                        <ul>
+                            <li><a href="index.html">RESERVAS</a></li>
+                            <li><a href="room-grid.html">PROPIEDAES</a>
+                                <ul class="submenu">
+                                    <li><a href="room-list_laserena.html">LA SERENA</a></li>
+                                    <li><a href="room-list_vinadelmar.html">VIÑA DEL MAR</a></li>
+                                    <li><a href="room-list_pucon.html">PUCÓN</a></li>
+                                    <li><a href="room-list_ptovaras.html">PUERTO VARAS</a></li>
                                 </ul>
-                            </nav>
-                        </div>
-                    </div>
+                            </li>
+                            <li><a href="team.html">NOSOTROS</a></li>
+                            <li><a href="contact.html">CONTACTO</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Mainmenu End -->
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu Area end -->
+<!-- Mobile Menu Area start -->
+<div class="mobile-menu-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="mobile-menu">
+                    <nav id="dropdown">
+                        <ul>
+                            <li><a href="login.html">INICIO DE SESIÓN</a></li>
+                            <li><a href="registrar.html">REGISTRATE</a></li>
+                            <li><a href="index.html">RESERVAS</a></li>
+                            <li><a href="room-grid.html">PROPIEDADES</a>
+                                <ul class="submenu">
+                                    <li class="dropdown-submenu">
+                                        <a href="room-list_laserena.html">LA SERENA</a>
+                                    </li>
+                                    <li><a href="room-list_vinadelmar.html">VIÑA DEL MAR</a></li>
+                                    <li><a href="room-list_pucon.html">PUCON</a></li>
+                                    <li><a href="room-list_ptovaras.html">PUERTO VARAS</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="team.html">NOSOTROS</a></li>
+                            <li><a href="contact.html">CONTACTO</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mobile Menu Area end -->
     </header>
     <!-- Header Area End -->
     <!-- Background Area Start -->
@@ -98,7 +114,7 @@
                                 <div class="text-content-wrapper">
                                     <div class="text-content text-center">
                                         <h1 class="pt-180">Turismo Real, todo lo bueno en solo lugar</h1>
-                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estrategicos de las zonas turísticas de Chile.</p>
+                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile.</p>
                                         <div class="banner-btn">
                                             <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
                                         </div>
@@ -117,7 +133,7 @@
                                 <div class="text-content-wrapper slide-two">
                                     <div class="text-content text-center">
                                         <h1 class="pt-180">Turismo Real, todo lo bueno en un solo lugar</h1>
-                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estrategicos de las zonas turísticas de Chile..</p>
+                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile..</p>
                                         <div class="banner-btn">
                                             <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
                                         </div>
@@ -142,11 +158,10 @@
                                 <div class="select arrow">
                                     <select name="localidades">
                                         <option>Localidades</option>
-                                        <option>La Serena</option>
-                                        <option>Viña del Mar</option>
-                                        <option>Pucón</option>
-                                        <option>Puerto Varas</option>
-
+                                        <option value="1">La Serena</option>
+                                        <option value="2">Viña del Mar</option>
+                                        <option value="3">Pucón</option>
+                                        <option value="4">Puerto Varas</option>
                                     </select>
                                 </div>
                                 <div class="select date">
@@ -156,8 +171,8 @@
                                     <input type="date" name="departure">
                                 </div>
                                 <div class="select arrow">
-                                    <select name="adults">
-                                        <option>Huespedes</option>
+                                    <select name="huseped">
+                                        <option>Huéspedes</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -167,14 +182,28 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="search default-btn" style ="
+                            <!--button type="submit" class="search default-btn" style ="
                             padding-top: -;
                             padding-left: 10px;
                             padding-top: 0px;
                             padding-right: 0px;
                             padding-bottom: 0px
                             width: 258px;
-                            height: 46px;"> Buscar </button>
+                            height: 46px;" > Buscar </button-->
+
+                            <!--BOTÓN PROVISORIO HASTA JVS-->
+                            <a href="room-list_ptovaras.html" class="btn btn-info" role="button" style="
+                            border-left-width: 0px;
+                            border-top-width: 0px;
+                            border-right-width: 0px;
+                            border-bottom-width: 0px;
+                            padding-left: 10px;
+                            padding-right: 0px;
+                            width: 270px;
+                            height: 34px;
+                            padding-bottom: 12px;
+                            ">BUSCAR</a>
+                            
                         </div>
                     </form>
                 </div>
@@ -188,7 +217,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="section-title text-center">
-                        <h3>Nuestras Propiedad Favoritas</h3>
+                        <h3>Nuestras Propiedades Favoritas</h3>
                         <p>Las propiedades de Turismo real son escogidas y ambientadas para brindar, comodidad, un espacio de relajo y  cercano a puntos turísticos de la zona.</p>
                     </div>
                 </div>
@@ -206,7 +235,7 @@
                         </div>
                     </div>
                     <div class="p-amount">
-                        <span>$55.000</span>
+                        <span>$65.000</span>
                         <span class="count">Por Noche</span>
                     </div>
                 </div>
@@ -222,7 +251,7 @@
                         </div>
                     </div>
                     <div class="p-amount">
-                        <span>$60.000</span>
+                        <span>$50.000</span>
                         <span class="count">Por Noche</span>
                     </div>
                 </div>
@@ -238,7 +267,7 @@
                         </div>
                     </div>
                     <div class="p-amount">
-                        <span>$60.000</span>
+                        <span>$50.000</span>
                         <span class="count">Por Noche</span>
                     </div>
                 </div>
@@ -248,13 +277,13 @@
                 <div class="room-hover text-center">
                     <div class="hover-text">
                         <h3><a href="room-details.html">Puerto Varas 2D</a></h3>
-                        <p>Departamento de ambiente familiar con Vista al Lago Llanquihue</p>
+                        <p>Departamento de ambiente familiar con vista al Lago Llanquihue</p>
                         <div class="room-btn">
-                            <a href="room-details.html" class="default-btn">Mas Información</a>
+                            <a href="room-details.html" class="default-btn">Más Información</a>
                         </div>
                     </div>
                     <div class="p-amount">
-                        <span>$65.000</span>
+                        <span>$50.000</span>
                         <span class="count">Por Noche</span>
                     </div>
                 </div>
@@ -269,7 +298,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="section-title text-center">
                         <h3>La mejor experiencia</h3>
-                        <p>Desde un viaje de negocio, con amigos, familia, en pareja o solo.  Todo lo que necesites lo puedes encontrar en Turimos Real. Estamos siempre preocupadis de  tu comidad y bienestar</p>
+                        <p>Desde un viaje de negocio, con amigos, familia, en pareja o solo.  Todo lo que necesites lo puedes encontrar en Turimos Real. Estamos siempre preocupados de  tu comidad y bienestar</p>
                     </div>
                 </div>
             </div>
@@ -282,7 +311,7 @@
                                 <span class="image p-img"><img src="img/icon/spa.png" alt=""></span>
                                 <span class="image s-img"><img src="img/icon/spa-hover.png" alt=""></span>
                                 <span class="title">Relajación &amp; Salud</span>
-                                <span class="text">Sabemos lo importante de mantenerse relajado, por ello nuestros departmentos siempre buscan están cercanos zonas naturales o contar con vistar que podrán ayudarte a sentirte más reljado</span>
+                                <span class="text">Sabemos lo importante de mantenerse relajado, por ello nuestros departmentos siempre buscan están cercanos zonas naturales, que podrán ayudarte a sentirte más relajado</span>
                             </a>
                         </li>
                         <li role="presentation">
@@ -290,7 +319,7 @@
                                 <span class="image p-img"><img src="img/icon/restaurent.png" alt=""></span>
                                 <span class="image s-img"><img src="img/icon/restaurent-hover.png" alt=""></span>
                                 <span class="title">Restaurantes</span>
-                                <span class="text">Tenmos las mejors recomendaciones para que disfrutes de la mejor comida de la zona a un buen precio</span>
+                                <span class="text">Tenemos las mejores recomendaciones para que disfrutes de la comida de la zona a un buen precio</span>
                             </a>
                         </li>
                         <li role="presentation">
@@ -298,7 +327,7 @@
                                 <span class="image p-img"><img src="img/icon/conference.png" alt=""></span>
                                 <span class="image s-img"><img src="img/icon/conference-hover.png" alt=""></span>
                                 <span class="title">Cuenta con Nosotros</span>
-                                <span class="text">Queremos ser cercanos a ti, para que te sientas como en tu casa, al llegar te recibiremos y podrás contar con nosotros durante toda tu estadía.</span>
+                                <span class="text">Queremos ser cercanos a ti, para que te sientas como en casa, al llegar te recibiremos con un regalo y podrás contar con nosotros durante toda tu estadía.</span>
                             </a>
                         </li>
                     </ul>
@@ -326,7 +355,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-3">
                     <div class="single-fun-factor text-center">
-                        <h1><span class="counter">5</span></h1>
+                        <h1><span class="counter">4</span></h1>
                         <h4>Ciudades</h4>
                     </div>
                 </div>
@@ -372,10 +401,6 @@
                     </div>
                     <div class="gallery-hover">
                         <div class="gallery-icon">
-                            <a href="#">
-                                <span class="p-img"><img src="img/icon/link.png" alt=""></span>
-                                <span class="s-img"><img src="img/icon/link-hover.png" alt=""></span>
-                            </a>
                             <a class="image-popup" href="img/gallery/1.jpg">
                                 <span class="p-img"><img src="img/icon/search.png" alt=""></span>
                                 <span class="s-img"><img src="img/icon/search-hover.png" alt=""></span>
@@ -389,10 +414,6 @@
                     </div>
                     <div class="gallery-hover">
                         <div class="gallery-icon">
-                            <a href="#">
-                                <span class="p-img"><img src="img/icon/link.png" alt=""></span>
-                                <span class="s-img"><img src="img/icon/link-hover.png" alt=""></span>
-                            </a>
                             <a class="image-popup" href="img/gallery/2.jpg">
                                 <span class="p-img"><img src="img/icon/search.png" alt=""></span>
                                 <span class="s-img"><img src="img/icon/search-hover.png" alt=""></span>
@@ -406,10 +427,6 @@
                     </div>
                     <div class="gallery-hover">
                         <div class="gallery-icon">
-                            <a href="#">
-                                <span class="p-img"><img src="img/icon/link.png" alt=""></span>
-                                <span class="s-img"><img src="img/icon/link-hover.png" alt=""></span>
-                            </a>
                             <a class="image-popup" href="img/gallery/3.jpg">
                                 <span class="p-img"><img src="img/icon/search.png" alt=""></span>
                                 <span class="s-img"><img src="img/icon/search-hover.png" alt=""></span>
@@ -423,10 +440,6 @@
                     </div>
                     <div class="gallery-hover">
                         <div class="gallery-icon">
-                            <a href="#">
-                                <span class="p-img"><img src="img/icon/link.png" alt=""></span>
-                                <span class="s-img"><img src="img/icon/link-hover.png" alt=""></span>
-                            </a>
                             <a class="image-popup" href="img/gallery/4.jpg">
                                 <span class="p-img"><img src="img/icon/search.png" alt=""></span>
                                 <span class="s-img"><img src="img/icon/search-hover.png" alt=""></span>
@@ -440,10 +453,6 @@
                     </div>
                     <div class="gallery-hover">
                         <div class="gallery-icon">
-                            <a href="#">
-                                <span class="p-img"><img src="img/icon/link.png" alt=""></span>
-                                <span class="s-img"><img src="img/icon/link-hover.png" alt=""></span>
-                            </a>
                             <a class="image-popup" href="img/gallery/5.jpg">
                                 <span class="p-img"><img src="img/icon/search.png" alt=""></span>
                                 <span class="s-img"><img src="img/icon/search-hover.png" alt=""></span>
@@ -451,16 +460,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="gallery-item spa hotel gym">
+                <div class="gallery-item gym">
                     <div class="thumb">
                         <img src="img/gallery/6.jpg" alt="">
                     </div>
                     <div class="gallery-hover">
                         <div class="gallery-icon">
-                            <a href="#">
-                                <span class="p-img"><img src="img/icon/link.png" alt=""></span>
-                                <span class="s-img"><img src="img/icon/link-hover.png" alt=""></span>
-                            </a>
                             <a class="image-popup" href="img/gallery/6.jpg">
                                 <span class="p-img"><img src="img/icon/search.png" alt=""></span>
                                 <span class="s-img"><img src="img/icon/search-hover.png" alt=""></span>
@@ -497,10 +502,9 @@
                         <h4 class="contact-title">REDES SOCIALES</h4>
                         <div class="link-social">
                             <a href="https://www.facebook.com/"><i class="zmdi zmdi-facebook"></i></a>
-                            <a href="https://www.rss.com/"><i class="zmdi zmdi-rss"></i></a>
-                            <a href="https://plus.google.com/"><i class="zmdi zmdi-google-plus"></i></a>
-                            <a href="https://www.pinterest.com/"><i class="zmdi zmdi-pinterest"></i></a>
+                            <a href="https://twitter.com/"><i class="zmdi zmdi-twitter"></i></a>
                             <a href="https://www.instagram.com/"><i class="zmdi zmdi-instagram"></i></a>
+                            <a href="https://www.youtube.com/"><i class="zmdi zmdi-youtube-play"></i></a>
                         </div>
                     </div>
                 </div>

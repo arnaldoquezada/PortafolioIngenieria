@@ -35,27 +35,34 @@
                 <div class="col-lg-7 col-md-8 col-sm-8 ">
                     <div class="header-top fix">
                         <div class="header-contact">
-                            <span class="text-theme">Puedes lllamarnos al:</span>
+                            <span class="text-theme">Puedes llamarnos al:</span>
                             <span>+56 2 222 2222</span>
                        </div>
                        <div class= "header-links">
                             <a href="login.html">Inicia Sesión</a>
-                            <a href="#">Registrate</a>
+                            <a href="registrar.html">Registrate</a>
                        </div>
                         <div class="header-links">
                             <a href="https://www.facebook.com/"><i class="zmdi zmdi-facebook"></i></a>
                             <a href="https://twitter.com/"><i class="zmdi zmdi-twitter"></i></a>
                             <a href="https://plus.google.com/"><i class="zmdi zmdi-google-plus"></i></a>
                             <a href="https://www.instagram.com/"><i class="zmdi zmdi-instagram"></i></a>
-                            <a href="https://www.pinterest.com/"><i class="zmdi zmdi-pinterest"></i></a>
+                            <a href="https://www.youtube.com/"><i class="zmdi zmdi-youtube-play"></i></a>
                         </div>
                     </div>
                     <!-- Mainmenu Start -->
-                    <div class="main-menu ">   
+                    <div class="main-menu hidden-xs">   
                         <nav>
                             <ul>
                                 <li><a href="index.html">RESERVAS</a></li>
-                                <li><a href="room-grid.html">PROPIEDAES</a></li>
+                                <li><a href="room-grid.html">PROPIEDAES</a>
+                                    <ul class="submenu">
+                                        <li><a href="room-list_laserena.html">LA SERENA</a></li>
+                                        <li><a href="room-list_vinadelmar.html">VIÑA DEL MAR</a></li>
+                                        <li><a href="room-list_pucon.html">PUCÓN</a></li>
+                                        <li><a href="room-list_ptovaras.html">PUERTO VARAS</a></li>
+                                    </ul>
+                                </li>
                                 <li><a href="team.html">NOSOTROS</a></li>
                                 <li><a href="contact.html">CONTACTO</a></li>
                             </ul>
@@ -65,26 +72,37 @@
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu Area start -->
-        <div class="mobile-menu-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="mobile-menu">
-                            <nav id="dropdown">
-                                <ul>
-                                    <li><a href="index.html">RESERVAS</a></li>
-                                    <li><a href="room-grid.html">PROPIEDAES</a></li>
-                                    <li><a href="team.html">NOSOTROS</a></li>
-                                    <li><a href="contact.html">CONTACTO</a></li>
-                                </ul>
-                            </nav>
-                        </div>
+       <!-- Mobile Menu Area start -->
+       <div class="mobile-menu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="mobile-menu">
+                        <nav id="dropdown">
+                            <ul>
+                                <li><a href="login.html">INICIO DE SESIÓN</a></li>
+                                <li><a href="registrar.html">REGISTRATE</a></li>
+                                <li><a href="index.html">RESERVAS</a></li>
+                                <li><a href="room-grid.html">PROPIEDADES</a>
+                                    <ul class="submenu">
+                                        <li class="dropdown-submenu">
+                                            <a href="room-list_laserena.html">LA SERENA</a>
+                                        </li>
+                                        <li><a href="room-list_vinadelmar.html">VIÑA DEL MAR</a></li>
+                                        <li><a href="room-list_pucon.html">PUCON</a></li>
+                                        <li><a href="room-list_ptovaras.html">PUERTO VARAS</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="team.html">NOSOTROS</a></li>
+                                <li><a href="contact.html">CONTACTO</a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu Area end -->
+    </div>
+    <!-- Mobile Menu Area end -->
     </header>
     <!-- Header Area End -->
     <section>
@@ -93,24 +111,28 @@
             <form action="#" method="POST">
 
                 <div class=" w3l-form-group">
-                    <label>Nombre:</label>
+                    <label>Datos Personales</label>
+                    <div class="group">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" class="form-control" placeholder="RUN/Pasaporte/DNI" maxlength="13"</>   
+                    </div>
                     <div class="group">
                         <i class="fas fa-user"></i>
-                        <input type="text" class="form-control" placeholder="Nombre" required="required" />   
+                        <input type="text" class="form-control" placeholder="Nombre" required pattern="[A-Za-z_-]{2-50}"/>   
                     </div>
                     <div class= "group">
                         <i class="fas fa-user-plus"></i>
-                        <input type="text" class="form-control" placeholder="Ap. Paterno" required="required" />
+                        <input type="text" class="form-control" placeholder="Ap. Paterno" required minlength="3" maxlength="50" />
                     </div>
                     <div class="group">
                         <i class="fas fa-user-plus"></i>
-                        <input type="text" class="form-control" placeholder="Ap. Materno" required="required" />
+                        <input type="text" class="form-control" placeholder="Ap. Materno" required minlength="3" maxlength="50" />
                     </div>
                 </div>
                 <div class="w3l-form-group">
                     <label>Fecha de Nacimiento:</label>
                     <div class="group select date">
-                        <input type="date" name="arrive">
+                        <input type="date" name="arrive" required>
                     </div>  
                 </div>
                 <div class=" w3l-form-group">
@@ -121,18 +143,18 @@
                     </div>
                     <div class="group">
                         <i class="fas fa-phone-alt"></i>
-                        <input type="phone" class="form-control" placeholder="+56912345678" required="required" />
+                        <input type="number" class="form-control" placeholder="912345678" required minlength="9" maxlength="9" />
                     </div>
                 </div>
                 <div class=" w3l-form-group">
                     <label>Dirección</label>
                     <div class="group">
                         <i class="fas fa-address-card"></i>
-                        <input type="address" class="form-control" placeholder="Dirección" required="required" />
+                        <input type="text" class="form-control" placeholder="Dirección" required minlength="5" maxlength="100" />
                     </div>
                     <div class="group">
                         <i class="fas fa-map-marked-alt"></i>
-                        <select name="cars" id="cars">
+                        <select name="comuna" id="comuna" required>
                             <option value="#">Selecciona tu Comuna</option>
                             <option value="san_bernardo">San Bernardo</option>
                             <option value="el_bosque">El Bosque</option>

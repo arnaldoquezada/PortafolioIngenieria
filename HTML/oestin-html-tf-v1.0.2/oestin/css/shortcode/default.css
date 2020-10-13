@@ -94,17 +94,17 @@ label {
     color: #606060;
 }
 *::-moz-selection {
-    background: #b3d4fc;
+    background: #00BCD4;
     color: #fff;
     text-shadow: none;
 }
 ::-moz-selection {
     color: #fff;
-    background: #b3d4fc;
+    background: #00BCD4;
     text-shadow: none;
 }
 ::selection {
-    background: #b3d4fc;
+    background: #00BCD4;
     text-shadow: none;
     color: #fff;
 }
@@ -177,7 +177,7 @@ ul{
     transform: scaleY(1);
     transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
 }
-.default-btn:hover, .default-btn:focus, .default-btn:active {color: #B5876D}
+.default-btn:hover, .default-btn:focus, .default-btn:active {color: #00BC}
 input,
 select,
 textarea {
@@ -558,8 +558,11 @@ textarea:focus {
 .bg-1 { background-image: url(../../img/bg/1.jpg);}
 .bg-2 { background-image: url("../../img/bg/2.jpg");}
 .bg-3 { background-image: url("../../img/bg/3.jpg");}
-.bg-4 { background-image: url("../../img/bg/3.jpg");}
-.bg-5 { 
+.bg-4 { background-image: url("../../img/bg/4.jpg");}
+.bg-5 { background-image: url("../../img/bg/5.jpg");}
+.bg-6 { background-image: url("../../img/bg/6.jpg");}
+.bg-7 { background-image: url("../../img/bg/7.jpg");}
+.bg-8 { 
     background-image: url("../../img/bg/5.jpg");
     background-position: 51% bottom; 
 }
@@ -609,7 +612,7 @@ textarea:focus {
     text-align: center;
 }
 .pagination-content .pagination li a:hover, .pagination-content .pagination li.active a {
-    color: #b5876d;
+    color: #00bcd4;
     background: transparent
 }
 .pagination-content .pagination li.active a {
@@ -659,5 +662,5 @@ textarea:focus {
 .breadcrumb-bar .breadcrumb > li:first-child::after {right: -28px;}
 .breadcrumb-bar .breadcrumb > li + li:before {display: none;}
 .breadcrumb-bar a {color: #fff;}
-.breadcrumb-bar a:hover {color: #b5876d;}
+.breadcrumb-bar a:hover {color: #00bcd4;}
 .breadcrumb-bar li:first-child {margin-left: 0;}

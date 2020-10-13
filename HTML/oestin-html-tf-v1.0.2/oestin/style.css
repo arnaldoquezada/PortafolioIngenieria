@@ -133,8 +133,8 @@ form.search-form {
 }
 
 .about-links>a:hover {
-    background: #b5876d none repeat scroll 0 0;
-    border-color: #b5876d;
+    background: #00BCD4 none repeat scroll 0 0;
+    border-color: #00BCD4;
     color: #ffffff;
 }
 
@@ -553,7 +553,7 @@ span.image.s-img {
 
 .gallery-hover a:hover {
     background: #ffffff none repeat scroll 0 0;
-    color: #b5876d;
+    color: #00BCD4;
 }
 
 .gallery-filter,
@@ -577,7 +577,7 @@ span.image.s-img {
 .gallery-filter button.active,
 .event-menu button:focus,
 .event-menu button.active {
-    color: #b5876d;
+    color: #00BCD4;
 }
 
 .gallery-icon span {
@@ -679,7 +679,7 @@ span.image.s-img {
 }
 
 .team-links>a:hover {
-    color: #b5876d;
+    color: #00BCD4;
 }
 
 .team-hover {
@@ -717,7 +717,7 @@ span.image.s-img {
 }
 
 .advertise-text span {
-    color: #b5876d;
+    color: #00BCD4;
 }
 
 .advertise-text .default-btn {
@@ -940,7 +940,7 @@ span.image.s-img {
 }
 
 .blog-hover>h3:hover a {
-    color: #B5876D
+    color: #00BCD4
 }
 
 .blog-hover>p {
@@ -1228,7 +1228,7 @@ span.image.s-img {
 }
 
 .room-list .p-amount {
-    background: #b5876d none repeat scroll 0 0;
+    background: #032139 none repeat scroll 0 0;
     bottom: 0;
     height: 101px;
     opacity: 0;
@@ -1943,4 +1943,18 @@ a {
 .register {
     color: #00BCD4;
     text-decoration: none
+}
+
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
+
+td, th {
+  border: 1px solid #f1f1f1;
+  text-align: left;
+  padding: 8px;
 }
