@@ -275,7 +275,7 @@
                     </div>
                     <div class="sidebar-widget">
                         <table>
-                            <th colspan="4"><p style="text-align: center;">Ante cualquier consulta.<br>¡No dudes en contactarnos!</p></th>
+                            <th colspan="4" style="text-align: center;">Ante cualquier consulta.<br>¡No dudes en contactarnos!</th>
                             <tr>
                                 <td><i class="zmdi zmdi-phone"></i></td>
                                 <td>+56 2 222 22 22</td>
@@ -293,12 +293,72 @@
                             <span></span></i>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
     <!-- Room Details Area End -->
+    <!-- SERVICIO ADICIONALES START-->
+    <section >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-8">
+                    <h3 class="room-details-title">SERVICIOS ADICIONALES</h3>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <!-- Tab links -->
+                    <div class="tab">
+                        <button class="tablinks" onclick="openCity(event, 'TOURS')">TOURS</button>
+                        <button class="tablinks" onclick="openCity(event, 'TRASLADO')">TRASLADOS</button>
+                    </div>
+                    <!-- Tab content -->
+                    <div id="TOURS" class="tabcontent">
+                        <h3>Organiza desde ya tu estadía con los tours guiados</h3>
+                        <label class="container">Tour 1 
+                            <input type="checkbox" checked="checked">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="container">Tour 2
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="container">Tour 3
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="container">Tour 4
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                    </div>
+                    
+                    <div id="TRASLADO" class="tabcontent">
+                        <h4>Elige tu oción de traslado</h4>
+                        <p>Quieres estar más comodo y llegar a tiempo, considerá nuestros servicios de traslados</p>
+                        <form action="#">
+                            <label for="quantity">Quantity (between 1 and 5):</label>
+                            <input type="number" id="quantity" name="quantity" min="1" max="5">
+                            <label class="container">Solo Ida
+                                <input type="radio" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">Solo Retorno
+                                <input type="radio" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">Ida y Vuelta
+                                <input type="radio" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer Area Start -->
     <footer class="footer-area">
@@ -365,9 +425,28 @@
     <script src="js/jquery.magnific-popup.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
-
-    
-
+    <script>
+    function openCity(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+      
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+      
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+      
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+    </script>   
 </body>
 
 </html>
