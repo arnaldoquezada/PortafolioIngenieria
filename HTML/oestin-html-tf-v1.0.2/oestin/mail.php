@@ -18,10 +18,10 @@
 
         // Set the recipient email address.
         // FIXME: Update this to your desired email address.
-        $recipient = "admin@devitems.gmail.com";
+        $recipient = "contacto@turismo-real.com";
 
         // Set the email subject.
-        $subject = "New contact from $name";
+        $subject = "Mensaje de: $name";
 
         // Build the email content.
         $email_content = "Name: $name\n";
@@ -35,17 +35,17 @@
         if (mail($recipient, $subject, $email_content, $email_headers)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
-            echo "Thank You! Your message has been sent.";
+            echo "Gracias por contactarnos, tu mensaje ha sido enviado.";
         } else {
             // Set a 500 (internal server error) response code.
             http_response_code(500);
-            echo "Oops! Something went wrong and we couldn't send your message.";
+            echo "Oops! Algo ha salido mal, no pudimos enviar tu mensaje.";
         }
 
     } else {
         // Not a POST request, set a 403 (forbidden) response code.
         http_response_code(403);
-        echo "There was a problem with your submission, please try again.";
+        echo "Tenemoa algunos problemas, favor intentalo de nuevo";
     }
 
 ?>
