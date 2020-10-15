@@ -105,6 +105,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+# email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # new
+DEFAULT_FROM_EMAIL = 'will@learndjango.com'
+EMAIL_HOST = 'smtp.sendgrid.net' # new
+EMAIL_HOST_USER = 'apikey' # new
+EMAIL_HOST_PASSWORD = '<sendgrid_password>' # new
+EMAIL_PORT = 587 # new
+EMAIL_USE_TLS = True # new
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

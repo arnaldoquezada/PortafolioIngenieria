@@ -1,0 +1,52 @@
+{% extends  'core/base.html' %}
+
+{% block contenido %}
+{% load static %}
+    <!-- Breadcrumb Area Start-->
+    <section class="breadcrumb-area overlay-dark-2 bg-7">	
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-text text-center">
+                        <h2>Contáctanos</h2>
+                        <p>Queremos que tengas la mejor experiencia en tu viaje</p>
+                        <div class="breadcrumb-bar">
+                            <ul class="breadcrumb">
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li>Contactános</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Area End -->
+     <!-- Contact Form Area Start -->
+     <section class="contact-form-area pt-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="contact-title text-center">Escríbenos</h4>
+                    <form id="contact-form" action="{% url 'contacto' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="name" placeholder="Ingresa tu Nombre">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" name="email" placeholder="Ingresa tu Email">
+                            </div>
+                            <div class="col-md-12">
+                                <textarea name="message" cols="30" rows="10" placeholder="Escribe tu mensaje aquí"></textarea>
+                                <button type="submit" class="default-btn">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="form-messege"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Form Area End -->
+    {% endblock contenido %}
