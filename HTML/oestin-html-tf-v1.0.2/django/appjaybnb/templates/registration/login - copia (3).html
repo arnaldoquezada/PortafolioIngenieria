@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>GTM Empresas | Taller  </title>
+    {% load static %}
+    <!-- Bootstrap -->
+    <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static 'vendors/nprogress/nprogress.css" rel="stylesheet' %}">
+    <!-- Animate.css -->
+    <link href="{% static 'vendors/animate.css/animate.min.css" rel="stylesheet' %}">
+
+   <!-- jQuery -->
+   <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+
+    <!-- javascripts RUTCHILE-->
+    <script src="{% static 'vendors/moment/min/jquery.rut.chileno.js' %}"></script>
+
+    <!-- Custom Theme Style -->
+    <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet">
+  </head>
+
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content"> 
+              <img src="{% static '/images/GTM.png' %}" class="img-responsive">           
+            <form method="POST">
+              <h1>GTM Empresas</h1>
+              <small class="text-danger">
+                  {% if form.errors %}
+                  {% for field in form %}
+                      {% if field.errors %}
+                          {% for error in field.errors %}
+                              {{ error|escape }}
+                          {% endfor %}
+                      {% endif %}
+                  {% endfor %}
+                  {% if form.non_field_errors%}
+                      {% for error in form.non_field_errors %}
+                          {{ error|escape }}
+                      {% endfor %}
+                  {% endif %}
+              {% endif %}
+              </small>
+              {% csrf_token %}
+              <div>                
+                <input class="form-control input_rut" type="text"  placeholder="12.123.456-7" name="username" type ="text" id="id_username" required="" autofocus />
+              </div>
+              <div>
+                <input class="form-control" placeholder="Contraseña" name="password"  type="password" id="id_password" required="" value=""/>
+              </div>
+              <div>
+                <button type ="submit" class="btn btn-lg btn-success btn-block">Ingresar</button>                
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">                
+                
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <h1><i class="fa fa-car"></i> </h1>
+                  <p>LAJSoftware ©2019 All Rights Reserved. Privacy and Terms</p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <div id="register" class="animate form registration_form">
+          <section class="login_content">
+            <form>
+              <h1>Create Account</h1>
+              <div>
+                <input type="text" class="form-control" placeholder="Username" required="" />
+              </div>
+              <div>
+                <input type="email" class="form-control" placeholder="Email" required="" />
+              </div>
+              <div>
+                <input type="password" class="form-control" placeholder="Password" required="" />
+              </div>
+              <div>
+                <a class="btn btn-lg submit" href="#">Ingresar</a>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                <p class="change_link">Already a member ?
+                  <a href="{% url 'home' %}" class="to_register"> Log in </a>
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+
+<script type="text/javascript">
+  jQuery(document).ready(function($){
+    $('.input_rut').rut();
+  });
+</script>
+
+  </body>
+</html>
