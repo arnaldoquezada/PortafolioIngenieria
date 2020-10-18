@@ -19,9 +19,10 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/micss.css">
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="js/validafecha.js"></script>
 </head>
 
-<body>
+<body onload="validDate()">
     <!-- Header Area Start -->
     <header class="header-area fixed header-sticky">
         <div class="container">
@@ -165,10 +166,10 @@
                                     </select>
                                 </div>
                                 <div class="select date">
-                                    <input type="date" name="arrive">
+                                    <input id="arrive" type="date" name="arrive">
                                 </div>
                                 <div class="select date">
-                                    <input type="date" name="departure">
+                                    <input id="departure" type="date" name="departure">
                                 </div>
                                 <div class="select arrow">
                                     <select name="huseped">
