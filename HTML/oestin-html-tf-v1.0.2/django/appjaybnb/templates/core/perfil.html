@@ -1,0 +1,154 @@
+{% extends  'core/base.html' %}
+
+{% block contenido %}
+{% load static %}
+    <!-- Background Area Start -->
+    <section class="slider-area">
+        <div class="slider-wrapper">
+            <div class="single-slide" style="background-image: url('img/slider/1.jpg');">
+                <div class="banner-content overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="text-content-wrapper">
+                                    <div class="text-content text-center">
+                                        <h1 class="pt-180">Turismo Real, todo lo bueno en solo lugar</h1>
+                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile.</p>
+                                        <div class="banner-btn">
+                                            <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-slide" style="background-image: url('img/slider/2.jpg');">
+                <div class="banner-content overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="text-content-wrapper slide-two">
+                                    <div class="text-content text-center">
+                                        <h1 class="pt-180">Turismo Real, todo lo bueno en un solo lugar</h1>
+                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile..</p>
+                                        <div class="banner-btn">
+                                            <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Background Area End -->
+    <!-- Ficha Start -->
+    <section class="about-area">
+        <div class="container">
+            <div class=" w3l-form-group">
+                <label>Datos Personales</label>
+                <div class="group">
+                    <i class="fas fa-id-card"></i>
+                    <input type="text" class="form-control" value="17705980-3" maxlength="13" disabled /> 
+                </div>
+                <div class="group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control" value="Carol" required pattern="[A-Za-z_-]{2-50}"/>   
+                </div>
+                <div class= "group">
+                    <i class="fas fa-user-plus"></i>
+                    <input type="text" class="form-control" value="Valdebenito" required minlength="3" maxlength="50" disabled/>
+                </div>
+                <div class="group">
+                    <i class="fas fa-user-plus"></i>
+                    <input type="text" class="form-control" value="Valdenegro" required minlength="3" maxlength="50" disabled />
+                </div>
+            </div>
+            <div class="w3l-form-group">
+                <label>Fecha de Nacimiento:</label>
+                <div class="group select date">
+                    <input type="date" value="1990-08-13" disabled>
+                </div>  
+            </div>
+            <div class=" w3l-form-group">
+                <label>Datos de Contacto</label>
+                <div class="group">
+                    <i class="fas fa-at"></i>
+                    <input type="email" class="form-control" value="admin@turismo-real.com" required="required" disabled/>
+                </div>
+                <div class="group">
+                    <i class="fas fa-phone-alt"></i>
+                    <input type="number" class="form-control" value="56978861643" required minlength="9" maxlength="14" />
+                </div>
+            </div>
+            <div class=" w3l-form-group">
+                <label>Dirección</label>
+                <div class="group">
+                    <i class="fas fa-address-card"></i>
+                    <input type="text" class="form-control" value="Calle 123" required minlength="5" maxlength="100" />
+                </div>
+                <div class="group">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <select name="comuna" id="comuna" required>
+                        <option value="#">Selecciona tu Comuna</option>
+                        <option selected value="san_bernardo">San Bernardo</option>
+                        <option value="el_bosque">El Bosque</option>
+                        <option value="buin">Buin</option>
+                        <option value="buin">Puente Alto</option>
+                    </select>
+                </div>
+                <br>
+                <div class="text-center">
+                    <a href="#" class="btn btn-primary btn-lg " role="button">Guardar Cambios</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br><br>
+    <!-- Ficha End -->
+    <!-- RESERVAS START-->
+    <div class="container">
+		<div class="row">
+			<div class="col">
+				<table class="table table-hover table-bordered table-striped">
+					<thead>
+						<tr class="bg-primary">
+							<th scope="col">N°</th>
+							<th scope="col">ESTADO</th>
+                            <th scope="col">LUGAR</th>
+                            <th scope="col">FECHA IN</th>
+                            <th scope="col">FECHA OUT</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">00001</th>
+							<td>Pend.Pago</td>
+                            <td>Pto.Varas 2D1B</td>
+                            <td>20-01-2021</td>
+                            <td>25-01-2021</td>
+						</tr>
+						<tr>
+							<th scope="row"> --</th>
+							<td>--</td>
+                            <td></td>
+                            <td>--</td>
+                            <td>--</td>
+						</tr>
+						<tr>
+							<th scope="row"> --</th>
+							<td>--</td>
+                            <td></td>
+                            <td>--</td>
+                            <td>--</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </div>
+{% endblock contenido %}    

@@ -35,114 +35,26 @@
                 </div>
                 <div class="container">
                     <div class="row">
+                        {% for prop in prop %}  
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="single-room">
-                                <img src="img/room/5.jpg" alt="">
+                                <img src="{% static 'img/room/5.jpg' %}" alt="">
                                 <div class="room-hover text-center">
                                     <div class="hover-text">
-                                        <h3><a href="room-details.html">Pucón 1D</a></h3>
+                                        <h3><a href="room-details.html">{{ prop.nombre_propie }}</a></h3>
                                         <div class="p-amount">
-                                            <span>$55.000</span>
+                                            <span>$ {{ prop.valor_noche }}</span>
                                             <span class="count">Por Noche</span>
                                         </div>
-                                        <p>Acogedor departamento, para disfrutar la mágia del Sur</p>
+                                        <p>{{ prop.caracteristicas }}</p>
                                         <div class="room-btn">
-                                            <a href="room-details.html" class="default-btn">DETALLES</a>
+                                            <a href="{%  url 'roomdetail' prop.id_propiedad %}" class="default-btn">DETALLES</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="single-room">
-                                <img src="img/room/6.jpg" alt="">
-                                <div class="room-hover text-center">
-                                    <div class="hover-text">
-                                        <h3><a href="room-details.html">Deluxe Suit</a></h3>
-                                        <div class="p-amount">
-                                            <span>$150</span>
-                                            <span class="count">Per Night</span>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
-                                        <div class="room-btn">
-                                            <a href="room-details.html" class="default-btn">DETAILS</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="single-room">
-                                <img src="img/room/7.jpg" alt="">
-                                <div class="room-hover text-center">
-                                    <div class="hover-text">
-                                        <h3><a href="room-details.html">Royal Suit</a></h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
-                                        <div class="p-amount">
-                                            <span>$240</span>
-                                            <span class="count">Per Night</span>
-                                        </div>
-                                        <div class="room-btn">
-                                            <a href="room-details.html" class="default-btn">DETAILS</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="single-room">
-                                <img src="img/room/8.jpg" alt="">
-                                <div class="room-hover text-center">
-                                    <div class="hover-text">
-                                        <h3><a href="room-details.html">Double Room</a></h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
-                                        <div class="p-amount">
-                                            <span>$180</span>
-                                            <span class="count">Per Night</span>
-                                        </div>
-                                        <div class="room-btn">
-                                            <a href="room-details.html" class="default-btn">DETAILS</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="single-room">
-                                <img src="img/room/9.jpg" alt="">
-                                <div class="room-hover text-center">
-                                    <div class="hover-text">
-                                        <h3><a href="room-details.html">Deluxe Suit</a></h3>
-                                        <div class="p-amount">
-                                            <span>$130</span>
-                                            <span class="count">Per Night</span>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
-                                        <div class="room-btn">
-                                            <a href="room-details.html" class="default-btn">DETAILS</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="single-room">
-                                <img src="img/room/5.jpg" alt="">
-                                <div class="room-hover text-center">
-                                    <div class="hover-text">
-                                        <h3><a href="room-details.html">Single Room</a></h3>
-                                        <div class="p-amount">
-                                            <span>$220</span>
-                                            <span class="count">Per Night</span>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
-                                        <div class="room-btn">
-                                            <a href="room-details.html" class="default-btn">DETAILS</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}                        
                     </div>
                 </div>
             </section>

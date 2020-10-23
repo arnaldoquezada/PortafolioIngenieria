@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'css/micss.css' %}">
     <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+    <script src="https://kit.fontawesome.com/d52d9be8d1.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -30,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12">
                     <div class="logo">
-                        <a href="index.html"><img src="{% static 'img/logo/logo.png' %}" alt="JayBnB"></a>
+                        <a href="{% url 'home' %}"><img src="{% static 'img/logo/logo.png' %}" alt="JayBnB"></a>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-8 col-sm-8 hidden-xs">
@@ -40,8 +41,13 @@
                             <span>+56 2 222 2222</span>
                        </div>
                        <div class= "header-links">
-                            <a href="login.html">Inicia Sesión</a>
-                            <a href="registrar.html">Registrate</a>
+                       {% if user.is_authenticated %}
+                            <a href="{% url 'perfil' %}">Mi Perfil</a>
+                            <a href="{% url 'logout' %}">Cerrar Sesión</a>
+                       {% else %}
+                            <a href="{% url 'login' %}">Inicia Sesión</a>
+                            <a href="{% url 'signup' %}">Registrate</a>
+                        {% endif %} 
                        </div>
                         <div class="header-links">
                             <a href="https://www.facebook.com/"><i class="zmdi zmdi-facebook"></i></a>
@@ -55,12 +61,11 @@
                     <nav>
                         <ul>
                             <li><a href="{% url 'home' %}">RESERVAS</a></li>
-                            <li><a href="{% url 'roomgrid' %}">PROPIEDAES</a>
+                            <li><a href="{% url 'roomgrid' %}">PROPIEDADES</a>
                                 <ul class="submenu">
-                                    <li><a href="room-list_laserena.html">LA SERENA</a></li>
-                                    <li><a href="room-list_vinadelmar.html">VIÑA DEL MAR</a></li>
-                                    <li><a href="room-list_pucon.html">PUCÓN</a></li>
-                                    <li><a href="room-list_ptovaras.html">PUERTO VARAS</a></li>
+                                {% for prop in prop %}  
+                                    <li><a href="{% url 'roomdetail' prop.id_propiedad %}">{{ prop.id_comuna.nombre_comu }}</a></li>
+                                {% endfor %}
                                 </ul>
                             </li>
                             <li><a href="{% url 'team' %}">NOSOTROS</a></li>
@@ -82,8 +87,8 @@
                         <ul>
                             <li><a href="login.html">INICIO DE SESIÓN</a></li>
                             <li><a href="registrar.html">REGISTRATE</a></li>
-                            <li><a href="index.html">RESERVAS</a></li>
-                            <li><a href="room-grid.html">PROPIEDADES</a>
+                            <li><a href="{% url 'home' %}">RESERVAS</a></li>
+                            <li><a href="{% url 'roomgrid' %}">PROPIEDADES</a>
                                 <ul class="submenu">
                                     <li class="dropdown-submenu">
                                         <a href="room-list_laserena.html">LA SERENA</a>
