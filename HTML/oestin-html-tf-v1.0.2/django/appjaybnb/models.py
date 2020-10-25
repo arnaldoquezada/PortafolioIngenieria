@@ -6,6 +6,8 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.db.models.query import QuerySet
+from django_group_by import GroupByMixin
 
 
 class Acompanante(models.Model):
@@ -326,7 +328,12 @@ class Pago(models.Model):
         db_table = 'pago'
 
 
-class Propiedad(models.Model):
+class BookQuerySet(QuerySet, GroupByMixin):
+    pass
+
+class Propiedades(models.Model):
+    objects = BookQuerySet.as_manager()
+
     id_propiedad = models.IntegerField(primary_key=True)
     rol_propie = models.TextField(unique=True)  # This field type is a guess.
     nombre_propie = models.TextField()  # This field type is a guess.
@@ -351,11 +358,45 @@ class Propiedad(models.Model):
     caracteristicas = models.TextField(blank=True, null=True)  # This field type is a guess.
     id_estado_propi = models.ForeignKey(EstadoPropi, models.DO_NOTHING, db_column='id_estado_propi')
     id_comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='id_comuna')
+    imagen_principal = models.TextField()
 
     class Meta:
         managed = False
         db_table = 'propiedad'
 
+
+class Propiedad(models.Model):
+
+
+    id_propiedad = models.IntegerField(primary_key=True)
+    rol_propie = models.TextField(unique=True)  # This field type is a guess.
+    nombre_propie = models.TextField()  # This field type is a guess.
+    avaluo_fiscal = models.IntegerField()
+    valor_compra = models.IntegerField()
+    direccion = models.TextField()  # This field type is a guess.
+    nombre_propietario = models.TextField()  # This field type is a guess.
+    run_propietario = models.TextField()  # This field type is a guess.
+    pago_contribuciones = models.IntegerField()
+    valor_gastosc = models.IntegerField()
+    valor_gastosbasic = models.IntegerField()
+    nro_habitaciones = models.IntegerField()
+    canti_max_ocup = models.IntegerField()
+    nro_bathroom = models.IntegerField()
+    nro_bodega = models.IntegerField()
+    nro_estacionamientos = models.IntegerField()
+    nro_cocina = models.IntegerField()
+    jardin = models.CharField(max_length=1)
+    metros_cuadrados = models.IntegerField()
+    inventario_valorizado = models.IntegerField()
+    valor_noche = models.IntegerField()
+    caracteristicas = models.TextField(blank=True, null=True)  # This field type is a guess.
+    id_estado_propi = models.ForeignKey(EstadoPropi, models.DO_NOTHING, db_column='id_estado_propi')
+    id_comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='id_comuna')
+    imagen_principal = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'propiedad'
 
 class Region(models.Model):
     id_region = models.IntegerField(primary_key=True)

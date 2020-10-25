@@ -1,0 +1,115 @@
+{% extends  'core/base.html' %}
+
+{% block contenido %}
+{% load static %}
+		<!-- Breadcrumb Area Start-->
+		<section class="breadcrumb-area overlay-dark-2 bg-6">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="breadcrumb-text text-center">
+							<div class="breadcrumb-bar">
+								<ul class="breadcrumb">
+									<li><a href="index.html">Home</a></li>
+									<li>Resultados de tu Búsqueda</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Breadcrumb Area End -->
+        <!-- Room Area Start -->
+        <section class="room-area pt-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-md-offset">
+                        <div class="section-title text-center">
+                            <h3>Resultados de tu búsqueda: {{ total }} Propiedades Disponibles</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section onload="validDate()" class="about-area"  >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="#" method="post" class="search-form">
+                                <div class="form-container fix">
+                                    <div class="box-select">
+                                        <div class="select arrow">
+                                          <select name="localidades" id="localidades">
+                                              <option value="0"  {% if reserva.num_noche == "0"  %}selected {% endif %}>Localidades</option>
+                                              {% for com in com %}
+                                                  <option value="{{ com.id_comuna.id_comuna }}" {% if reserva.num_noche ==  com.id_comuna.id_comuna  %}selected {% endif %} >{{ com.id_comuna.nombre_comu }}</option>
+                                              {% endfor %}
+                                          </select>
+                                        </div>
+                                        <div class="select date">
+                                            <input id="arrive" type="date" name="arrive" value="{{ reserva.fecha_inicio_reser }}">
+                                        </div>
+                                        <div class="select date">
+                                            <input id="departure" type="date" name="departure" value="{{ reserva.fecha_termino_reser }}">
+                                        </div>
+                                        <div class="select arrow">
+                                            <select name="huespedes">
+                                                <option>Huéspedes</option>
+                                                <option value="1" {% if reserva.cantidad_acompa == "1"  %}selected {% endif %}>1</option>
+                                                <option value="2" {% if reserva.cantidad_acompa == "2"  %}selected {% endif %}>2</option>
+                                                <option value="3" {% if reserva.cantidad_acompa == "3"  %}selected {% endif %}>3</option>
+                                                <option value="4" {% if reserva.cantidad_acompa == "4"  %}selected {% endif %}>4</option>
+                                                <option value="5" {% if reserva.cantidad_acompa == "5"  %}selected {% endif %}>5</option>
+                                                <option value="6" {% if reserva.cantidad_acompa == "6"  %}selected {% endif %}>6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <a href="room-list_busqueda.html" class="btn btn-primary btn-lg search default-btn" role="button">Nueva Búsqueda</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                      {% for i in i %}
+                        <div class="room-list">
+                            <div class="row">
+
+                                  <div class="col-md-5 col-sm-6">
+                                      <a href="#"><img src="{% static ''%}{{ i.imagen_principal }}" alt=""  width="470" height="340"></a>
+                                  </div>
+                                  <div class="col-md-7 col-sm-6">
+                                    <form id="form2" action="{% url 'preroomdetail0' i.id_propiedad %}" method="GET">
+                                      {% csrf_token %}
+                                      <div class="room-list-text">
+                                          <h3><a href="room-details_pv2d1b.html">{{ i.nombre_propie}}</a></h3>
+                                          <p>{{ i.caracteristicas }}</p>
+                                          <h4 href="#">Facilidad de las Instalaciones</h4>
+                                          <div class="room-service">
+                                              <p href="room-details_pv2d1b.html">Regalo de bienvenida ,Wi-Fi , Quincho Techado, Estacionamiento, Plaza Interior, Acceso Controlado</p>
+                                              <div class="p-amount">
+                                                  <span>${{ i.valor_noche }}</span>
+                                                  <span class="count">Por Noche</span>
+                                              </div>
+                                          </div>
+                                          <input type="hidden" name="comuna" value="{{ reserva.num_noche }}"/>
+                                          <input type="hidden" name="fechaini" value="{{ reserva.fecha_inicio_reser }}" />
+                                          <input type="hidden" name="fechafin" value="{{ reserva.fecha_termino_reser }}"/>
+                                          <input type="hidden" name="huespedes" value="{{ reserva.cantidad_acompa }}" />
+                                          <button type="submit" class="search default-btn"> Seleccionar</button>
+                                      </div>
+                                    </form>
+                                  </div>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <!-- Room Area End -->
+{% endblock contenido %}

@@ -2,8 +2,9 @@
 
 {% block contenido %}
 {% load static %}
+<body onload="validDate()">
         <!-- Breadcrumb Area Start-->
-        <section class="breadcrumb-area overlay-dark-2 bg-3">	
+        <section class="breadcrumb-area overlay-dark-2 bg-3">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -35,7 +36,7 @@
                 </div>
                 <div class="container">
                     <div class="row">
-                        {% for prop in prop %}  
+                        {% for prop in prop %}
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="single-room">
                                 <img src="{% static 'img/room/5.jpg' %}" alt="">
@@ -54,9 +55,10 @@
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}                        
+                        {% endfor %}
                     </div>
                 </div>
             </section>
         <!-- Room Area End -->
+</body>
     {% endblock contenido %}
