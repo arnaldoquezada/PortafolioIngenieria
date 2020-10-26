@@ -139,7 +139,7 @@
                         </table>
                     </div>
                     <div class="sidebar-widget">
-                      <form id="form1" action="{% url 'preroomdetail' %}{{ prop.id_propiedad }}" method="post">
+                      <form id="form1" action="{% url 'preroomdetail' %}{{ prop.id_propiedad }}" method="get">
                         {% csrf_token %}
                           <a href="javascript:;" onclick="document.getElementById('form1').submit();" class="btn btn-primary btn-lg search  btn-block default-btn" role="button">Pagar</a>
                           <input type="hidden" name="mess" />

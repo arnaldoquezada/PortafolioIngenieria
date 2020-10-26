@@ -82,7 +82,7 @@
                                       <a href="#"><img src="{% static ''%}{{ i.imagen_principal }}" alt=""  width="470" height="340"></a>
                                   </div>
                                   <div class="col-md-7 col-sm-6">
-                                    <form id="form2" action="{% url 'preroomdetail0' i.id_propiedad %}" method="GET">
+                                    <form id="form2" action="{% url 'preroomdetail' i.id_propiedad %}" method="get">
                                       {% csrf_token %}
                                       <div class="room-list-text">
                                           <h3><a href="room-details_pv2d1b.html">{{ i.nombre_propie}}</a></h3>
@@ -99,6 +99,8 @@
                                           <input type="hidden" name="fechaini" value="{{ reserva.fecha_inicio_reser }}" />
                                           <input type="hidden" name="fechafin" value="{{ reserva.fecha_termino_reser }}"/>
                                           <input type="hidden" name="huespedes" value="{{ reserva.cantidad_acompa }}" />
+																					<input type="hidden" name="idprop" value="{{ i.id_propiedad }}" />
+																					<input type="hidden" name="idcliente" value="{{ user.id }}" />
                                           <button type="submit" class="search default-btn"> Seleccionar</button>
                                       </div>
                                     </form>

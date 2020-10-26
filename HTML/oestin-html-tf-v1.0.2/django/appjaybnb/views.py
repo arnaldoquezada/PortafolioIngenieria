@@ -151,16 +151,19 @@ def preRoomDetail(request, pk):
     detalleprop = Propiedad.objects.get(id_propiedad=pk)
 
     if request.method == "POST":
-        print("Es POST")
+        print("Es POST preROOM")
+
         fechaini = request.POST["fechaini"]
         print(fechaini)
         fechafin = request.POST["fechafin"]
         print(fechafin)
         cantidad = request.POST["huespedes"]
-        prop = Propiedad.objects.get(id_propiedad=pk)
-        print(prop)
+        idprop = Propiedad.objects.get(id_propiedad=pk)
+        idpropiedad = idprop.id_propiedad
+        print(idpropiedad)
         idcliente = request.POST["idcliente"]
         cliente = Cliente.objects.get(id_cliente=idcliente)
+        print("Cliente " + str(cliente.id_cliente))
 
         try:
             # create a connection to the Oracle Database
@@ -190,36 +193,58 @@ def preRoomDetail(request, pk):
         return redirect('home')
 
     else:
-        print("Es GET")
-        prop = Propiedad.objects.filter(id_propiedad=pk)
+        print("Es GET PRE")
+        fechaini = request.GET["fechaini"]
+        print(fechaini)
+        fechafin = request.GET["fechafin"]
+        print(fechafin)
+        cantidad = request.GET["huespedes"]
+        print(cantidad)
+
+        reserva = Reserva()
+        reserva.fecha_inicio_reser = fechaini
+        reserva.fecha_termino_reser = fechafin
+        reserva.cantidad_acompa = cantidad
+
+        print(reserva.fecha_inicio_reser)
+
+        prop = Propiedad.objects.get(id_propiedad=pk)
+        print(prop.id_propiedad)
         img = Imagen.objects.filter(id_propiedad=pk)
-    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'img':img})
+    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'img':img, 'reserva':reserva})
 
 def preRoomDetail0(request, pk):
 
+
     if request.method == "POST":
-        print("Es POST")
+        detalleprop = Propiedad.objects.get(id_propiedad=pk)
+        print(detalleprop.id_propiedad)
+        img = Imagen.objects.filter(id_propiedad=pk)
+        print("Es POST 0000")
         fechaini = request.POST["fechaini"]
         print(fechaini)
         fechafin = request.POST["fechafin"]
         print(fechafin)
         cantidad = request.POST["huespedes"]
-        prop = Propiedad.objects.get(id_propiedad=pk)
-        print(prop)
 
         return render(request, 'propiedades/preroom-details.html',{'detalleprop': detalleprop, 'img':img})
 
     else:
         print("Es GET")
-        prop = Propiedad.objects.filter(id_propiedad=pk)
-        print(prop)
+        prop = Propiedad.objects.get(id_propiedad=pk)
+        print(prop.id_propiedad)
         img = Imagen.objects.filter(id_propiedad=pk)
         print(img)
     return render(request, 'propiedades/preroom-details0.html',{'prop': prop, 'img':img})
 
 
 def Pago(request):
-    prop = Propiedad.objects.all()
+    if request.method == "POST":
+        print("ES POST EN PAGO")
+        return redirect('rexito')
+    else:
+        print("Es GET EN PAGO")
+        prop = Propiedad.objects.all()
     return render(request, 'pagos/pago.html',{'prop': prop})
 
 def detallePropiedad(request,pk):

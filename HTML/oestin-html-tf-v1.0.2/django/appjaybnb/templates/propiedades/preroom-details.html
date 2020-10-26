@@ -31,7 +31,7 @@
                         <div class="room-slider">
                           {% for img in img %}
                               <div class="slider-image">
-                                  <img src="{% static ''%}{{  img.ruta_archivo }}" alt="">
+                                  <img src="{% static ''%}{{  img.ruta_archivo }}" alt="" weight="470" height="470">
                               </div>
                           {% endfor %}
                         </div>
@@ -39,7 +39,7 @@
                             <div class="slider-nav">
                               {% for img in img %}
                                   <div class="nav-image">
-                                      <img src="{% static ''%}{{  img.ruta_archivo }}" alt="">
+                                      <img src="{% static ''%}{{  img.ruta_archivo }}" alt="" weight="120" height="120">
                                   </div>
                               {% endfor %}
                             </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="room-details-text">
                         <h3 class="room-details-title">Detalles de la Propiedad</h3>
-                        <p>{{ detalleprop.caracteristicas }}</p>
+                        <p>{{ prop.caracteristicas }}</p>
                     </div>
                     <div class="room-facilities">
                         <h3 class="room-details-title">Instalaciones de la Propiedad</h3>
@@ -78,17 +78,19 @@
                             <div class="form-container fix">
                                 <div class="box-select">
                                     <div class="select date">
-                                        <input id="arrive" type="date" name="arrive" value="2021-01-31" disabled>
+                                        <input id="arrive" type="date" name="arrive" value="{{ reserva.fecha_inicio_reser }}" disabled>
                                     </div>
                                     <div class="select date">
-                                        <input id="departure" type="date" name="departure" value="2021-02-04" disabled>
+                                        <input id="departure" type="date" name="departure" value="{{ reserva.fecha_termino_reser }}" disabled>
                                     </div>
                                     <div class="select arrow">
                                         <select name="huespedes">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option selected>4</option>
+                                          <option value="1" {% if reserva.cantidad_acompa == "1"  %}selected {% endif %}>1</option>
+                                          <option value="2" {% if reserva.cantidad_acompa == "2"  %}selected {% endif %}>2</option>
+                                          <option value="3" {% if reserva.cantidad_acompa == "3"  %}selected {% endif %}>3</option>
+                                          <option value="4" {% if reserva.cantidad_acompa == "4"  %}selected {% endif %}>4</option>
+                                          <option value="5" {% if reserva.cantidad_acompa == "5"  %}selected {% endif %}>5</option>
+                                          <option value="6" {% if reserva.cantidad_acompa == "6"  %}selected {% endif %}>6</option>
                                         </select>
                                     </div>
                                 </div>
@@ -139,7 +141,7 @@
                         </table>
                     </div>
                     <div class="sidebar-widget">
-                      <form id="form1" action="{% url 'pago' %}" method="post">
+                      <form id="form1" action="" method="post">
                         {% csrf_token %}
                           <a href="javascript:;" onclick="document.getElementById('form1').submit();" class="btn btn-primary btn-lg search  btn-block default-btn" role="button">Pagar</a>
                           <input type="hidden" name="mess" />
