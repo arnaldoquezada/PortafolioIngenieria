@@ -6,7 +6,7 @@ from .views import home, team, contacto, successView, roomGrid, detallePropiedad
 urlpatterns = [
     path('', home, name='home'),
     path('propiedades/todas/', roomGrid, name='roomgrid'),
-    #path('propiedades/detalle/<str:pk>', detallePropiedad, name='roomdetail'),
+    path('propiedades/detalle/<str:pk>', detallePropiedad, name='roomdetail'),
     path('propiedades/predetalle/<int:pk>', preRoomDetail, name='preroomdetail'),
     path('propiedades/predetalles/<int:pk>', preRoomDetail0, name='preroomdetail0'),
     path('cliente/perfil/', perfil, name='perfil'),

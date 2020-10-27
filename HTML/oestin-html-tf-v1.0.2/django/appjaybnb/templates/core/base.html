@@ -63,8 +63,9 @@
                             <li><a href="{% url 'home' %}">RESERVAS</a></li>
                             <li><a href="{% url 'roomgrid' %}">PROPIEDADES</a>
                                 <ul class="submenu">
-
-                                    <li><a href="#">A</a></li>
+                                  {% for com in com %}
+                                    <li><a href="{% url 'roomdetail' com.id_comuna.id_comuna %}">{{ com.id_comuna.nombre_comu }}</a></li>
+                                  {% endfor %}
                                 </ul>
                             </li>
                             <li><a href="{% url 'team' %}">NOSOTROS</a></li>

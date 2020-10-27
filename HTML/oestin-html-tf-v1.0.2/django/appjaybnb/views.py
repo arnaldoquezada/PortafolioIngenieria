@@ -14,6 +14,7 @@ import cx_Oracle
 from django.db.models.query import QuerySet
 from django_group_by import GroupByMixin
 from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades
+from datetime import date
 
 #conexion base de datos
 conn = cx_Oracle.connect("jaybnb","jaybnb","localhost/XE", encoding="UTF-8")
@@ -130,14 +131,26 @@ def home(request):
 
         return redirect('home')
     else:
-        prop = Propiedad.objects.all()
+        prop = Propiedad.objects.all().order_by('-id_propiedad')[:4]
+        print(len(prop))
         #com = Propiedad.objects.values('id_comuna').annotate(total=Count('id_comuna'))
 
         return render(request, 'core/home.html',{'prop': prop, 'com':com})
 
+@login_required
 def perfil(request):
+    user = request.user
+    print(user.id)
     prop = Propiedad.objects.all()
-    return render(request, 'core/perfil.html',{'prop': prop})
+    cli = Cliente.objects.get(id_cliente=user.id)
+    print(cli.id_cliente)
+    res = Reserva.objects.filter(id_cliente=cli)
+    comuna = Comuna.objects.all()
+
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
+
+    return render(request, 'core/perfil.html',{'prop': prop, 'cli':cli, 'res':res, 'comuna':comuna, 'com':com})
 
 def team(request):
     prop = Propiedad.objects.all()
@@ -147,6 +160,7 @@ def roomGrid(request):
     prop = Propiedad.objects.all()
     return render(request, 'propiedades/room-grid.html',{'prop': prop})
 
+@login_required
 def preRoomDetail(request, pk):
     detalleprop = Propiedad.objects.get(id_propiedad=pk)
 
@@ -208,10 +222,19 @@ def preRoomDetail(request, pk):
 
         print(reserva.fecha_inicio_reser)
 
+        date_format = "%Y-%m-%d"
+        f_ini = datetime.strptime(fechaini, date_format)
+        f_fin = datetime.strptime(fechafin, date_format)
+        totnoches = f_fin - f_ini
+
+        acomp=int(cantidad) - 1
+
+
         prop = Propiedad.objects.get(id_propiedad=pk)
+        totestadia = totnoches.days * prop.valor_noche
         print(prop.id_propiedad)
         img = Imagen.objects.filter(id_propiedad=pk)
-    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'img':img, 'reserva':reserva})
+    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'img':img, 'reserva':reserva, 'totnoches':totnoches, 'totestadia':totestadia, 'n':range(acomp)})
 
 def preRoomDetail0(request, pk):
 
@@ -237,7 +260,7 @@ def preRoomDetail0(request, pk):
         print(img)
     return render(request, 'propiedades/preroom-details0.html',{'prop': prop, 'img':img})
 
-
+@login_required
 def Pago(request):
     if request.method == "POST":
         print("ES POST EN PAGO")
@@ -298,6 +321,7 @@ def detallePropiedad(request,pk):
 
     return render(request, 'propiedades/room-details.html', {'img': img, 'detalleprop':detalleprop, 'prop':prop })
 
+@login_required
 def reservaexito(request):
     prop = Propiedad.objects.all()
     return render(request, 'info/reservaExitosa.html',{'prop': prop})

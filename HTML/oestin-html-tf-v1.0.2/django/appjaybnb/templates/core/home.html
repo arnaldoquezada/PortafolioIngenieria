@@ -16,7 +16,7 @@
                                         <h1 class="pt-180">Turismo Real, todo lo bueno en solo lugar</h1>
                                         <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile.</p>
                                         <div class="banner-btn">
-                                            <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
+                                            <a class="default-btn" href="{% url 'roomgrid' %}">Encuentra Tu Propiedad</a>
                                         </div>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                                         <h1 class="pt-180">Turismo Real, todo lo bueno en un solo lugar</h1>
                                         <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile..</p>
                                         <div class="banner-btn">
-                                            <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
+                                            <a class="default-btn" href="{% url 'roomgrid' %}">Encuentra Tu Propiedad</a>
                                         </div>
                                     </div>
                                 </div>
@@ -124,70 +124,24 @@
             </div>
         </div>
         <div class="container-fluid">
+          {% for prop in prop %}
             <div class="single-room small">
-                <img src="{% static 'img/room/1.jpg' %}" alt="">
+                <img src="{% static '' %}{{ prop.imagen_principal }}" alt="" weight="440" height="600">
                 <div class="room-hover text-center">
                     <div class="hover-text">
-                        <h3><a href="room-details.html">Pucón 1D</a></h3>
+                        <h3><a href="{% url 'roomdetail' prop.id_propiedad %}">{{ prop.nombre_propie }}</a></h3>
                         <p>Acogedor departamento, para disfrutar la mágia del Sur</p>
                         <div class="room-btn">
-                            <a href="room-details.html" class="default-btn">Más Información</a>
+                            <a href="{% url 'roomdetail' prop.id_propiedad %}" class="default-btn">Más Información</a>
                         </div>
                     </div>
                     <div class="p-amount">
-                        <span>$65.000</span>
+                        <span>${{ prop.valor_noche }}</span>
                         <span class="count">Por Noche</span>
                     </div>
                 </div>
             </div>
-            <div class="single-room large">
-                <img src="{% static 'img/room/2.jpg' %}" alt="">
-                <div class="room-hover text-center">
-                    <div class="hover-text">
-                        <h3><a href="room-details.html">La Serena 1D</a></h3>
-                        <p>Ubicada a 1 cuadra del Faro Monumental, ambientada de forma moderna y conexión a internet</p>
-                        <div class="room-btn">
-                            <a href="room-details.html" class="default-btn">Más Información</a>
-                        </div>
-                    </div>
-                    <div class="p-amount">
-                        <span>$50.000</span>
-                        <span class="count">Por Noche</span>
-                    </div>
-                </div>
-            </div>
-            <div class="single-room small">
-                <img src="{% static 'img/room/3.jpg' %}" alt="">
-                <div class="room-hover text-center">
-                    <div class="hover-text">
-                        <h3><a href="room-details.html">Viña del Mar 2D</a></h3>
-                        <p>Departamento con Vista al Mar a 10 min del Reloj de Flores</p>
-                        <div class="room-btn">
-                            <a href="room-details.html" class="default-btn">Más Información</a>
-                        </div>
-                    </div>
-                    <div class="p-amount">
-                        <span>$50.000</span>
-                        <span class="count">Por Noche</span>
-                    </div>
-                </div>
-            </div>
-            <div class="single-room medium">
-                <img src="{% static 'img/room/4.jpg' %}" alt="">
-                <div class="room-hover text-center">
-                    <div class="hover-text">
-                        <h3><a href="room-details.html">Puerto Varas 2D</a></h3>
-                        <p>Departamento de ambiente familiar con vista al Lago Llanquihue</p>
-                        <div class="room-btn">
-                            <a href="room-details.html" class="default-btn">Más Información</a>
-                        </div>
-                    </div>
-                    <div class="p-amount">
-                        <span>$50.000</span>
-                        <span class="count">Por Noche</span>
-                    </div>
-                </div>
-            </div>
+          {% endfor %}
         </div>
     </section>
     <!-- Room Area End -->

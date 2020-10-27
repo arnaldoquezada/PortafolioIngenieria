@@ -28,19 +28,19 @@
                 <div class="col-lg-9 col-md-8">
                     <div class="room-slider-wrapper">
                         <div class="room-slider">
-                        {% for img in img %}  
+                        {% for img in img %}
                             <div class="slider-image">
                                 <img src="{% static ''%}{{  img.ruta_archivo }}" alt="">
                             </div>
-                        {% endfor %} 
+                        {% endfor %}
                         </div>
                         <div class="row nav-row">
                             <div class="slider-nav">
-                            {% for img in img %}  
+                            {% for img in img %}
                                 <div class="nav-image">
                                     <img src="{% static ''%}{{  img.ruta_archivo }}" alt="">
                                 </div>
-                            {% endfor %} 
+                            {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -72,78 +72,12 @@
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="sidebar-widget">
-                        <h3 class="room-details-title">Tu Reserva</h3>
-                        <form action="#" method="post" class="search-form">
-                        {% csrf_token %}
-                            <div class="form-container fix">
-                                <div class="box-select">
-                                    <div class="select date">
-                                        <input type="date" name="fechaini">
-                                    </div>
-                                    <div class="select date">
-                                        <input type="date" name="fechafin">
-                                    </div>
-                                    <div class="select arrow">
-                                        <select name="huespedes">
-                                            <option>Huéspedes</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                    <input type="hidden" name="idprop" value="{{ detalleprop.id_propiedad }}">
-                                    <input type="hidden" name="idcliente" value="{{ user.id }}">
-                                </div>
-                                {% if user.is_authenticated %}
-                                    <button type="submit" class="search default-btn">Reservar</button>
-                                {% else %}
-                                    <button type="button" class="search default-btn" data-toggle="modal" data-target="#exampleModal">Reservar</button>
-                                {% endif %} 
-                            </div>
-                        </form>
-
-                        
-                    </div>
-                    <div class="sidebar-widget">
                         <table class="tabla">
-                            <h3 class="room-details-title">MONTO A PAGAR</h3>
+                            <h3 class="room-details-title">COSTO</h3>
                             <tr>
                                 <td><i class="fas fa-money-bill-wave"></i></td>
                                 <td>Valor por Noche</td>
                                 <td id="valor_noche">$ {{ detalleprop.valor_noche }}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-moon"></i></td>
-                                <td>Cantidad de Noches</td>
-                                <td id="cantnoches">5</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-file-invoice-dollar"></i></td>
-                                <td>Total estadia</td>
-                                <td id="montototal">$300.000</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-map-marked-alt"></i></td>
-                                <td>Total Tours</td>
-                                <td id="valor_tour">$0</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-taxi"></i></td>
-                                <td id="valor_trasla">Total Traslados</td>
-                                <td>$0</td>
-                            </tr>
-                            
-                            <tr>
-                                <td><i  style="color: #00bcd4;" class="fas fa-file-invoice-dollar"></i></td>
-                                <td style="font-weight: 700; color: #00bcd4;">Total a Pagar:</td>
-                                <td style="font-weight: 700; color: #00bcd4;" id="montototal">$300.000</td>
-                            </tr>
-                            <tr>
-                                <td><i style="color: #00bcd4;" class="fas fa-money-check-alt"></i></td>
-                                <td style="font-weight: 700; color: #00bcd4;">Monto Abono:</td>
-                                <td style="font-weight: 700; color: #00bcd4;" id="montoabono">$150.000</td>
                             </tr>
                         </table>
                     </div>
@@ -164,7 +98,7 @@
                             </tr>
                         </table>
                         <div class="c-info">
-                            <span></span></i>
+                            <span></span>
                         </div>
                     </div>
                 </div>
@@ -178,56 +112,9 @@
             <div class="row">
                 <div class="col-lg-9 col-md-8">
                     <h3 class="room-details-title">SERVICIOS ADICIONALES</h3>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <!-- Tab links -->
-                    <div class="tab">
-                        <button class="tablinks" onclick="openCity(event, 'TOURS')">TOURS</button>
-                        <button class="tablinks" onclick="openCity(event, 'TRASLADO')">TRASLADOS</button>
-                    </div>
-                    <!-- Tab content -->
-                    <div id="TOURS" class="tabcontent">
-                        <h3>Organiza desde ya tu estadía con los tours guiados</h3>
-                        <label class="container">Tour 1 
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                          </label>
-                          <label class="container">Tour 2
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                          </label>
-                          <label class="container">Tour 3
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                          </label>
-                          <label class="container">Tour 4
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                          </label>
-                    </div>
-                    
-                    <div id="TRASLADO" class="tabcontent">
-                        <h4>Elige tu oción de traslado</h4>
-                        <p>Quieres estar más comodo y llegar a tiempo, considerá nuestros servicios de traslados</p>
-                        <form action="#">
-                            <label for="quantity">Quantity (between 1 and 5):</label>
-                            <input type="number" id="quantity" name="quantity" min="1" max="5">
-                            <label class="container">Solo Ida
-                                <input type="radio" name="radio">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container">Solo Retorno
-                                <input type="radio" name="radio">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container">Ida y Vuelta
-                                <input type="radio" name="radio">
-                                <span class="checkmark"></span>
-                            </label>
-                        </form>
-                        
+                    <div class="single-facility">
+                        <span><i class="zmdi zmdi-check"></i>Tours</span>
+                        <span><i class="zmdi zmdi-check"></i>Traslados</span>
                     </div>
                 </div>
             </div>
@@ -248,7 +135,7 @@
             <div class="modal-footer">
                 <a href="{% url 'login' %}"><button type="button" class="btn btn-primary">Iniciar sesión</button></a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                
+
             </div>
             </div>
         </div>
@@ -264,19 +151,19 @@
         function openCity(evt, cityName) {
             // Declare all variables
             var i, tabcontent, tablinks;
-        
+
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
             }
-        
+
             // Get all elements with class="tablinks" and remove the class "active"
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-        
+
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";

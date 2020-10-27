@@ -105,17 +105,19 @@
                             <tr>
                                 <td><i class="fas fa-money-bill-wave"></i></td>
                                 <td style="font-size: 16px;" >Valor por Noche</td>
+                                <input type="hidden" id="vnoche" value="{{ prop.valor_noche }}" />
                                 <td style="font-size: 16px;" >${{ prop.valor_noche }}</td>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-moon"></i></td>
                                 <td style="font-size: 16px;">Cantidad de Noches</td>
-                                <td style="font-size: 16px; text-align: center;">5</td>
+                                <input type="hidden" id="cantnoche" value="5" />
+                                <td style="font-size: 16px; ">{{ totnoches.days }}</td>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-file-invoice-dollar"></i></td>
                                 <td style="font-size: 16px;" >Total estadia</td>
-                                <td style="font-size: 16px;" >$300.000</td>
+                                <td style="font-size: 16px;" >${{ totestadia }}</td>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-map-marked-alt"></i></td>
@@ -170,7 +172,7 @@
                             </tr>
                         </table>
                         <div class="c-info">
-                            <span></span></i>
+                            <span></span>
                         </div>
                     </div>
                 </div>
@@ -239,21 +241,31 @@
                     <br>
                     <div>
                         <h3 class="room-details-title">INFORMACIÓN DE ACOMPAÑANTES  </h3>
-                        <div class="w3l-form-group">
-                            <i class="fas fa-user-plus"></i>
-                            <input type="text" class="form-control" placeholder="NOMBRES" required minlength="3" maxlength="50"   />
-                            <input type="text" class="form-control" placeholder="APELLIDOS MATERNO" required minlength="3" maxlength="50"   />
-                            <input type="text" class="form-control" placeholder="APELLIDOS PATERNO" required minlength="3" maxlength="50"   />
-                            <input type="number" class="form-control" placeholder="912345678" required minlength="9" maxlength="14" />
-                        </div>
-
+                        {% for x in n %}
+                          <div class="w3l-form-group">
+                              <i class="fas fa-user-plus"> Datos Acompañantes</i>
+                              <input type="text" class="form-control" placeholder="NOMBRES" required minlength="3" maxlength="50"   />
+                              <input type="text" class="form-control" placeholder="APELLIDOS MATERNO" required minlength="3" maxlength="50"   />
+                              <input type="text" class="form-control" placeholder="APELLIDOS PATERNO" required minlength="3" maxlength="50"   />
+                              <input type="number" class="form-control" placeholder="912345678" required minlength="9" maxlength="14" />                            
+                          </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <script type="text/javascript">
+      $("#vnoche,#cantnoche").keyup(function () {
+
+          $('#totestadia').val($('#vnoche').val() * $('#cantnoche').val());
+
+      });
+    </script>
 
 </body>
+
+
 
 {% endblock contenido %}
