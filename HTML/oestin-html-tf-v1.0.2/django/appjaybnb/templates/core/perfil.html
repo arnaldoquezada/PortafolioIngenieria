@@ -49,6 +49,8 @@
     <!-- Ficha Start -->
     <section class="about-area">
         <div class="container">
+          <form class="" action="" method="post">
+            {% csrf_token %}
             <div class=" w3l-form-group">
                 <label>Datos Personales</label>
                 <div class="group">
@@ -57,7 +59,7 @@
                 </div>
                 <div class="group">
                     <i class="fas fa-user"></i>
-                    <input type="text" class="form-control" value="{{ cli.nombres_clien }}" required pattern="[A-Za-z_-]{2-50}"/>
+                    <input type="text" name="nombre" class="form-control" value="{{ cli.nombres_clien }}" required pattern="[A-Za-z_-]{2-50}"/>
                 </div>
                 <div class= "group">
                     <i class="fas fa-user-plus"></i>
@@ -71,7 +73,7 @@
             <div class="w3l-form-group">
                 <label>Fecha de Nacimiento:</label>
                 <div class="group select date">
-                    <input type="text" value="{{ cli.fecha_nac }}" disabled>
+                    <input type="text" value="{{ cli.fecha_nac|date:' d-m-Y' }}" disabled/>
                 </div>
             </div>
             <div class=" w3l-form-group">
@@ -82,30 +84,33 @@
                 </div>
                 <div class="group">
                     <i class="fas fa-phone-alt"></i>
-                    <input type="number" class="form-control" value="{{ cli.telefono }}" required minlength="9" maxlength="14" />
+                    <input type="number" name="telefono" class="form-control" value="{{ cli.telefono }}" required minlength="9" maxlength="14" />
                 </div>
             </div>
             <div class=" w3l-form-group">
                 <label>Dirección</label>
                 <div class="group">
                     <i class="fas fa-address-card"></i>
-                    <input type="text" class="form-control" value="{{ cli.direccion  }}" required minlength="5" maxlength="100" />
+                    <input type="text" name="direccion" class="form-control" value="{{ cli.direccion  }}" required minlength="5" maxlength="100" />
                 </div>
                 <div class="group">
                     <i class="fas fa-map-marked-alt"></i>
                     <select name="comuna" id="comuna" required>
-                        <option value="#">Selecciona tu Comuna</option>
-                        <option selected value="san_bernardo">San Bernardo</option>
-                        <option value="el_bosque">El Bosque</option>
-                        <option value="buin">Buin</option>
-                        <option value="buin">Puente Alto</option>
+                        <option value="999">Selecciona tu Comuna</option>
+                        {% for comuna in comuna %}
+                          <option value="{{ com.id_comuna.id_comuna }}" {% if comuna.id_comuna ==  cli.id_comuna.id_comuna  %}selected {% endif %} >{{ comuna.nombre_comu }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <br>
-                <div class="text-center">
-                    <a href="#" class="btn btn-primary btn-lg " role="button">Guardar Cambios</a>
+                <div class="row">
+                  <div class="col-4">&nbsp</div>
+                  <div class="col-2"><button class="btn btn-primary btn-lg center" type="submit">Guardar Cambios</button></div>
+                  <div class="col-5">&nbsp</div>
                 </div>
             </div>
+
+            </form>
         </div>
     </section>
     <br><br>
@@ -119,19 +124,22 @@
 						<tr class="bg-primary">
 							<th scope="col">N°</th>
 							<th scope="col">ESTADO</th>
-                            <th scope="col">LUGAR</th>
-                            <th scope="col">FECHA IN</th>
-                            <th scope="col">FECHA OUT</th>
+              <th scope="col">LUGAR</th>
+              <th scope="col">FECHA IN</th>
+              <th scope="col">FECHA OUT</th>
 						</tr>
 					</thead>
 					<tbody>
+            {% for res in res %}
 						<tr>
-							<th scope="row">00001</th>
-							<td>Pend.Pago</td>
-                            <td>Pto.Varas 2D1B</td>
-                            <td>20-01-2021</td>
-                            <td>25-01-2021</td>
+  							<td>{{ res.id_reserva }}</td>
+  							<td>{{ res.id_estado_rese.nombre_reserv }}</td>
+                <td>{{ res.id_propiedad.nombre_propie }}</td>
+                <td>{{ res.fecha_inicio_reser|date:" d-m-Y" }}</td>
+                <td>{{ res.fecha_termino_reser|date:" d-m-Y" }}</td>
+
 						</tr>
+            {% endfor %}
 						<tr>
 							<th scope="row"> --</th>
 							<td>--</td>

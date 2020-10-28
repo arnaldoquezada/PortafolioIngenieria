@@ -1,14 +1,13 @@
 from django.urls import path, include
 from django.conf import settings # new
 from django.conf.urls.static import static
-from .views import home, team, contacto, successView, roomGrid, detallePropiedad, perfil, register, Pago, reservaexito, preRoomDetail, preRoomDetail0
+from .views import home, team, contacto, successView, roomGrid, detallePropiedad, perfil, register, Pago, reservaexito, preRoomDetail
 
 urlpatterns = [
     path('', home, name='home'),
     path('propiedades/todas/', roomGrid, name='roomgrid'),
     path('propiedades/detalle/<str:pk>', detallePropiedad, name='roomdetail'),
     path('propiedades/predetalle/<int:pk>', preRoomDetail, name='preroomdetail'),
-    path('propiedades/predetalles/<int:pk>', preRoomDetail0, name='preroomdetail0'),
     path('cliente/perfil/', perfil, name='perfil'),
     path('info/team/', team, name='team'),
     path('reserva/exito/', reservaexito, name='rexito'),

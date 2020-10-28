@@ -140,15 +140,34 @@ def home(request):
 @login_required
 def perfil(request):
     user = request.user
-    print(user.id)
-    prop = Propiedad.objects.all()
-    cli = Cliente.objects.get(id_cliente=user.id)
-    print(cli.id_cliente)
-    res = Reserva.objects.filter(id_cliente=cli)
-    comuna = Comuna.objects.all()
+    if request.method == "POST":
+        nombre = request.POST["nombre"]
+        direccion = request.POST["direccion"]
+        telefono = request.POST["telefono"]
+        comuna = 98
+        print(comuna)
+        idcom = Comuna.objects.get(id_comuna=comuna)
 
-    comu = Region()
-    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
+        cli = Cliente.objects.get(id_cliente=user.id);
+        cli.nombres_clien = nombre
+        cli.direccion = direccion
+        cli.telefono = telefono
+        cli.id_comuna = idcom
+        cli.save()
+        return redirect('perfil')
+
+
+    else:
+
+        print(user.id)
+        prop = Propiedad.objects.all()
+        cli = Cliente.objects.get(id_cliente=user.id)
+        print(cli.id_cliente)
+        res = Reserva.objects.filter(id_cliente=cli)
+        comuna = Comuna.objects.all()
+
+        comu = Region()
+        com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
 
     return render(request, 'core/perfil.html',{'prop': prop, 'cli':cli, 'res':res, 'comuna':comuna, 'com':com})
 
@@ -197,7 +216,12 @@ def preRoomDetail(request, pk):
                 print("No funciono")
             else:
                 print("Funciono el procedimiento")
-                return redirect('rexito')
+
+                reserva = Reserva.objects.latest('id_reserva')
+                print(reserva.id_reserva)
+                mitad_monto = reserva.monto_total / 2
+
+                return render(request, 'pagos/pago_2.html',{'reserva': reserva, 'mitad_monto':mitad_monto})
             finally:
                 print("Cerrando Conexión")
                 cur.close()
@@ -236,39 +260,28 @@ def preRoomDetail(request, pk):
         img = Imagen.objects.filter(id_propiedad=pk)
     return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'img':img, 'reserva':reserva, 'totnoches':totnoches, 'totestadia':totestadia, 'n':range(acomp)})
 
-def preRoomDetail0(request, pk):
-
-
-    if request.method == "POST":
-        detalleprop = Propiedad.objects.get(id_propiedad=pk)
-        print(detalleprop.id_propiedad)
-        img = Imagen.objects.filter(id_propiedad=pk)
-        print("Es POST 0000")
-        fechaini = request.POST["fechaini"]
-        print(fechaini)
-        fechafin = request.POST["fechafin"]
-        print(fechafin)
-        cantidad = request.POST["huespedes"]
-
-        return render(request, 'propiedades/preroom-details.html',{'detalleprop': detalleprop, 'img':img})
-
-    else:
-        print("Es GET")
-        prop = Propiedad.objects.get(id_propiedad=pk)
-        print(prop.id_propiedad)
-        img = Imagen.objects.filter(id_propiedad=pk)
-        print(img)
-    return render(request, 'propiedades/preroom-details0.html',{'prop': prop, 'img':img})
-
 @login_required
 def Pago(request):
+
+    id_reserva = Reserva.objects.latest('id_reserva')
+    user = request.user
+    if (id_reserva.id_cliente==user.id_cliente):
+        print("Son iguales")
+
     if request.method == "POST":
         print("ES POST EN PAGO")
+        montoapagar = request.POST['montoapagar']
+        mediopago = request.POST['mediopago']
+        id_mpago = FormaPago.objects.get(id_formapag=mediopago)
+        idestadopago = EstadoPago.objects.get(idestadopago=1)
+        pago = Pago(id_pago=null, abono=montoapagar, monto_pagar=id_reserva.monto_total, id_transaccion=id_reserva.id_reserva, estado="P", id_formapag=id_mpago, id_reserva=id_reserva, idestadopago=idestadopago)
+        pago.save()
+
         return redirect('rexito')
     else:
         print("Es GET EN PAGO")
         prop = Propiedad.objects.all()
-    return render(request, 'pagos/pago.html',{'prop': prop})
+    return render(request, 'pagos/pago_2.html',{'prop': prop})
 
 def detallePropiedad(request,pk):
 
