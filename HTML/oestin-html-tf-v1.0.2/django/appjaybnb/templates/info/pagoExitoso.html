@@ -1,0 +1,36 @@
+{% extends  'core/base.html' %}
+
+{% block contenido %}
+{% load static %}
+<section class="breadcrumb-area bg-5">
+<META HTTP-EQUIV="REFRESH" CONTENT="4;URL={% url 'home' %}">
+  <!-- Start main-content -->
+  <div class="main-content">
+    <!-- Section: inner-header -->
+    <section class="inner-header divider layer-overlay overlay-dark-8">
+      <div class="container pt-90 pb-40">
+        <!-- Section Content -->
+        <div class="section-content">
+          <div class="row">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container" style="background-color:#FFFFFF; ">
+        <div class="row">
+          <div class="col-md-6 col-md-push-3">
+            <br>
+            <br>
+            <h4 class="text-gray mt-0 pt-5"> El pago fue generado exitósamente, redireccionando al menu principal</h4>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</section>
+{% endblock contenido %}

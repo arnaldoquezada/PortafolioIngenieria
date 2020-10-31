@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf import settings # new
 from django.conf.urls.static import static
-from .views import home, team, contacto, successView, roomGrid, detallePropiedad, perfil, register, Pago, reservaexito, preRoomDetail
+from .views import home, team, contacto, successView, roomGrid, detallePropiedad, perfil, register, Pagos, reservaexito, preRoomDetail, pagoexito, transferencia
 
 urlpatterns = [
     path('', home, name='home'),
@@ -11,7 +11,9 @@ urlpatterns = [
     path('cliente/perfil/', perfil, name='perfil'),
     path('info/team/', team, name='team'),
     path('reserva/exito/', reservaexito, name='rexito'),
-    path('pagos/formas/', Pago, name='pago'),
+    path('reserva/pagoexito/', pagoexito, name='pagoexito'),
+    path('reserva/transferencia/', transferencia, name='transferencia'),
+    path('pagos/formas/', Pagos, name='pago'),
     path('info/contacto/', contacto, name='contacto'),
     path('info/contacto/', successView, name='success'),
     path('accounts/', include('django.contrib.auth.urls')),

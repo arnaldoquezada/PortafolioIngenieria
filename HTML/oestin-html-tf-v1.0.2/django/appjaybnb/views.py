@@ -13,7 +13,7 @@ from django.views import generic
 import cx_Oracle
 from django.db.models.query import QuerySet
 from django_group_by import GroupByMixin
-from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, FormaPago, EstadoPago
+from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, FormaPago, EstadoPago, Pago
 from datetime import date
 
 #conexion base de datos
@@ -261,7 +261,7 @@ def preRoomDetail(request, pk):
     return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'img':img, 'reserva':reserva, 'totnoches':totnoches, 'totestadia':totestadia, 'n':range(acomp)})
 
 @login_required
-def Pago(request):
+def Pagos(request):
 
     id_reserva = Reserva.objects.latest('id_reserva')
     print(id_reserva)
@@ -276,15 +276,60 @@ def Pago(request):
         mediopago = request.POST['formadepago']
         id_mpago = FormaPago.objects.get(id_formapag=mediopago)
         idestadopago = EstadoPago.objects.get(idestadopago=1)
-        pago = Pago(id_pago=null, abono=montoapagar, monto_pagar=id_reserva.monto_total, id_transaccion=id_reserva.id_reserva, estado="P", id_formapag=id_mpago, id_reserva=id_reserva, idestadopago=idestadopago)
-        pago.save()
+        try:
+            # create a connection to the Oracle Database
+            #connection = cx_Oracle.connect("hr", userpwd, "dbhost.example.com/orclpdb1", encoding="UTF-8")
 
-        return redirect('rexito')
+            cur = conn.cursor()
+            cur.callproc('pkg_pago.sp_realizar_pago', (int(montoapagar), 999, "A", id_mpago.id_formapag, id_reserva.id_reserva))
+
+
+        except Exception as errr:
+            print("error: ", errr)
+        else:
+            try:
+                #cur.callproc('pkg_reservas.sp_crear_reserva', (fechaini, fechafin, cantidad, idpropiedad, idcliente))
+                print("Pasó por aquí?")
+            except:
+                print("No funciono")
+            else:
+                print("Funciono el procedimiento")
+
+                reserva = Reserva.objects.latest('id_reserva')
+                print(reserva.id_reserva)
+                mitad_monto = reserva.monto_total / 2
+
+                if (id_mpago.id_formapag==3):
+                    return redirect('transferencia')
+                else:
+                    return redirect('pagoexito')
+            finally:
+                print("Cerrando Conexión")
+                cur.close()
+        finally:
+            print("Termino el proceso")
+
     else:
         print("Es GET EN PAGO")
         prop = Propiedad.objects.all()
         mitad_monto = id_reserva.monto_total / 2
-    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':mitad_monto})
+        print(int(mitad_monto))
+    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto)})
+
+@login_required
+def pagoexito(request):
+    prop = Propiedad.objects.all()
+    return render(request, 'info/pagoExitoso.html',{'prop': prop})
+
+@login_required
+def transferencia(request):
+    res = Reserva.objects.latest('id_reserva')
+    print(res.id_reserva)
+    pago = Pago.objects.latest('id_pago')
+    print(pago)
+    abono = pago.abono - ((pago.abono * 5) /100 )
+    abonodesc = int(abono)
+    return render(request, 'pagos/pago_transferencia.html',{'res': res, 'abonodesc':abonodesc })
 
 def detallePropiedad(request,pk):
 
