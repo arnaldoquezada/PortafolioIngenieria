@@ -1,0 +1,28 @@
+{% extends  'movil/basemenu.html' %}
+
+{% block contenido %}
+{% load static %}
+        <section>
+            <br><br>
+            <h3 class="room-details-title">CHECK-IN {{ res.id_reserva }}<br></h3>
+            <h1 style="margin-left: 50px;">Datos Arrendatario</h1>
+            <div class=" w3l-form-group">
+                <div class="group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control" value="Carol Stephanie" disabled style="margin-left: 5px; margin-right: 10px;"/>
+                </div>
+                <div class="group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control" value="Valdebenito" disabled style="margin-right: 5px; margin-left: 5px;"/>
+                    <input type="text" class="form-control" value="Valdenegro" disabled style="margin-right: 10px;"/>
+                </div>
+                <div class="group">
+                    <i class="fas fa-id-card"></i>
+                    <input type="text" class="form-control" value="17705980-3" disabled style="margin-left: 5px; margin-right: 10px;"/>
+                </div>
+                    <br>
+                    <label>Si los datos no son válidos no es posible proseguir con la entrega de la propiedad, al menos que exista autorización prevía por e-mail desde administración</label>
+                    <a href="{% url 'aceptacheckin' res.id_reserva %}" class="btn btn-primary" role="button" style="margin-left: 130px; height: 34px;">Siguiente</a> 
+            </div>
+        </section>
+{% endblock contenido %}

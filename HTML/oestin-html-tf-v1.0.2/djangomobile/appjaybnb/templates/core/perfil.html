@@ -1,0 +1,162 @@
+{% extends  'core/base.html' %}
+
+{% block contenido %}
+{% load static %}
+    <!-- Background Area Start -->
+    <section class="slider-area">
+        <div class="slider-wrapper">
+            <div class="single-slide" style="background-image: url('img/slider/1.jpg');">
+                <div class="banner-content overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="text-content-wrapper">
+                                    <div class="text-content text-center">
+                                        <h1 class="pt-180">Turismo Real, todo lo bueno en solo lugar</h1>
+                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile.</p>
+                                        <div class="banner-btn">
+                                            <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-slide" style="background-image: url('img/slider/2.jpg');">
+                <div class="banner-content overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="text-content-wrapper slide-two">
+                                    <div class="text-content text-center">
+                                        <h1 class="pt-180">Turismo Real, todo lo bueno en un solo lugar</h1>
+                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile..</p>
+                                        <div class="banner-btn">
+                                            <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Background Area End -->
+    <!-- Ficha Start -->
+    <section class="about-area">
+        <div class="container">
+          <form class="" action="" method="post">
+            {% csrf_token %}
+            <div class=" w3l-form-group">
+                <label>Datos Personales</label>
+                <div class="group">
+                    <i class="fas fa-id-card"></i>
+                    <input type="text" class="form-control" value="{{ cli.rut }}" maxlength="13" disabled />
+                </div>
+                <div class="group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="nombre" class="form-control" value="{{ cli.nombres_clien }}" required pattern="[A-Za-z_-]{2-50}"/>
+                </div>
+                <div class= "group">
+                    <i class="fas fa-user-plus"></i>
+                    <input type="text" class="form-control" value="{{ cli.apellido_p }}" required minlength="3" maxlength="50" disabled/>
+                </div>
+                <div class="group">
+                    <i class="fas fa-user-plus"></i>
+                    <input type="text" class="form-control" value="{{ cli.apellido_m }}" required minlength="3" maxlength="50" disabled />
+                </div>
+            </div>
+            <div class="w3l-form-group">
+                <label>Fecha de Nacimiento:</label>
+                <div class="group select date">
+                    <input type="text" value="{{ cli.fecha_nac|date:' d-m-Y' }}" disabled/>
+                </div>
+            </div>
+            <div class=" w3l-form-group">
+                <label>Datos de Contacto</label>
+                <div class="group">
+                    <i class="fas fa-at"></i>
+                    <input type="email" class="form-control" value="{{ cli.email }}" required="required" disabled/>
+                </div>
+                <div class="group">
+                    <i class="fas fa-phone-alt"></i>
+                    <input type="number" name="telefono" class="form-control" value="{{ cli.telefono }}" required minlength="9" maxlength="14" />
+                </div>
+            </div>
+            <div class=" w3l-form-group">
+                <label>Dirección</label>
+                <div class="group">
+                    <i class="fas fa-address-card"></i>
+                    <input type="text" name="direccion" class="form-control" value="{{ cli.direccion  }}" required minlength="5" maxlength="100" />
+                </div>
+                <div class="group">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <select name="comuna" id="comuna" required>
+                        <option value="999">Selecciona tu Comuna</option>
+                        {% for comuna in comuna %}
+                          <option value="{{ com.id_comuna.id_comuna }}" {% if comuna.id_comuna ==  cli.id_comuna.id_comuna  %}selected {% endif %} >{{ comuna.nombre_comu }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-4">&nbsp</div>
+                  <div class="col-2"><button class="btn btn-primary btn-lg center" type="submit">Guardar Cambios</button></div>
+                  <div class="col-5">&nbsp</div>
+                </div>
+            </div>
+
+            </form>
+        </div>
+    </section>
+    <br><br>
+    <!-- Ficha End -->
+    <!-- RESERVAS START-->
+    <div class="container">
+		<div class="row">
+			<div class="col">
+				<table class="table table-hover table-bordered table-striped">
+					<thead>
+						<tr class="bg-primary">
+							<th scope="col">N°</th>
+							<th scope="col">ESTADO</th>
+              <th scope="col">LUGAR</th>
+              <th scope="col">FECHA IN</th>
+              <th scope="col">FECHA OUT</th>
+						</tr>
+					</thead>
+					<tbody>
+            {% for res in res %}
+						<tr>
+  							<td>{{ res.id_reserva }}</td>
+  							<td>{{ res.id_estado_rese.nombre_reserv }}</td>
+                <td>{{ res.id_propiedad.nombre_propie }}</td>
+                <td>{{ res.fecha_inicio_reser|date:" d-m-Y" }}</td>
+                <td>{{ res.fecha_termino_reser|date:" d-m-Y" }}</td>
+
+						</tr>
+            {% endfor %}
+						<tr>
+							<th scope="row"> --</th>
+							<td>--</td>
+                            <td></td>
+                            <td>--</td>
+                            <td>--</td>
+						</tr>
+						<tr>
+							<th scope="row"> --</th>
+							<td>--</td>
+                            <td></td>
+                            <td>--</td>
+                            <td>--</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </div>
+{% endblock contenido %}

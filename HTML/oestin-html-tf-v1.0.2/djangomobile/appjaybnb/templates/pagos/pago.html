@@ -1,0 +1,56 @@
+{% extends  'core/base.html' %}
+
+{% block contenido %}
+{% load static %}
+<section class="breadcrumb-area bg-5">	
+    <div class="container">
+        <div class="row">
+          <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: #00bcd4;text-align: center;">Pago con Transferencia</h2>
+
+          <div class="container" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+            <form action="#">
+              <div class="row">
+                <div class="col-25">
+                  <label for="fname">Monto Total</label>
+                </div>
+                <div class="col-75">
+                  <input type="radio" id="montoapagar" name="montoapagar" value="1">
+                  <label for="1">$300.000</label><br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="lname">Monto Abono</label>
+                </div>
+                <div class="col-75">
+                  <input type="radio" id="montoapagar" name="montoapagar" value="2">
+                  <label for="2">$150.000</label><br>
+                </div>
+              </div>
+              <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;">Si prefieres pago co transferencia obtienes un 5% en el monto a pagar</p>
+              <div class="row">
+                <div class="col-25">
+                  <i class="fas fa-credit-card"></i><br>
+                  <input type="radio" id="formadepago" name="debito" value="1">
+                  <label for="1">Débito</label>
+                </div>
+                <div class="col-25">
+                  <i class="fab fa-cc-mastercard"></i> <i class="fab fa-cc-visa"></i><br>
+                  <input type="radio" id="formadepago" name="credito" value="2">
+                  <label for="2">Crédito</label>
+                </div>
+                <div class="col-25">
+                  <i class="fas fa-money-check-alt"></i><br>
+                  <input type="radio" id="formadepago" name="transferencia" value="3">
+                    <label for="3">Transferencia</label>
+                </div>
+              </div>
+                <a class="btn btn-success" href="pago_transferencia.html" >Pagar</a>
+                <a class="btn btn-danger" href="room-details_pv2d1b.html" >Cancelar</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock contenido %}    

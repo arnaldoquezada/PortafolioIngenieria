@@ -13,7 +13,7 @@ from django.views import generic
 import cx_Oracle
 from django.db.models.query import QuerySet
 from django_group_by import GroupByMixin
-from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades
+from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, FormaPago, EstadoPago
 from datetime import date
 
 #conexion base de datos
@@ -221,7 +221,7 @@ def preRoomDetail(request, pk):
                 print(reserva.id_reserva)
                 mitad_monto = reserva.monto_total / 2
 
-                return render(request, 'pagos/pago_2.html',{'reserva': reserva, 'mitad_monto':mitad_monto})
+                return redirect('pago')
             finally:
                 print("Cerrando Conexión")
                 cur.close()
@@ -264,14 +264,16 @@ def preRoomDetail(request, pk):
 def Pago(request):
 
     id_reserva = Reserva.objects.latest('id_reserva')
+    print(id_reserva)
     user = request.user
-    if (id_reserva.id_cliente==user.id_cliente):
+    print(user)
+    if (id_reserva.id_cliente.email==user):
         print("Son iguales")
 
     if request.method == "POST":
         print("ES POST EN PAGO")
         montoapagar = request.POST['montoapagar']
-        mediopago = request.POST['mediopago']
+        mediopago = request.POST['formadepago']
         id_mpago = FormaPago.objects.get(id_formapag=mediopago)
         idestadopago = EstadoPago.objects.get(idestadopago=1)
         pago = Pago(id_pago=null, abono=montoapagar, monto_pagar=id_reserva.monto_total, id_transaccion=id_reserva.id_reserva, estado="P", id_formapag=id_mpago, id_reserva=id_reserva, idestadopago=idestadopago)
@@ -281,7 +283,8 @@ def Pago(request):
     else:
         print("Es GET EN PAGO")
         prop = Propiedad.objects.all()
-    return render(request, 'pagos/pago_2.html',{'prop': prop})
+        mitad_monto = id_reserva.monto_total / 2
+    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':mitad_monto})
 
 def detallePropiedad(request,pk):
 

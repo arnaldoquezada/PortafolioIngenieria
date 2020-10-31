@@ -1,0 +1,156 @@
+{% extends  'movil/basemenu.html' %}
+
+{% block contenido %}
+{% load static %}
+        <section>
+            <br><br>
+            <h3 class="room-details-title">CHECK-IN Reserva N°{{ res.id_reserva }}<br></h3>
+            <h1 style="margin-left: 20px; text-align: center;">TURISMO REAL <br> Política de Términos y <br>Condiciones del Servicio </h1>
+            <div class=" w3l-form-group">
+              <h1 style="margin-left: 50px;">Datos Arrendatario</h1>
+                  <div class="group">
+                      <i class="fas fa-user"></i>
+                      <input type="text" class="form-control" value="{{ res.id_cliente.nombres_clien }}" disabled style="margin-left: 5px; margin-right: 10px;"/>
+                  </div>
+                  <div class="group">
+                      <i class="fas fa-user"></i>
+                      <input type="text" class="form-control" value="{{ res.id_cliente.apellido_p }}" disabled style="margin-right: 5px; margin-left: 5px;"/>
+                      <input type="text" class="form-control" value="{{ res.id_cliente.apellido_m }}" disabled style="margin-right: 10px;"/>
+                  </div>
+                  <div class="group">
+                      <i class="fas fa-id-card"></i>
+                      <input type="text" class="form-control" value="{{ res.id_cliente.rut }}" disabled style="margin-left: 5px; margin-right: 10px;"/>
+                  </div>
+                      <br>
+                      <label>Si los datos no son válidos no es posible proseguir con la entrega de la propiedad, al menos que exista autorización prevía por e-mail desde administración</label>
+                <div class="group">
+                    <table width="280" cellspacing="1" cellpadding="3" border="0" bgcolor="#1E679A">
+                        <tr>
+                           <td><font color="#00bcd4"  face="arial, verdana, helvetica">
+                        <b>Condiciones Propiedad</b>
+                           </font></td>
+                        </tr>
+                        <tr>
+                           <td bgcolor="fffff">
+                           <font face="arial, verdana, helvetica">
+                           El arrendatario tiene el deber de cumplir con las normas de la comunidad, en caso de que se imparta una multa durante su estadía esta será cobrada al momento de su check-out<br>
+                           <u>Condiciones</u><br>
+                           <ol>
+                               <li >&#10022;Los ruidos molestos pueden realizarse de Lunes a Viernes de 08:00 a las 20:00 hrs Sábados y pre- festivos  hasta las 2:00 , domingo hasta las 22:30 hrs.<br></li>
+                               <li >&#10022;No está permitido el ingreso de mascotas.<br></li>
+                               <li >&#10022;El uso de la piscina debe ser respestado según las intrucciones de conserjería según temporada.<br></li>
+                               <li>&#10022;Acceso las 24 hrs, con registro en conserjería en caso de ser solicitado.</li>
+                           </ol>
+                           </font>
+                           </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="group">
+                    <table width="280" cellspacing="1" cellpadding="3" border="0" bgcolor="#1E679A">
+                        <tr>
+                           <td><font color="#00bcd4"  face="arial, verdana, helvetica">
+                        <b>Condiciones Cancelación de Reserva</b>
+                           </font></td>
+                        </tr>
+                        <tr>
+                           <td bgcolor="fffff">
+                           <font face="arial, verdana, helvetica">
+                            <ul>
+                                <li>
+                                    <b><u>Sin multa</u></b>
+                                </li>
+                                <li>
+                                    <br>
+                                    &#10132;
+                                    "Cancelación gratuita siempre y cuando se haga 48 horas antes de su fecha de llegada a la propiedad"
+                                    <br>
+                                </li>
+                                <li>
+                                    <br>
+                                    <b><u>Con multa</u></b>
+                                    <br>
+                                </li>
+                                <li>
+                                    &#10132;
+                                    "Pasado este plazo, los huéspedes pueden cancelar hasta 24 horas antes de la llegada y recibir un reembolso del 20 % del precio pagado"
+                                </li>
+                                <li>
+                                    &#10132;
+                                    "Cancelación dentro de las  24 hrs los huéspedes pueden recibir un reembolso del 50 % del precio pagado"
+                                </li>
+                                <li>
+                                    &#10132;
+                                    "Si el huéped llega después de su fecha de llegada original, se mantendran los valores ya acordardos al momento de la reserva, ya que esta se mantiene como reservada para el huésped en el plazo  reservado."
+                                </li>
+                                <li>
+                                    &#10132;
+                                    "Si el huesped no llega en todo su período de reservación, el dinero pagado no será reembolsado."
+                                </li>
+                            </ul>
+                            <br><br>
+                            <b>DEVOLUCIONES</b><br><br>
+                            <ul>
+                                <li>
+                                    &#10132;
+                                    "Las devolucioines para pagos con realizados con transferencia bancarias por conceptos de cancelación de reservas serán reembolsadas 3 días hábiles, luego de que el huesped entregue los datos para la transferencia"
+                                </li>
+                                <li>
+                                    &#10132;
+                                    "Las devoluciones para pagos realizados con tarjeta de débito se realizará la devolución vía transferencia bancaría dentro de 5 días hábiles, luego de que el huéped entrega la información de transferencia."
+                                </li>
+                                <li>
+                                    &#10132;
+                                    "Las devoluciones para pagos realizados con tarjeta de crédito se realizará la devolución vía transferencia bancaría dentro de 7 días hábiles, luego de que el huéped entrega la información de transferencia."
+                                </li>
+                            </ul>
+                           </font>
+                           </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="group">
+                    <table width="200" cellspacing="1" cellpadding="3" border="0" bgcolor="#165480">
+                        <tr>
+                        <td bgcolor="#00bcd4">
+                        <font size=1 face="verdana, arial, helvetica">
+                        <b>Aviso Legal</b>
+                        </font>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#fffff" style="text-align: justify;">
+                        <font face="verdana, arial, helvetica" size=1 >
+                            En la medida máxima permitida por la ley aplicable, excluimos todas las representaciones, garantías y condiciones relacionadas con nuestro sitio web y el uso de este sitio web (incluyendo, sin limitación, cualquier garantía implícita por la ley con respecto a la calidad satisfactoria, idoneidad para el propósito y/o el uso de cuidado y habilidad razonables).
+
+                            Nada en este aviso legal:
+
+                            Limita o excluye nuestra o su responsabilidad por muerte o lesiones personales resultantes de negligencia.
+                            Limita o excluye nuestra o su responsabilidad por fraude o tergiversación fraudulenta.
+                            Limita cualquiera de nuestras o sus responsabilidades de cualquier manera que no esté permitida por la ley aplicable.
+                            Excluye cualquiera de nuestras o sus responsabilidades que no pueden ser excluidas bajo la ley aplicable.
+                            Las limitaciones y exclusiones de responsabilidad establecidas en esta Sección y en otras partes de este aviso legal:
+                            1. están sujetas al párrafo anterior; y
+                            2. rigen todas las responsabilidades que surjan bajo la exención de responsabilidad o en relación con el objeto de esta exención de responsabilidad, incluidas las responsabilidades que surjan en contrato, agravio (incluyendo negligencia) y por incumplimiento del deber legal.
+
+                            En la medida en que el sitio web y la información y los servicios en el sitio web se proporcionen de forma gratuita, no seremos responsables de ninguna pérdida o daño de ningún tipo
+                        </font>
+                        </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="group" >
+                    <p style="color: beige;margin-left: 20; margin-right: 20; font-size: 12px;"> Yo {{ res.id_cliente.nombres_clien}} {{res.id_cliente.apellido_p }} de identificación {{ res.id_cliente.rut }} estoy de acuerdo con las condiones del servicio</p>
+                </div>
+
+                <!-- La idea es que el botón haga solo el ingreso del check-in con  un datatime -->
+                <form action="" method="POST">
+                  {% csrf_token %}
+                      <div class="group">
+                          <input name="idreserva" type="hidden" value="{{ res.id_reserva }}" required/>
+                          <button class="btn-lg btn-primary " type="submit">Acepto</button>
+                      </div>
+                </form>
+            </div>
+        </section>
+{% endblock contenido %}

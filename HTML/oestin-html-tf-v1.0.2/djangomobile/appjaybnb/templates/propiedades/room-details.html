@@ -1,0 +1,172 @@
+{% extends  'core/base.html' %}
+
+{% block contenido %}
+{% load static %}
+    <!-- Breadcrumb Area Start-->
+    <section class="breadcrumb-area overlay-dark-2 bg-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-text text-center">
+                        <h2>{{ detalleprop.nombre_propie }}</h2>
+                        <div class="breadcrumb-bar">
+                            <ul class="breadcrumb">
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li>{{ detalleprop.nombre_propie }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Area End -->
+    <!-- Room Details Area Start -->
+    <section class="room-details pt-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-8">
+                    <div class="room-slider-wrapper">
+                        <div class="room-slider">
+                        {% for img in img %}
+                            <div class="slider-image">
+                                <img src="{% static ''%}{{  img.ruta_archivo }}" alt="">
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="row nav-row">
+                            <div class="slider-nav">
+                            {% for img in img %}
+                                <div class="nav-image">
+                                    <img src="{% static ''%}{{  img.ruta_archivo }}" alt="">
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-details-text">
+                        <h3 class="room-details-title">Detalles de la Propiedad</h3>
+                        <p>{{ detalleprop.caracteristicas }}</p>
+                    </div>
+                    <div class="room-facilities">
+                        <h3 class="room-details-title">Instalaciones de la Propiedad</h3>
+                        <div class="single-facility">
+                            <span><i class="zmdi zmdi-check"></i>2 Domitorios</span>
+                            <span><i class="zmdi zmdi-check"></i>50,27 mts<sup>2</sup></span>
+                            <span><i class="zmdi zmdi-check"></i>1 Baño</span>
+                            <span><i class="zmdi zmdi-check"></i>Wi-Fi Gratis</span>
+                        </div>
+                        <div class="single-facility">
+                            <span><i class="zmdi zmdi-check"></i>Estacionamiento</span>
+                            <span><i class="zmdi zmdi-close"></i>Piscina</span>
+                            <span><i class="zmdi zmdi-check"></i>Quincho Techado</span>
+                            <span><i class="zmdi zmdi-check"></i>Acceso Controlado</span>
+                        </div>
+                        <div class="single-facility">
+                            <span><i class="zmdi zmdi-check"></i>Full AC</span>
+                            <span><i class="zmdi zmdi-check"></i>Ascensores</span>
+                            <span><i class="zmdi zmdi-check"></i>Plaza Interior</span>
+                            <span><i class="zmdi zmdi-close"></i>Room Service</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <div class="sidebar-widget">
+                        <table class="tabla">
+                            <h3 class="room-details-title">COSTO</h3>
+                            <tr>
+                                <td><i class="fas fa-money-bill-wave"></i></td>
+                                <td>Valor por Noche</td>
+                                <td id="valor_noche">$ {{ detalleprop.valor_noche }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="sidebar-widget">
+                        <table>
+                            <th colspan="4" style="text-align: center;">Ante cualquier consulta.<br>¡No dudes en contactarnos!</th>
+                            <tr>
+                                <td><i class="zmdi zmdi-phone"></i></td>
+                                <td>+56 2 222 22 22</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-mobile-alt"></i></td>
+                                <td>+56 9 555 55 55</td>
+                            </tr>
+                            <tr>
+                                <td><i   class="fas fa-envelope"></td>
+                                <td>contacto@turismo-real.com</td>
+                            </tr>
+                        </table>
+                        <div class="c-info">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Room Details Area End -->
+    <!-- SERVICIO ADICIONALES START-->
+    <section >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-8">
+                    <h3 class="room-details-title">SERVICIOS ADICIONALES</h3>
+                    <div class="single-facility">
+                        <span><i class="zmdi zmdi-check"></i>Tours</span>
+                        <span><i class="zmdi zmdi-check"></i>Traslados</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Información</h5>
+            </div>
+            <div class="modal-body">
+                Para poder generar una reserva debe iniciar sesión.
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'login' %}"><button type="button" class="btn btn-primary">Iniciar sesión</button></a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            $('#exampleModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+        })
+    </script>
+
+    <script>
+        function openCity(evt, cityName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+    {% endblock contenido %}

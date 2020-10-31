@@ -1,0 +1,41 @@
+{% extends  'movil/basemenu.html' %}
+
+{% block contenido %}
+{% load static %}
+        <section>
+            <br><br>
+            <h3 class="room-details-title">CHECK-OUT RESERVA N°{{ res.id_reserva }}<br></h3>
+            <h3 class="room-details-title">INVENTARIO<br></h3>
+            <ul style="color: aliceblue; margin-left: 20px;">
+
+                {% for prop in prop %}
+                  <li>{{ prop.cantidad }} {{ prop.id_inventario.nombre_inven }}</li>
+                {% endfor %}
+            </ul>
+            <br>
+            <form action="" method="POST">
+            {% csrf_token %}
+                <h3 class="room-details-title">DAÑOS A LA PROPIEDAD<br></h3>
+                <div class="multa" id="multa">
+                    <label for="detalle" style="margin-left: 5px;" >Detalle Daño:
+                        <input type="text" id="detalle" name="detalle" value="Ninguno"><br><br>
+                    </label>
+                    <label for="montomulta" style="margin-left: 5px;" >Monto Multa:
+                        <input type="text" id="montomulta" name="montomulta" value="0"><br><br>
+                    </label>
+                </div>
+                <label for="obs" style="margin-left: 5px;" >Observaciones:
+                    <input type="text" id="obs" name="obs" value="Ninguna"><br><br>
+                </label>
+                <!-- La idea es que el botón haga solo el ingreso del check-in con  un datatime -->
+                <div class="group">
+                    <input name="idreserva" type="hidden" value="{{ res.id_reserva }}" required/>
+                    <button class="btn-primary btn-lg" type="submit">Realizar Check-Out</button>
+                </div>
+            </form>
+            <br>
+            <div> . </div>
+        </section>
+
+
+{% endblock contenido %}
