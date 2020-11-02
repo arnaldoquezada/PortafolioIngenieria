@@ -1,0 +1,112 @@
+{% extends  'core/base.html' %}
+
+{% block contenido %}
+{% load static %}
+    <!-- Background Area Start -->
+   <!--<section class="slider-area">
+        <div class="slider-wrapper">
+            <div class="single-slide" style="background-image: url('img/slider/1.jpg');">
+                <div class="banner-content overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="text-content-wrapper">
+                                    <div class="text-content text-center">
+                                        <h1 class="pt-180">Turismo Real, todo lo bueno en solo lugar</h1>
+                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile.</p>
+                                        <div class="banner-btn">
+                                            <a class="default-btn" href="{% url 'roomgrid' %}">Encuentra Tu Propiedad</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-slide" style="background-image: url('img/slider/2.jpg');">
+                <div class="banner-content overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="text-content-wrapper slide-two">
+                                    <div class="text-content text-center">
+                                        <h1 class="pt-180">Turismo Real, todo lo bueno en un solo lugar</h1>
+                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile..</p>
+                                        <div class="banner-btn">
+                                            <a class="default-btn" href="{% url 'roomgrid' %}">Encuentra Tu Propiedad</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Background Area End -->
+--> 
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+    <!-- Ficha Start -->
+    <section class="about-area">
+        <div class="container">
+          <form class="" action="" method="post">
+            {% csrf_token %}
+            <div class=" w3l-form-group">
+                <h3 class="room-details-title">DATOS DEL OCUPANTE PRINCIPAL  </h3>
+                <label>Datos Personales</label>
+                <div class="group">
+                    <i class="fas fa-id-card"></i>
+                    <input type="text" class="form-control" value="{{ cli.rut }}" maxlength="13" disabled />
+                </div>
+                <div class="group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="nombre" class="form-control" value="{{ cli.nombres_clien }}" required pattern="[A-Za-z_-]{2-50}"/>
+                </div>
+                <div class= "group">
+                    <i class="fas fa-user-plus"></i>
+                    <input type="text" class="form-control" value="{{ cli.apellido_p }}" required minlength="3" maxlength="50" disabled/>
+                </div>
+                <div class="group">
+                    <i class="fas fa-user-plus"></i>
+                    <input type="text" class="form-control" value="{{ cli.apellido_m }}" required minlength="3" maxlength="50" disabled />
+                </div>
+            </div>            
+
+            </form>
+        </div>
+    </section>
+    <br><br>
+    <!-- Ficha End -->
+    <!-- Datos Acompañantes-->
+    <section class="section-acompanantes">
+    <div class="container">
+    <div>
+        <h3 class="room-details-title">AGREGA LA INFORMACION DE TUS ACOMPAÑANTES  </h3>
+       <form action="" method='POST'>
+        {% csrf_token %}
+        {% for x in n %}
+          <div class="w3l-form-group">
+              <i class="fas fa-user-plus"> Datos Acompañantes</i>
+              <input type="text" class="form-control" name="acomp" placeholder="NOMBRES" required minlength="3" maxlength="50"   />
+              <input type="text" class="form-control" name="acomp"placeholder="APELLIDOS MATERNO" required minlength="3" maxlength="50"   />
+              <input type="text" class="form-control" name="acomp"placeholder="APELLIDOS PATERNO" required minlength="3" maxlength="50"   />   <br>               
+              <label>Fecha de Nacimiento:</label><div class=" group select date"> <input type="date" name="acomp" required/></div>
+              <input type="number" class="form-control"name="acomp" placeholder="912345678" required minlength="9" maxlength="14" />        
+          </div>
+        {% endfor %}
+            <div class="row">
+            <div class="col-4">&nbsp</div>
+                <button class="btn btn-primary btn-lg center" type="submit" class="search default-btn">AGREGAR</button>
+           <div class="col-5">&nbsp</div>
+            </div>
+        </form>
+        </div>
+    </div>
+    </section>
+ 
+{% endblock contenido %}

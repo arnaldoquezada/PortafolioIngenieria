@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf import settings # new
 from django.conf.urls.static import static
-from .views import home, team, contacto, successView, roomGrid, detallePropiedad, perfil, register, Pagos, reservaexito, preRoomDetail, pagoexito, transferencia
+from .views import home, team, contacto, successView, roomGrid, detallePropiedad, perfil, register, Pagos, PagoReserva, reservaexito, preRoomDetail, pagoexito, transferencia, AgregaAcompanante
 
 urlpatterns = [
     path('', home, name='home'),
@@ -14,10 +14,12 @@ urlpatterns = [
     path('reserva/pagoexito/', pagoexito, name='pagoexito'),
     path('reserva/transferencia/', transferencia, name='transferencia'),
     path('pagos/formas/', Pagos, name='pago'),
+    path('pagos/pagoreserva/<int:pk>', PagoReserva, name='pagoreserva'),
     path('info/contacto/', contacto, name='contacto'),
     path('info/contacto/', successView, name='success'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('signup/', register, name='signup'),
+    path('cliente/Agrega/Acompanantes/<str:pk>', AgregaAcompanante, name='AgregaInfoAcompa'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

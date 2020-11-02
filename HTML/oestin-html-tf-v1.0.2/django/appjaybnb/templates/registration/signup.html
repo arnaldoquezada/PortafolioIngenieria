@@ -2,8 +2,8 @@
 
 {% block contenido %}
 {% load static %}
-
-<section class="breadcrumb-area ">	
+<body onload="validFechaNac()">
+<section class="breadcrumb-area bg-3">
     <div class="container">
         <div class="row">
             <div class=" w3l-login-form">
@@ -21,26 +21,26 @@
                     <label>Datos Personales</label>
                     <div class="group">
                         <i class="fas fa-id-card"></i>
-                        <input type="text" name="run" class="form-control" placeholder="RUN/Pasaporte/DNI" maxlength="13"/>   
+                        <input type="text" name="run" class="form-control input_rut"  placeholder="12.123.456-7" maxlength="13"/>
                     </div>
                     <div class="group">
                         <i class="fas fa-user"></i>
-                        <input type="text" name="nombre" class="form-control" placeholder="Nombre" required pattern="[A-Za-z_-]{2-50}"/>   
+                        <input type="text" name="nombre" class="form-control" placeholder="Nombre" required pattern="[A-Za-z]*" oninvalid="setCustomValidity('Solo se permiten letras')" />
                     </div>
                     <div class= "group">
                         <i class="fas fa-user-plus"></i>
-                        <input type="text" name="apepaterno" class="form-control" placeholder="Ap. Paterno" required minlength="3" maxlength="50" />
+                        <input type="text" name="apepaterno" class="form-control" placeholder="Ap. Paterno" pattern="[A-Za-z]*" required minlength="3" maxlength="50" oninvalid="setCustomValidity('Solo se permiten letras')" />
                     </div>
                     <div class="group">
                         <i class="fas fa-user-plus"></i>
-                        <input type="text" name="apematerno" class="form-control" placeholder="Ap. Materno" required minlength="3" maxlength="50" />
+                        <input type="text" name="apematerno" class="form-control" placeholder="Ap. Materno" pattern="[A-Za-z]*" required minlength="3" maxlength="50" oninvalid="setCustomValidity('Solo se permiten letras')" />
                     </div>
                 </div>
                 <div class="w3l-form-group">
                     <label>Fecha de Nacimiento:</label>
                     <div class="group select date">
                         <input type="date" name="fechanac" required>
-                    </div>  
+                    </div>
                 </div>
                 <div class=" w3l-form-group">
                     <label>Datos de Contacto</label>
@@ -62,10 +62,10 @@
                     <div class="group">
                         <i class="fas fa-map-marked-alt"></i>
                         <select name="comuna" id="comuna" required>
-                            <option value="#">Selecciona tu Comuna</option>
-                            <option value="san_bernardo">San Bernardo</option>
-                            <option value="el_bosque">El Bosque</option>
-                            <option value="buin">Buin</option>
+                            <option value="0">Selecciona tu Comuna</option>
+                            {% for comuna in comuna %}
+                              <option value="{{ comuna.id_comuna }}">{{ comuna.nombre_comu }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
@@ -85,6 +85,6 @@
         </div>
     </div>
 </section>
+</body>
 
-
-{% endblock contenido %}    
+{% endblock contenido %}

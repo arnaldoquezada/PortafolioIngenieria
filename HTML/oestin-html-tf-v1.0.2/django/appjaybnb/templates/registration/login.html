@@ -2,7 +2,7 @@
 
 {% block contenido %}
 {% load static %}
-<section class="breadcrumb-area bg-5">	
+<section class="breadcrumb-area bg-5">
     <div class="container">
         <div class="row">
             <div class=" w3l-login-form">
@@ -27,12 +27,14 @@
                             <input type="password" name="password" class="form-control" placeholder="Contraseña" required="required" />
                         </div>
                     </div>
+                    <!--
                     <div class="forgot">
-                        <a href="#">Olvidaste tu Contraseña?</a>
+                        <a href="{% url 'password_reset' %}">Olvidaste tu Contraseña?</a>
                     </div>
+                    -->
                     <button type="submit">Login</button>
                 </form>
-                <p class=" w3l-register-p">No tienes una cuenta?<a href="registrar.html" class="register"> Registrate</a></p>
+                <p class=" w3l-register-p">No tienes una cuenta?<a href="{% url 'signup' %}" class="register"> Registrate</a></p>
             </div>
         </div>
     </div>

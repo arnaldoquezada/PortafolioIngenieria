@@ -179,6 +179,15 @@
     <script src="{% static 'js/plugins.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/validafecha.js' %}"></script>
+    <script src="{% static 'js/validafechanac.js' %}"></script>
+    <script src="{% static 'js/jquery.rut.chileno.js' %}"></script>
+
+    <script type="text/javascript">
+      jQuery(document).ready(function($){
+        $('.input_rut').rut();
+      });
+    </script>
+
     <script>
     function openCity(evt, cityName) {
         // Declare all variables

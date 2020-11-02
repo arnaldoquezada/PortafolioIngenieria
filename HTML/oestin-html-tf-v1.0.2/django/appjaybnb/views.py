@@ -31,6 +31,7 @@ def register(request):
         fechanac = request.POST["fechanac"]
         email = request.POST["email"]
         direccion = request.POST["direccion"]
+        comuna = request.POST["comuna"]
         fono = request.POST["telefono"]
         estado = 'S'
         #idcomuna = request.POST.get("comuna")
@@ -39,7 +40,7 @@ def register(request):
         print(idestadocli.id_estado_clie)
         #idestado = EstadoCli()
         #idestado.id_estado_clie = idestadocli.id_estado_clie
-        idcomuna = Comuna.objects.get(id_comuna=1)
+        idcomuna = Comuna.objects.get(id_comuna=comuna)
         print(idcomuna.id_comuna)
         #idcom = idcomuna.id_comuna
         passw = request.POST["password"]
@@ -54,7 +55,7 @@ def register(request):
 
         return redirect('login')
     else:
-        comuna = Comuna.objects.all()
+        comuna = Comuna.objects.all().order_by('nombre_comu')
 
     return render(request, 'registration/signup.html', {'comuna': comuna, 'com':com})
 
@@ -84,10 +85,8 @@ def home(request):
         print(fechafin)
         cantidad = request.POST["huespedes"]
 
-        fini = parse(fechaini)
-        print(fini.date())
-        ffin = parse(fechafin)
-        print(ffin.date())
+        fini = datetime.strptime(fechaini, '%Y-%m-%d')
+        ffin = datetime.strptime(fechafin, '%Y-%m-%d')
 
         reserva = Reserva()
         reserva.num_noche = idcomuna.id_comuna
@@ -100,14 +99,24 @@ def home(request):
 
             cursor = conn.cursor()
             return_no = cursor.var(cx_Oracle.CURSOR)
-            cursor.callfunc('FN_VALIDA_DISPONIBILIDAD', return_no, [fechaini, fechafin])
-            resultado =  return_no.getvalue()
-            i = []
-            for row in resultado:
-                idstring = str(row)
-                id_propiedad = int(idstring[1:2])
-                idp = Propiedad.objects.get(id_propiedad=id_propiedad)
-                i.append(idp)
+            if idcomuna.id_comuna == 0:
+                cursor.callfunc('pkg_reservas.FN_VALIDA_DISPONIBILIDAD', return_no, [fini, ffin, cantidad])
+                resultado =  return_no.getvalue()
+                i = []
+                for row in resultado:
+                    idstring = str(row)
+                    id_propiedad = int(idstring[1:2])
+                    idp = Propiedad.objects.get(id_propiedad=id_propiedad)
+                    i.append(idp)
+            else:
+                cursor.callfunc('pkg_reservas.FN_DISPONIBILIDAD_POR_COMUNA', return_no, [idcomuna.id_comuna, fini, ffin, cantidad])
+                resultado =  return_no.getvalue()
+                i = []
+                for row in resultado:
+                    idstring = str(row)
+                    id_propiedad = int(idstring[1:2])
+                    idp = Propiedad.objects.get(id_propiedad=id_propiedad)
+                    i.append(idp)
 
         except Exception as errr:
 
@@ -327,6 +336,64 @@ def Pagos(request):
     return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com})
 
 @login_required
+def PagoReserva(request, pk):
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
+    id_reserva = Reserva.objects.get(id_reserva=pk)
+    print(id_reserva)
+    user = request.user
+    print(user)
+    if (id_reserva.id_cliente.email==user):
+        print("Son iguales")
+
+    if request.method == "POST":
+        print("ES POST EN PAGO")
+        montoapagar = request.POST['montoapagar']
+        mediopago = request.POST['formadepago']
+        id_mpago = FormaPago.objects.get(id_formapag=mediopago)
+        idestadopago = EstadoPago.objects.get(idestadopago=1)
+        try:
+            # create a connection to the Oracle Database
+            #connection = cx_Oracle.connect("hr", userpwd, "dbhost.example.com/orclpdb1", encoding="UTF-8")
+
+            cur = conn.cursor()
+            cur.callproc('pkg_pago.sp_realizar_pago', (int(montoapagar), 999, "A", id_mpago.id_formapag, id_reserva.id_reserva))
+
+
+        except Exception as errr:
+            print("error: ", errr)
+        else:
+            try:
+                #cur.callproc('pkg_reservas.sp_crear_reserva', (fechaini, fechafin, cantidad, idpropiedad, idcliente))
+                print("Pasó por aquí?")
+            except:
+                print("No funciono")
+            else:
+                print("Funciono el procedimiento")
+
+                reserva = Reserva.objects.latest('id_reserva')
+                print(reserva.id_reserva)
+                mitad_monto = reserva.monto_total / 2
+
+                if (id_mpago.id_formapag==3):
+                    return redirect('transferencia')
+                else:
+                    return redirect('pagoexito')
+            finally:
+                print("Cerrando Conexión")
+                cur.close()
+        finally:
+            print("Termino el proceso")
+
+    else:
+        print("Es GET EN PAGO")
+        prop = Propiedad.objects.all()
+        mitad_monto = id_reserva.monto_total / 2
+        print(int(mitad_monto))
+    return render(request, 'pagos/pagoreserva.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com})
+
+
+@login_required
 def pagoexito(request):
     comu = Region()
     com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
@@ -473,3 +540,28 @@ def contacto(request):
 
 def successView(request):
     return HttpResponse('Success! Thank you for your message.')
+
+#Vista para completar datos de los acompañantes rescata el id reserva
+def AgregaAcompanante(request, pk):
+    user = request.user
+    if request.method == "GET":
+        cli = Cliente.objects.get(id_cliente=user.id)
+        res = Reserva.objects.get(id_reserva=pk)
+        cant = res.cantidad_acompa - 1
+    else:
+        acomp = ''
+        acomp = request.POST.getlist("acomp")
+        split_strings = [] #El string lo dividimos en grupos de 5 caracateres
+        n = 5
+        for index in range(0, len(acomp), n): #Creamos una lista anidada para dividir los datos de los acompañantes por cada uno
+            split_strings.append(acomp[index : index + n])
+
+        for i in range(len(split_strings)):
+            for j in range(len(split_strings[i])):
+                print("---Print Elements---")
+                print(split_strings[i][j])
+
+
+        return redirect('perfil')
+
+    return render(request, "propiedades/preroom-datosAcompanante.html",{'cli':cli, 'n':range(cant)})
