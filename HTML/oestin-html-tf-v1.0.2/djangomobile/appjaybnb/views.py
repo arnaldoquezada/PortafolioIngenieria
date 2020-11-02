@@ -188,7 +188,7 @@ def aceptaCheckOut(request, pk):
         obs = request.POST["obs"]
 
         print("Print Acepta POST id reserva "+idres)
-        estadores = EstadoReserv.objects.get(id_estado_rese=6)
+        estadores = EstadoReserv.objects.get(id_estado_rese=5)
         print(estadores)
 
         rese = Reserva.objects.get(id_reserva=idres)

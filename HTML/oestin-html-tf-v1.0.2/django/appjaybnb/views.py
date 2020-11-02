@@ -20,7 +20,8 @@ from datetime import date
 conn = cx_Oracle.connect("jaybnb","jaybnb","localhost/XE", encoding="UTF-8")
 
 def register(request):
-
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     if request.method == "POST":
         print("Es POST")
         rut = request.POST["run"]
@@ -55,7 +56,7 @@ def register(request):
     else:
         comuna = Comuna.objects.all()
 
-    return render(request, 'registration/signup.html', {'comuna': comuna})
+    return render(request, 'registration/signup.html', {'comuna': comuna, 'com':com})
 
 # Create your views here.
 class ContactForm(object):
@@ -172,15 +173,21 @@ def perfil(request):
     return render(request, 'core/perfil.html',{'prop': prop, 'cli':cli, 'res':res, 'comuna':comuna, 'com':com})
 
 def team(request):
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     prop = Propiedad.objects.all()
-    return render(request, 'info/team.html',{'prop': prop})
+    return render(request, 'info/team.html',{'prop': prop, 'com':com})
 
 def roomGrid(request):
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     prop = Propiedad.objects.all()
-    return render(request, 'propiedades/room-grid.html',{'prop': prop})
+    return render(request, 'propiedades/room-grid.html',{'prop': prop, 'com':com})
 
 @login_required
 def preRoomDetail(request, pk):
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     detalleprop = Propiedad.objects.get(id_propiedad=pk)
 
     if request.method == "POST":
@@ -197,13 +204,15 @@ def preRoomDetail(request, pk):
         idcliente = request.POST["idcliente"]
         cliente = Cliente.objects.get(id_cliente=idcliente)
         print("Cliente " + str(cliente.id_cliente))
+        fini = datetime.strptime(fechaini, '%Y-%m-%d')
+        ffin = datetime.strptime(fechafin, '%Y-%m-%d')
 
         try:
             # create a connection to the Oracle Database
             #connection = cx_Oracle.connect("hr", userpwd, "dbhost.example.com/orclpdb1", encoding="UTF-8")
 
             cur = conn.cursor()
-            cur.callproc('pkg_reservas.sp_crear_reserva', (fechaini, fechafin, cantidad, idpropiedad, idcliente))
+            cur.callproc('pkg_reservas.sp_crear_reserva', (fini, ffin, cantidad, idpropiedad, idcliente))
 
 
         except Exception as errr:
@@ -258,11 +267,12 @@ def preRoomDetail(request, pk):
         totestadia = totnoches.days * prop.valor_noche
         print(prop.id_propiedad)
         img = Imagen.objects.filter(id_propiedad=pk)
-    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'img':img, 'reserva':reserva, 'totnoches':totnoches, 'totestadia':totestadia, 'n':range(acomp)})
+    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'img':img, 'com':com, 'reserva':reserva, 'totnoches':totnoches, 'totestadia':totestadia, 'n':range(acomp)})
 
 @login_required
 def Pagos(request):
-
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     id_reserva = Reserva.objects.latest('id_reserva')
     print(id_reserva)
     user = request.user
@@ -314,27 +324,33 @@ def Pagos(request):
         prop = Propiedad.objects.all()
         mitad_monto = id_reserva.monto_total / 2
         print(int(mitad_monto))
-    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto)})
+    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com})
 
 @login_required
 def pagoexito(request):
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     prop = Propiedad.objects.all()
-    return render(request, 'info/pagoExitoso.html',{'prop': prop})
+    return render(request, 'info/pagoExitoso.html',{'prop': prop, 'com':com})
 
 @login_required
 def transferencia(request):
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     res = Reserva.objects.latest('id_reserva')
     print(res.id_reserva)
     pago = Pago.objects.latest('id_pago')
     print(pago)
     abono = pago.abono - ((pago.abono * 5) /100 )
     abonodesc = int(abono)
-    return render(request, 'pagos/pago_transferencia.html',{'res': res, 'abonodesc':abonodesc })
+    return render(request, 'pagos/pago_transferencia.html',{'res': res, 'abonodesc':abonodesc, 'com':com })
 
 def detallePropiedad(request,pk):
 
 #    useremail = request.user.email
 #    clienteaux = ClientePortal.objects.get(email=useremail)
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     detalleprop = Propiedad.objects.get(id_propiedad=pk)
 
     if request.method == "POST":
@@ -380,12 +396,14 @@ def detallePropiedad(request,pk):
         prop = Propiedad.objects.all()
         img = Imagen.objects.filter(id_propiedad=pk)
 
-    return render(request, 'propiedades/room-details.html', {'img': img, 'detalleprop':detalleprop, 'prop':prop })
+    return render(request, 'propiedades/room-details.html', {'img': img, 'detalleprop':detalleprop, 'prop':prop, 'com':com })
 
 @login_required
 def reservaexito(request):
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     prop = Propiedad.objects.all()
-    return render(request, 'info/reservaExitosa.html',{'prop': prop})
+    return render(request, 'info/reservaExitosa.html',{'prop': prop, 'com':com})
 
 def Disponibilidad(request):
     if request.method == "POST":
@@ -434,6 +452,8 @@ def Disponibilidad(request):
 
 
 def contacto(request):
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     prop = Propiedad.objects.all()
     if request.method == 'GET':
         form = ContactForm()
@@ -449,7 +469,7 @@ def contacto(request):
         except BadHeaderError:
             return HttpResponse('Invalid header found.')
         return redirect('success')
-    return render(request, "contacto/contact.html",{'prop': prop})
+    return render(request, "contacto/contact.html",{'prop': prop, 'com':com})
 
 def successView(request):
     return HttpResponse('Success! Thank you for your message.')
