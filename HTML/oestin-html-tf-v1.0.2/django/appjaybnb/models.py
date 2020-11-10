@@ -453,7 +453,7 @@ class ServicioAdicional(models.Model):
     id_servicio_extra = models.IntegerField(primary_key=True)
     valor_servicio_extra = models.IntegerField()
     estado = models.CharField(max_length=4)
-    nombre_servicio = models.IntegerField()
+    nombre_servicio = models.TextField()
     descrip_servicio = models.TextField()  # This field type is a guess.
     info_complement = models.TextField()  # This field type is a guess.
     id_empresa_ext = models.IntegerField()

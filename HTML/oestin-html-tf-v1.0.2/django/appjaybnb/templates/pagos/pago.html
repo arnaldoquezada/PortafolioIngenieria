@@ -22,67 +22,180 @@
         </div>
     </div>
 </section>
-
 <!-- Room Area End -->
 <section class="room-area pt-90">
     <div class="container">
+      <form action="#" method="POST">
+      {% csrf_token %}
         <div class="row">
-          <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: #00bcd4;text-align: center; font-size:35px; ">Pago con Transferencia</h2>
-          <form action="#" method="POST">
-          {% csrf_token %}
-          <div class="container">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                    <button type="button" style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: white ;text-align: center; font-size:20px; " class="btn-lg btn-primary btn-default collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        ¿Desea Contratar Servicios Extras? Haga Click Aquí
+                      </button>
+                    </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <br>
+                        <h3 class="room-details-title">SERVICIOS ADICIONALES</h3>
+                        <!-- Tab links -->
+                        <div class="tab">
+                            <button type="button" class="tablinks" onclick="openCity(event, 'TOURS')" style="font-size: 18px">TOURS</button>
+                            <button type="button" class="tablinks" onclick="openCity(event, 'TRASLADO')" style="font-size: 18px">TRASLADOS</button>
+                        </div>
+                        <!-- Tab content -->
+                        <div id="TOURS" class="tabcontent">
 
-              <div class="row">
-                <div class="col-1">
-                  <label for="fname">Monto Total</label>
+                            <center><h3>Organiza desde ya tu estadía con tours guiados</h3></center>
+                            <br>
+                            <h3>Cantidad de Personas</h3>
+                            <div class="content-select" style="font-size:20px;padding-right: 45%">
+                                <select id="cant1" name="servi1canti">
+                                  {% for x in n %}
+                                    <option value="{{ x }}">{{ x }}</option>
+                                  {% endfor %}
+                                </select>
+                                <i></i>
+                            </div>
+                            <h3>Tours Disponibles</h3>
+                            {% for serv1 in serv1 %}
+                              <div class="checkbox">
+                                <label style="font-size:20px;">
+                                  <input name="product" value="{{ serv1.valor_servicio_extra|floatformat:0 }}" type="checkbox" onclick="totalIt()" /> {{ serv1.nombre_servicio }} - $ {{ serv1.valor_servicio_extra }}
+                                </label>
+                                <input type="hidden" name="servicio1" value="{{ serv1.id_servicio_extra }}" />
+                              </div>
+                            {% endfor %}
+                        </div>
+
+                        <div id="TRASLADO" class="tabcontent" style="background-color: #f1f1f1;">
+                          <center><h3>Llega a tiempo y seguro a los destinos</h3></center>
+                          <br>
+                          <h3>Cantidad de Pasajeros</h3>
+                          <div class="content-select" style="font-size:20px;;padding-right: 45%">
+                              <select id="cant2" name="servi2canti">
+                                {% for x in n %}
+                                  <option value="{{ x }}">{{ x }}</option>
+                                {% endfor %}
+                              </select>
+                              <i></i>
+                          </div>
+                            <h3>Servicios de Traslados Disponibles</h3>
+                            {% for serv2 in serv2 %}
+                              <div class="checkbox">
+                                <label style="font-size:20px;">
+                                  <input name="producttraslado" value="{{ serv2.valor_servicio_extra|floatformat:0 }}" type="checkbox" onclick="totalIt()" /> {{ serv2.nombre_servicio }} - $ {{ serv2.valor_servicio_extra }}
+                                </label>
+                                <input type="hidden" name="servicio2" value="{{ serv2.id_servicio_extra }}" />
+                              </div>
+                            {% endfor %}
+                      </div>
+
                 </div>
-                <div class="col-1">
-                  <input type="radio" id="montoapagar" name="montoapagar" value="{{ id_reserva.monto_total }}">
-                </div>
-                <div class="col-1">
-                  <label for="1">${{ id_reserva.monto_total|floatformat:0 }}</label><br><br>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-1">
-                  <label for="lname">Monto Abono</label>
-                </div>
-                <div class="col-1">
-                  <input type="radio" id="montoapagar" name="montoapagar" value="{{ mitad_monto }}">
-                </div>
-                <div class="col-1">
-                  <label for="2">${{ mitad_monto|floatformat:0 }}</label><br>
-                </div>
-              </div>
-              <br>
-              <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;">Si prefieres pago con transferencia obtienes un 5% en el monto a pagar</p>
-              <br>
-              <div class="row">
-                <div class="col-3">
-                  <i class="fas fa-credit-card"></i>
-                  <input type="radio" id="formadepago" name="formadepago" value="1">
-                  <label for="1">Débito</label>
-                </div>
-                <div class="col-3">
-                  <i class="fab fa-cc-mastercard"></i> <i class="fab fa-cc-visa"></i>
-                  <input type="radio" id="formadepago" name="formadepago" value="2">
-                  <label for="2">Crédito</label>
-                </div>
-                <div class="col-3">
-                  <i class="fas fa-money-check-alt"></i>
-                  <input type="radio" id="formadepago" name="formadepago" value="3">
-                  <label for="3">Transferencia</label>
-                </div>
-              </div>
-              <br>
-                <div class="col-2"></div>
-                <div class="col-2"> <button class="btn-lg btn-success" type="submit">Pagar</button></div>
-                <div class="col-1">.</div>
-                <div class="col-2"> <button onclick="location.href = '{% url 'home' %}';"  class="btn-lg btn-danger" type="button">Cancelar</button></div>
 
               </div>
+            </div>
+          </div>
+              <br>
+              <br>
+              <br>
+              <h3 class="room-details-title" style="font-size: 30px">Pagar su reserva N° {{ id_reserva.id_reserva }}</h3>
+
+              <div class="container">
+                <div class="row w3l-form-group">
+                  <div class="col-1">
+                    <label for="fname" style="font-size: 18px">Monto Total</label>
+                  </div>
+                  <div class="col-1" >
+                    <input type="radio" id="mtp" class="montototalapagar" name="montoapagar" value="{{ id_reserva.monto_total }}"/>
+                  </div>
+                  <div class="col-1">
+                    <input value="${{ id_reserva.monto_total|floatformat:0 }}" readonly="readonly" type="text" name="total" style="font-size: 20px; background-color: white; color: #00bcd4" />
+                  </div>
+                </div>
+                <div class="row w3l-form-group">
+                  <div class="col-1">
+                    <label for="lname"  style="font-size: 18px">Monto Abono</label>
+                  </div>
+                  <div class="col-1">
+                    <input type="radio" id="mmp" name="montoapagar" value="{{ mitad_monto }}">
+                  </div>
+                  <div class="col-1">
+                    <input value="${{ mitad_monto|floatformat:0 }}" readonly="readonly" type="text" name="mitad" style="font-size: 20px; background-color: white; color: #00bcd4" />
+                  </div>
+                </div>
+                <br>
+                <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify; font-size: 18px">Si prefieres pago con transferencia obtienes un 5% en el monto a pagar</p>
+                <br>
+                <div class="row w3l-form-group">
+                  <div class="col-3">
+                    <i class="fas fa-credit-card"></i>
+                    <input type="radio" id="formadepago" name="formadepago" value="1">
+                    <label for="1" style="font-size: 18px">Débito</label>
+                  </div>
+                  <div class="col-3">
+                    <i class="fab fa-cc-mastercard"></i> <i class="fab fa-cc-visa"></i>
+                    <input type="radio" id="formadepago" name="formadepago" value="2">
+                    <label for="2" style="font-size: 18px">Crédito</label>
+                  </div>
+                  <div class="col-3">
+                    <i class="fas fa-money-check-alt"></i>
+                    <input type="radio" id="formadepago" name="formadepago" value="3">
+                    <label for="3" style="font-size: 18px">Transferencia</label>
+                  </div>
+                </div>
+                <br>
+                  <div class="col-2"></div>
+                  <div class="col-2"> <button class="btn-lg btn-success" type="submit">Pagar</button></div>
+                  <div class="col-1">.</div>
+                  <div class="col-2"> <button onclick="location.href = '{% url 'home' %}';"  class="btn-lg btn-danger" type="button">Cancelar</button></div>
+                </div>
             </form>
           </div>
-        </div>
     </section>
+
+        <script type="text/javascript">
+            function totalIt() {
+            var input = document.getElementsByName("product");
+            var inputtraslado = document.getElementsByName("producttraslado");
+            var totalpagar = document.getElementById("mtp");
+            var mi = document.getElementById("mmp");
+
+            var cant1 = document.getElementById("cant1");
+            var select1 = cant1.options[cant1.selectedIndex].value;
+            var c1 = parseFloat(select1);
+
+            var cant2 = document.getElementById("cant2");
+            var select2 = cant2.options[cant2.selectedIndex].value;
+            var c2 = parseFloat(select2);
+
+            var total = parseFloat(totalpagar.value);
+            var mitad = parseFloat(mi.value);
+
+            var m1 = 1;
+            var m2 = 1;
+
+            for (var i = 0; i < input.length; i++) {
+              if (input[i].checked) {
+                m1 = parseFloat(input[i].value*c1);
+                total += m1;
+                mitad += (m1/2);
+              }
+            }
+
+            for (var i = 0; i < inputtraslado.length; i++) {
+              if (inputtraslado[i].checked) {
+                m2 = parseFloat(inputtraslado[i].value*c2);
+                total += m2;
+                mitad += (m2/2);
+              }
+            }
+
+            document.getElementsByName("total")[0].value = "$" + total.toFixed(0);
+            document.getElementsByName("mitad")[0].value = "$" + mitad.toFixed(0);
+          }
+        </script>
 {% endblock contenido %}

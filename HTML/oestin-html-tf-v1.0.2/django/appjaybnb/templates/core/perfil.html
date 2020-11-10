@@ -2,151 +2,173 @@
 
 {% block contenido %}
 {% load static %}
-    <!-- Background Area Start -->
-    <section class="slider-area">
-        <div class="slider-wrapper">
-            <div class="single-slide" style="background-image: url('img/slider/1.jpg');">
-                <div class="banner-content overlay">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <div class="text-content-wrapper">
-                                    <div class="text-content text-center">
-                                        <h1 class="pt-180">Turismo Real, todo lo bueno en solo lugar</h1>
-                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile.</p>
-                                        <div class="banner-btn">
-                                            <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Breadcrumb Area Start-->
+    <section class="breadcrumb-area overlay-dark-2 bg-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="breadcrumb-text text-center">
+              <h2>Mi Perfil</h2>
+              <p>Podrá verificar todas sus reservas y datos personales</p>
+              <div class="breadcrumb-bar">
+                <ul class="breadcrumb">
+                  <li><a href="{% url 'home' %}">Home</a></li>
+                  <li>NUESTRO TEAM</li>
+                </ul>
+              </div>
             </div>
-            <div class="single-slide" style="background-image: url('img/slider/2.jpg');">
-                <div class="banner-content overlay">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <div class="text-content-wrapper slide-two">
-                                    <div class="text-content text-center">
-                                        <h1 class="pt-180">Turismo Real, todo lo bueno en un solo lugar</h1>
-                                        <p>Encuentra las mejores propiedades amobladas ubicadas en puntos estratégicos de las zonas turísticas de Chile..</p>
-                                        <div class="banner-btn">
-                                            <a class="default-btn" href="room-grid.html">Encuentra Tu Propiedad</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </section>
-    <!-- Background Area End -->
+
+
     <!-- Ficha Start -->
     <section class="about-area">
         <div class="container">
-          <form class="" action="" method="post">
-            {% csrf_token %}
-            <div class=" w3l-form-group">
-                <label>Datos Personales</label>
-                <div class="group">
-                    <i class="fas fa-id-card"></i>
-                    <input type="text" class="form-control" value="{{ cli.rut }}" maxlength="13" disabled />
+          <div class="w3l-form-group">
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h5 class="mb-0">
+                    <button class="btn-lg btn-primary btn-default collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      VER MIS RESERVAS
+                    </button>
+                  </h5>
                 </div>
-                <div class="group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" name="nombre" class="form-control" value="{{ cli.nombres_clien }}" required pattern="[A-Za-z_-]{2-50}"/>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                    <!-- RESERVAS START-->
+                  <br>
+                    <div class="container">
+                		<div class="row">
+                			<div class="col">
+                				<table class="table table-hover table-bordered table-striped">
+                					<thead>
+                						<tr class="bg-primary">
+                							<th scope="col">N°</th>
+                							<th scope="col">ESTADO</th>
+                              <th scope="col">LUGAR</th>
+                              <th scope="col">FECHA IN</th>
+                              <th scope="col">FECHA OUT</th>
+                              <th scope="col">ACCIONES</th>
+                						</tr>
+                					</thead>
+                					<tbody>
+                            {% for res in res %}
+                						<tr>
+                  							<td>{{ res.id_reserva }}</td>
+                  							<td>{{ res.id_estado_rese.nombre_reserv }}</td>
+                                <td>{{ res.id_propiedad.nombre_propie }}</td>
+                                <td>{{ res.fecha_inicio_reser|date:" d-m-Y" }}</td>
+                                <td>{{ res.fecha_termino_reser|date:" d-m-Y" }}</td>
+                                <td><a class="btn btn-primary btn-lg center" href="{% url 'AgregaInfoAcompa' res.id_reserva %}">ACOMPAÑANTES</a>
+                                    {% if res.id_estado_rese.id_estado_rese == 1 or res.id_estado_rese.id_estado_rese == 3  %}
+                                      <a class="btn btn-primary btn-lg center" href="{% url 'pagoreserva' res.id_reserva %}">PAGAR</a></td>
+                                    {% endif %}
+                						</tr>
+                            {% endfor %}
+                					</tbody>
+                				</table>
+                			</div>
+                		</div>
+                    </div>
+                  </div>
                 </div>
-                <div class= "group">
-                    <i class="fas fa-user-plus"></i>
-                    <input type="text" class="form-control" value="{{ cli.apellido_p }}" required minlength="3" maxlength="50" disabled/>
+              </div>
+              <br>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn-lg btn-success collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    VER MIS DATOS
+                    </button>
+                  </h5>
                 </div>
-                <div class="group">
-                    <i class="fas fa-user-plus"></i>
-                    <input type="text" class="form-control" value="{{ cli.apellido_m }}" required minlength="3" maxlength="50" disabled />
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+                    <form class="" action="" method="post">
+                      {% csrf_token %}
+
+
+
+                      <div class=" w3l-form-group">
+                          <label>Datos Personales</label>
+                          <div class="group">
+                              <i class="fas fa-id-card"></i>
+                              <input type="text" class="form-control" value="{{ cli.rut }}" maxlength="13" disabled />
+                          </div>
+                          <div class="group">
+                              <i class="fas fa-user"></i>
+                              <input type="text" name="nombre" class="form-control" value="{{ cli.nombres_clien }}" required pattern="[A-Za-z_-]{2-50}"/>
+                          </div>
+                          <div class= "group">
+                              <i class="fas fa-user-plus"></i>
+                              <input type="text" class="form-control" value="{{ cli.apellido_p }}" required minlength="3" maxlength="50" disabled/>
+                          </div>
+                          <div class="group">
+                              <i class="fas fa-user-plus"></i>
+                              <input type="text" class="form-control" value="{{ cli.apellido_m }}" required minlength="3" maxlength="50" disabled />
+                          </div>
+                      </div>
+                      <div class="w3l-form-group">
+                          <label>Fecha de Nacimiento:</label>
+                          <div class="group select date">
+                              <input type="text" value="{{ cli.fecha_nac|date:' d-m-Y' }}" disabled/>
+                          </div>
+                      </div>
+                      <div class=" w3l-form-group">
+                          <label>Datos de Contacto</label>
+                          <div class="group">
+                              <i class="fas fa-at"></i>
+                              <input type="email" class="form-control" value="{{ cli.email }}" required="required" disabled/>
+                          </div>
+                          <div class="group">
+                              <i class="fas fa-phone-alt"></i>
+                              <input type="number" name="telefono" class="form-control" value="{{ cli.telefono }}" required minlength="9" maxlength="14" />
+                          </div>
+                      </div>
+                      <div class=" w3l-form-group">
+                          <label>Dirección</label>
+                          <div class="group">
+                              <i class="fas fa-address-card"></i>
+                              <input type="text" name="direccion" class="form-control" value="{{ cli.direccion  }}" required minlength="5" maxlength="100" />
+                          </div>
+                          <div class="group">
+                              <i class="fas fa-map-marked-alt"></i>
+                              <select name="comuna" id="comuna" required>
+                                  <option value="999">Selecciona tu Comuna</option>
+                                  {% for comuna in comuna %}
+                                    <option value="{{ com.id_comuna.id_comuna }}" {% if comuna.id_comuna ==  cli.id_comuna.id_comuna  %}selected {% endif %} >{{ comuna.nombre_comu }}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-4">&nbsp</div>
+                            <div class="col-2"><button class="btn btn-primary btn-lg center" type="submit">Guardar Cambios</button></div>
+                            <div class="col-5">&nbsp</div>
+                          </div>
+                      </div>
+
+                      </form>
+                  </div>
                 </div>
-            </div>
-            <div class="w3l-form-group">
-                <label>Fecha de Nacimiento:</label>
-                <div class="group select date">
-                    <input type="text" value="{{ cli.fecha_nac|date:' d-m-Y' }}" disabled/>
-                </div>
-            </div>
-            <div class=" w3l-form-group">
-                <label>Datos de Contacto</label>
-                <div class="group">
-                    <i class="fas fa-at"></i>
-                    <input type="email" class="form-control" value="{{ cli.email }}" required="required" disabled/>
-                </div>
-                <div class="group">
-                    <i class="fas fa-phone-alt"></i>
-                    <input type="number" name="telefono" class="form-control" value="{{ cli.telefono }}" required minlength="9" maxlength="14" />
-                </div>
-            </div>
-            <div class=" w3l-form-group">
-                <label>Dirección</label>
-                <div class="group">
-                    <i class="fas fa-address-card"></i>
-                    <input type="text" name="direccion" class="form-control" value="{{ cli.direccion  }}" required minlength="5" maxlength="100" />
-                </div>
-                <div class="group">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <select name="comuna" id="comuna" required>
-                        <option value="999">Selecciona tu Comuna</option>
-                        {% for comuna in comuna %}
-                          <option value="{{ com.id_comuna.id_comuna }}" {% if comuna.id_comuna ==  cli.id_comuna.id_comuna  %}selected {% endif %} >{{ comuna.nombre_comu }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-4">&nbsp</div>
-                  <div class="col-2"><button class="btn btn-primary btn-lg center" type="submit">Guardar Cambios</button></div>
-                  <div class="col-5">&nbsp</div>
-                </div>
+              </div>
             </div>
 
-            </form>
+          </div>
+
         </div>
     </section>
     <br><br>
     <!-- Ficha End -->
-    <!-- RESERVAS START-->
-    <div class="container">
-		<div class="row">
-			<div class="col">
-				<table class="table table-hover table-bordered table-striped">
-					<thead>
-						<tr class="bg-primary">
-							<th scope="col">N°</th>
-							<th scope="col">ESTADO</th>
-              <th scope="col">LUGAR</th>
-              <th scope="col">FECHA IN</th>
-              <th scope="col">FECHA OUT</th>
-              <th scope="col">ACCIONES</th>
-						</tr>
-					</thead>
-					<tbody>
-            {% for res in res %}
-						<tr>
-  							<td>{{ res.id_reserva }}</td>
-  							<td>{{ res.id_estado_rese.nombre_reserv }}</td>
-                <td>{{ res.id_propiedad.nombre_propie }}</td>
-                <td>{{ res.fecha_inicio_reser|date:" d-m-Y" }}</td>
-                <td>{{ res.fecha_termino_reser|date:" d-m-Y" }}</td>
-                <td><a class="btn btn-primary btn-lg center" href="{% url 'AgregaInfoAcompa' res.id_reserva %}">ACOMPAÑENTES</a>
-                    {% if res.id_estado_rese.id_estado_rese == 1 or res.id_estado_rese.id_estado_rese == 3  %}
-                      <a class="btn btn-primary btn-lg center" href="{% url 'pagoreserva' res.id_reserva %}">PAGAR</a></td>
-                    {% endif %}
-						</tr>
-            {% endfor %}
-					</tbody>
-				</table>
-			</div>
-		</div>
-    </div>
+
+
+<script type="text/javascript">
+  $('#myCollapsible').on('hidden.bs.collapse', function () {
+// do something…
+})
+</script>
+
 {% endblock contenido %}

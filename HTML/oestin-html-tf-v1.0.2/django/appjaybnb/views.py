@@ -13,7 +13,7 @@ from django.views import generic
 import cx_Oracle
 from django.db.models.query import QuerySet
 from django_group_by import GroupByMixin
-from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, FormaPago, EstadoPago, Pago
+from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, FormaPago, EstadoPago, Pago, ServicioAdicional, EmpresaExterna
 from datetime import date
 
 #conexion base de datos
@@ -295,19 +295,35 @@ def Pagos(request):
         mediopago = request.POST['formadepago']
         id_mpago = FormaPago.objects.get(id_formapag=mediopago)
         idestadopago = EstadoPago.objects.get(idestadopago=1)
+
+
+
+
         try:
-            # create a connection to the Oracle Database
-            #connection = cx_Oracle.connect("hr", userpwd, "dbhost.example.com/orclpdb1", encoding="UTF-8")
 
             cur = conn.cursor()
             cur.callproc('pkg_pago.sp_realizar_pago', (int(montoapagar), 999, "A", id_mpago.id_formapag, id_reserva.id_reserva))
 
+            #Bloque Servicio Extras
+            serv1 = request.POST['servicio1']
+            print(serv1)
+            servi1canti = request.POST['servi1canti']
+            print(servi1canti)
+            if serv1 != "":
+                cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (serv1, "", servi1canti, id_reserva.id_reserva))
+
+            serv2 = request.POST['servicio2']
+            print(serv2)
+            servi2canti = request.POST['servi2canti']
+            print(servi2canti)
+
+            if serv2 != "":
+                cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (serv2, "", servi2canti, id_reserva.id_reserva))
 
         except Exception as errr:
             print("error: ", errr)
         else:
             try:
-                #cur.callproc('pkg_reservas.sp_crear_reserva', (fechaini, fechafin, cantidad, idpropiedad, idcliente))
                 print("Pasó por aquí?")
             except:
                 print("No funciono")
@@ -333,7 +349,14 @@ def Pagos(request):
         prop = Propiedad.objects.all()
         mitad_monto = id_reserva.monto_total / 2
         print(int(mitad_monto))
-    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com})
+        emp1 = EmpresaExterna.objects.get(id_empresa_ext=1)
+        emp2 = EmpresaExterna.objects.get(id_empresa_ext=2)
+        serv1 = ServicioAdicional.objects.filter(id_empresa_ext=emp1.id_empresa_ext);
+        print(serv1)
+        serv2 = ServicioAdicional.objects.filter(id_empresa_ext=emp2.id_empresa_ext);
+        print(serv2)
+        print(id_reserva.cantidad_acompa)
+    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com, 'serv1':serv1, 'serv2':serv2, 'n':range(1, id_reserva.cantidad_acompa+1) })
 
 @login_required
 def PagoReserva(request, pk):
@@ -390,7 +413,11 @@ def PagoReserva(request, pk):
         prop = Propiedad.objects.all()
         mitad_monto = id_reserva.monto_total / 2
         print(int(mitad_monto))
-    return render(request, 'pagos/pagoreserva.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com})
+        emp1 = EmpresaExterna.objects.get(id_empresa_ext=1)
+        emp2 = EmpresaExterna.objects.get(id_empresa_ext=2)
+        serv1 = ServicioAdicional.objects.filter(id_empresa_ext=emp1);
+        serv2 = ServicioAdicional.objects.filter(id_empresa_ext=emp2);
+    return render(request, 'pagos/pagoreserva.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com, 'serv1':serv1, 'serv2':serv2 })
 
 
 @login_required

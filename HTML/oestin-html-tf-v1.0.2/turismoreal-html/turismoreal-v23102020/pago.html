@@ -9,6 +9,16 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <script src="https://kit.fontawesome.com/d52d9be8d1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+       <!-- All css here -->
+       <link rel="stylesheet" href="css/bootstrap.min.css">
+       <link rel="stylesheet" href="css/font-awesome.min.css">
+       <link rel="stylesheet" href="css/shortcode/shortcodes.css">
+       <link rel="stylesheet" href="style.css">
+       <link rel="stylesheet" href="css/responsive.css">
+       <link rel="stylesheet" href="css/micss.css">
+       <link rel="stylesheet" href="css/check-box.css">
+       <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+       <script src="js/validafecha.js"></script>
 <style>
 * {
   box-sizing: border-box;
@@ -77,7 +87,83 @@ input[type=submit]:hover {
 </head>
 <body>
 
+<!-- SERVICIO ADICIONALES START-->
+<section >
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-9 col-md-8">
+              <h3 class="room-details-title">SERVICIOS ADICIONALES</h3>
+              <!-- Tab links -->
+              <div class="tab">
+                  <button class="tablinks" onclick="openCity(event, 'TOURS')">TOURS</button>
+                  <button class="tablinks" onclick="openCity(event, 'TRASLADO')">TRASLADOS</button>
+              </div>
+              <!-- Tab content -->
+              <div id="TOURS" class="tabcontent">
+                  <h3>Organiza desde ya tu estadía con tours guiados</h3>
+                  <label for="tour" class="content-input">
+                      <input type="checkbox" name="tour" id="tour" value="tour">Tour 1
+                      <i></i>
+                  </label>
+                  <label for="tour2" class="content-input">
+                      <input type="checkbox" name="tour2" id="tour2" value="tour2">Tour 2
+                      <i></i>
+                  </label>
+                  <h3>Cantidad de Pasajeros</h3>
+                  <div class="content-select">
+                      <select>
+                          <option> 1</option>
+                          <option> 2</option>
+                          <option> 3</option>
+                          <option> 4</option>
+                      </select>
+                      <i></i>
+                  </div>
+              </div>
+              
+              <div id="TRASLADO" class="tabcontent" style="background-color: #f1f1f1;">
+                  <h3>Llega a tiempo y seguro a los destinos</h3>
+                  <br>
+                  <label for="ida" class="content-input">
+                      <input type="checkbox" name="ida" id="ida" value="ida"> Traslado a la Propiedad
+                      <i></i>
+                  </label>
+                  <label for="vuelta" class="content-input">
+                      <input type="checkbox" name="vuelta" id="vuelta" value="vuelta">Traslado a Terminal / Aeropuerto
+                      <i></i>
+                  </label>
+                  <br>
+                  <h3>Cantidad de Pasajeros</h3>
+                  <div class="content-select">
+                      <select>
+                          <option> 1</option>
+                          <option> 2</option>
+                          <option> 3</option>
+                          <option> 4</option>
+                      </select>
+                      <i></i>
+                  </div>
+           </div>
+  
+              <br>
+              <div>
+                  <h3 class="room-details-title">INFORMACIÓN DE ACOMPAÑANTES  </h3>   
+                  <div class="w3l-form-group">
+                      <i class="fas fa-user-plus"></i>
+                      <input type="text" class="form-control" placeholder="NOMBRES" required minlength="3" maxlength="50"   />
+                      <input type="text" class="form-control" placeholder="APELLIDOS MATERNO" required minlength="3" maxlength="50"   />
+                      <input type="text" class="form-control" placeholder="APELLIDOS PATERNO" required minlength="3" maxlength="50"   />
+                      <input type="number" class="form-control" placeholder="912345678" required minlength="9" maxlength="14" />
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
 <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; color: #00bcd4;text-align: center;">Pago con Transferencia</h2>
+
 
 <div class="container" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
   <form action="#">
@@ -122,6 +208,28 @@ input[type=submit]:hover {
     </div>
   </form>
 </div>
+<script>
+  function openCity(evt, cityName) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+    
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+    
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+    
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+  </script>   
 
 </body>
 </html>
