@@ -62,10 +62,15 @@
                                 <td>{{ res.id_propiedad.nombre_propie }}</td>
                                 <td>{{ res.fecha_inicio_reser|date:" d-m-Y" }}</td>
                                 <td>{{ res.fecha_termino_reser|date:" d-m-Y" }}</td>
-                                <td><a class="btn btn-primary btn-lg center" href="{% url 'AgregaInfoAcompa' res.id_reserva %}">ACOMPAÑANTES</a>
-                                    {% if res.id_estado_rese.id_estado_rese == 1 or res.id_estado_rese.id_estado_rese == 3  %}
-                                      <a class="btn btn-primary btn-lg center" href="{% url 'pagoreserva' res.id_reserva %}">PAGAR</a></td>
-                                    {% endif %}
+                                <td>
+                                {% if not res.id_reserva in acomplist %}
+                                  <a class="btn btn-primary btn-lg center" href="{% url 'AgregaInfoAcompa' res.id_reserva %}">ACOMPAÑANTES</a>
+                                {% endif %}
+
+                                {% if res.id_estado_rese.id_estado_rese == 1 or res.id_estado_rese.id_estado_rese == 3  %}
+                                  <a class="btn btn-primary btn-lg center" href="{% url 'pagoreserva' res.id_reserva %}">PAGAR</a>
+                                {% endif %}
+                                </td>
                 						</tr>
                             {% endfor %}
                 					</tbody>

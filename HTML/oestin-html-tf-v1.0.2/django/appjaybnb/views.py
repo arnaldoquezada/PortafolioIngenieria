@@ -13,7 +13,7 @@ from django.views import generic
 import cx_Oracle
 from django.db.models.query import QuerySet
 from django_group_by import GroupByMixin
-from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, FormaPago, EstadoPago, Pago, ServicioAdicional, EmpresaExterna
+from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, FormaPago, EstadoPago, Pago, ServicioAdicional, EmpresaExterna, Acompanante
 from datetime import date
 
 #conexion base de datos
@@ -179,7 +179,14 @@ def perfil(request):
         comu = Region()
         com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
 
-    return render(request, 'core/perfil.html',{'prop': prop, 'cli':cli, 'res':res, 'comuna':comuna, 'com':com})
+        acomp = Acompanante.objects.all()
+        acomplist = []
+        for ac in acomp:
+            acomplist.append(ac.id_reserva.id_reserva)
+
+        print(acomplist)
+
+    return render(request, 'core/perfil.html',{'prop': prop, 'cli':cli, 'res':res, 'comuna':comuna, 'com':com, 'acomplist':acomplist})
 
 def team(request):
     comu = Region()
@@ -305,20 +312,27 @@ def Pagos(request):
             cur.callproc('pkg_pago.sp_realizar_pago', (int(montoapagar), 999, "A", id_mpago.id_formapag, id_reserva.id_reserva))
 
             #Bloque Servicio Extras
-            serv1 = request.POST['servicio1']
-            print(serv1)
+            serv1 = request.POST.getlist('product')
             servi1canti = request.POST['servi1canti']
-            print(servi1canti)
-            if serv1 != "":
-                cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (serv1, "", servi1canti, id_reserva.id_reserva))
 
-            serv2 = request.POST['servicio2']
-            print(serv2)
+            if len(serv1) > 0:
+                for precio in serv1:
+                    servi1 = ServicioAdicional.objects.get(valor_servicio_extra=precio)
+                    cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (servi1.id_servicio_extra, "", servi1canti, id_reserva.id_reserva))
+
+
+            #if serv1 != "":
+                #cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (serv1, "", servi1canti, id_reserva.id_reserva))
+
+            serv2 = request.POST.getlist('producttraslado')
             servi2canti = request.POST['servi2canti']
-            print(servi2canti)
 
-            if serv2 != "":
-                cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (serv2, "", servi2canti, id_reserva.id_reserva))
+            if len(serv2) > 0:
+                for precio in serv2:
+                    servi2 = ServicioAdicional.objects.get(valor_servicio_extra=precio)
+                    cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (servi2.id_servicio_extra, "", servi2canti, id_reserva.id_reserva))
+            #if serv2 != "":
+                #cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (serv2, "", servi2canti, id_reserva.id_reserva))
 
         except Exception as errr:
             print("error: ", errr)
@@ -578,15 +592,56 @@ def AgregaAcompanante(request, pk):
     else:
         acomp = ''
         acomp = request.POST.getlist("acomp")
-        split_strings = [] #El string lo dividimos en grupos de 5 caracateres
-        n = 5
-        for index in range(0, len(acomp), n): #Creamos una lista anidada para dividir los datos de los acompañantes por cada uno
-            split_strings.append(acomp[index : index + n])
 
-        for i in range(len(split_strings)):
-            for j in range(len(split_strings[i])):
-                print("---Print Elements---")
-                print(split_strings[i][j])
+        lista_nueva = []
+        for i in range(0, len(acomp), 5):
+            lista_nueva.append(acomp[i:i+5])
+        print(lista_nueva)
+
+        try:
+            # create a connection to the Oracle Database
+            #connection = cx_Oracle.connect("hr", userpwd, "dbhost.example.com/orclpdb1", encoding="UTF-8")
+
+            cur = conn.cursor()
+
+            for list in lista_nueva:
+                print(list[0], list[1],)
+                date_format = "%Y-%m-%d"
+                f_nac = datetime.strptime(list[3], date_format)
+                cur.callproc('pkg_acompanantes.sp_crear_acompanante', (list[0], list[1],list[2],f_nac,list[4],pk))
+
+
+        except Exception as errr:
+            print("error: ", errr)
+        else:
+            try:
+                #cur.callproc('pkg_reservas.sp_crear_reserva', (fechaini, fechafin, cantidad, idpropiedad, idcliente))
+                print("Pasó por aquí?")
+            except:
+                print("No funciono")
+            else:
+                print("Funciono el procedimiento")
+                return redirect('perfil')
+            finally:
+                print("Cerrando Conexión")
+                cur.close()
+        finally:
+            print("Termino el proceso")
+
+        return redirect('home')
+
+
+
+
+#        split_strings = [] #El string lo dividimos en grupos de 5 caracateres
+#        n = 5
+#        for index in range(0, len(acomp), n): #Creamos una lista anidada para dividir los datos de los acompañantes por cada uno
+#            split_strings.append(acomp[index : index + n])
+#
+#        for i in range(len(split_strings)):
+#            for j in range(len(split_strings[i])):
+#                print("---Print Elements---")
+#                print(split_strings[i][j])
 
 
         return redirect('perfil')
