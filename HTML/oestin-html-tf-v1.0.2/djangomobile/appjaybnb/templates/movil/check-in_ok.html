@@ -1,20 +1,12 @@
-{% extends  'movil/basemenu.html' %}
-
+{% extends  'movil/base.html' %}
 {% block contenido %}
 {% load static %}
-        <section>
-            <br><br>
-            <h3 class="room-details-title">Check-in.<br></h3>
-            <div class=" w3l-form-group">
+        <div class="formulario">
                 <div class="group">
-                    <i class="fas fa-check-circle"></i>
-                <label>Check-in en Propiedad realizado con éxito.</label>
+                    <i style="color: green;" class="fas fa-check-circle"> <label style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; padding: 1px;"> CHECK-IN EXITOSO</label></i>
+                    <label>Check-in en Propiedad realizado con éxito.</label>
                 </div>
-                <div class="group">
-                  <a href="{% url 'home' %}" class="btn btn-primary" role="button" style="margin-left: 130px; height: 34px;">Volver al Menu</a> 
-                </div>
-
-            </div>
-
-        </section>
+                <br>
+                <a href="{% url 'home' %}" class="btn btn-primary" role="button" style="width: 200px; margin-left: 20px;">Volver al Menu</a>
+        </div>
 {% endblock contenido %}

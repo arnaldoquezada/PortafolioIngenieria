@@ -1,41 +1,64 @@
-{% extends  'movil/basemenu.html' %}
-
+{% extends  'movil/base.html' %}
 {% block contenido %}
 {% load static %}
-        <section>
-            <br><br>
-            <h3 class="room-details-title">CHECK-OUT RESERVA N°{{ res.id_reserva }}<br></h3>
-            <h3 class="room-details-title">INVENTARIO<br></h3>
-            <ul style="color: aliceblue; margin-left: 20px;">
-
-                {% for prop in prop %}
-                  <li>{{ prop.cantidad }} {{ prop.id_inventario.nombre_inven }}</li>
-                {% endfor %}
+        <div class="formulario">
+            <h3 class="h-menu">Check-out <br><br>
+              Reserva N° {{ res.id_reserva }}</h3>
+            <hr class="hr-new">
+            <label><b>Check-list de Daños</b></label><br>
+            <p>Selecciona los items que tienen daños</p>
+            <ul style="color: aliceblue;font-size: 20px">
+              {% for prop in prop %}
+                <input type="checkbox" name="product" value="{{ prop.id_inventario.costo }}" onclick="totalIt()"> {{ prop.cantidad }} {{ prop.id_inventario.nombre_inven }}<br>
+              {% endfor %}
             </ul>
             <br>
             <form action="" method="POST">
             {% csrf_token %}
-                <h3 class="room-details-title">DAÑOS A LA PROPIEDAD<br></h3>
-                <div class="multa" id="multa">
-                    <label for="detalle" style="margin-left: 5px;" >Detalle Daño:
-                        <input type="text" id="detalle" name="detalle" value="Ninguno"><br><br>
-                    </label>
-                    <label for="montomulta" style="margin-left: 5px;" >Monto Multa:
-                        <input type="text" id="montomulta" name="montomulta" value="0"><br><br>
-                    </label>
-                </div>
-                <label for="obs" style="margin-left: 5px;" >Observaciones:
-                    <input type="text" id="obs" name="obs" value="Ninguna"><br><br>
+                <input name="idreserva" type="hidden" value="{{ res.id_reserva }}">
+                <input type="hidden" id="detalle" name="detalle" value="Realizada">
+
+                <label for="multa" style="margin-left: 5px;" >Monto Multa:
+                    <input type="text" id="montomulta" name="montomulta" value="$0" style="border-radius: 5px;"><br><br>
                 </label>
-                <!-- La idea es que el botón haga solo el ingreso del check-in con  un datatime -->
-                <div class="group">
-                    <input name="idreserva" type="hidden" value="{{ res.id_reserva }}" required/>
-                    <button class="btn-primary btn-lg" type="submit">Realizar Check-Out</button>
+                <label for="obs" style="margin-left: 5px;" >Observaciones:
+                    <input type="text" id="obs" name="obs" style="border-radius: 5px;"><br><br>
+                </label>
+                <div class="form-group" >
+                    <p style="color: ivory; margin-left: 20; margin-right: 20; font-size: 14px; text-align: justify;"> Yo <b>{{ res.id_cliente.nombres_clien}} {{res.id_cliente.apellido_p }}</b> de identificación <b>{{ res.id_cliente.rut }}</b> confirmo que las condiciones del departamento son las indicadas en esta lista según los detalles estipulados en los términos y condiciones al momento de realizar la reservas</p>
                 </div>
+                <label for="salida" class="content-input">
+                    <input type="checkbox" name="salida" id="salida" value="salida" onclick="terms_changed(this)"> Acepto Condiciones de Salida
+                    <i style="margin-left: 5px"></i>
+                </label>
+                <br>
+                <button class="btn-secundary btn-lg" id="submit_button" role="button" type="submit" style="width: 200px; margin-left: 20px;" disabled>Aceptar</button>
             </form>
-            <br>
-            <div> . </div>
-        </section>
+        </div>
 
+        <script type="text/javascript">
+            function terms_changed(termsCheckBox){
+                if(termsCheckBox.checked){
+                    document.getElementById("submit_button").disabled = false;
+                } else{
+                    document.getElementById("submit_button").disabled = true;
+                }
+            }
+        </script>
 
-{% endblock contenido %}
+        <script type="text/javascript">
+            function totalIt() {
+            var input = document.getElementsByName("product");
+            var total = 0;
+
+            for (var i = 0; i < input.length; i++) {
+              if (input[i].checked) {
+                total += parseFloat(input[i].value);
+                console.log(total);
+              }
+            }
+
+            document.getElementsByName("montomulta")[0].value = "$" + total.toFixed(0);
+          }
+        </script>
+  {% endblock contenido %}

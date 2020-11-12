@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+         <!-- Favicon Icon -->
+         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+        <!--Iconos-->
+        <script src="https://kit.fontawesome.com/d52d9be8d1.js" crossorigin="anonymous"></script>
+        <!--CSS-->
+        <link rel="stylesheet" href="css/style.css" >
+        <title>Turismo Real</title>
+    </head>
+    <head class="header-area">
+        <img src="img/logo/logo.png" class="img-fluid" alt="Responsive image">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark secondary-color">
+            <!-- Navbar brand -->
+            <a class="navbar-nav" href="main_menu.html" style="color: beige;">MENÚ</a>
+
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a clas="nav-link" href="login.html">Cerrar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="buscar_propiedad.html">Check-in</a>   
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="buscar_propiedad.html">Check-out</a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="formulario">
+            <h3 class="h-menu">Check-in </h3>
+            <hr class="hr-new">
+            <label> Comprobar datos del arrendatario</label>
+            <div class="form-group">
+                <i class="fas fa-user" > <label style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Nombre: </label></i> <br>
+                <input style="border-radius: 5px; width: 238px;height: 36px;background-color:lightgray;" value="Carol" type="text"  disabled name="id_depto">
+            </div>
+            <div class="form-group">
+                <i class="fas fa-user" > <label style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Apellido Paterno: </label></i> 
+                <input type="text"  value="Valdebenito" disabled style="border-radius: 5px; width: 238px;height: 36px;background-color:lightgray;"/>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-user" > <label style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Apellido Materno: </label></i>  
+            <input type="text"  value="Valdenegro" disabled style="border-radius: 5px; width: 238px;height: 36px;background-color:lightgray;"/>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-id-card"><label style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">. Cédula / Pasaporte </label></i>
+                <input type="text" class="form-control" value="17705980-3" disabled style="border-radius: 5px; width: 238px;height: 36px;background-color:lightgray;"/>
+            </div>
+            <br>
+            <label style="text-align: justify; width: 238px;">Si los datos no son válidos no es posible proseguir con la entrega de la propiedad, al menos que exista autorización prevía por e-mail desde administración</label>
+            <br>
+            <br>
+            <div>
+                <a href="buscar_propiedad.html" class="btn btn-danger" role="button" style="width: 126px;">Cancelar</a>
+                <a href="check-in_ok.html" class="btn btn-primary" role="button" style="width: 126px;">Siguiente</a>
+            </div>
+            
+        </div>
+        
+        
+        <footer>
+            <div class="footer-bottom-area bg-black">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="footer-text text-center">
+                                <br>
+                                <br>
+                                <span style="color: black;">Copyright © 2020 <a style="color: blue; font-family: 'Trebuchet MS';">JayBnB</a> <br>Derechos Reservados.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- All js here -->
+        <script src="js/jquery-3.5.1.min.js"></script>
+        <script src="js/bootstrap.min.js"> </script> 
+        <script src="js/bootstrap.bundle.min.js"> </script>
+        <script src="js/bootstrap.bundle.js"></script>
+        
+    </body>
+</html>

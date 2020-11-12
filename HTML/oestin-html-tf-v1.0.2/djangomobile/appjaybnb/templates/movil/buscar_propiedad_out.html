@@ -1,0 +1,17 @@
+{% extends  'movil/base.html' %}
+{% block contenido %}
+{% load static %}
+        <div class="formulario">
+            <h3 class="h-menu">Buscar Propiedad</h3>
+            <hr class="hr-new">
+            <label>Ingrese ID de propiedad :</label>
+            <form action="" method="POST">
+            {% csrf_token %}
+              <div class="form-group">
+                  <i class="fas fa-search"></i>
+                  <input class="input-field" style="border-radius: 5px;" type="search"  name="idpropiedad">
+              </div>
+              <button class="btn btn-primary " style="width: 90%;" type="submit">Buscar</button>
+            </form>
+        </div>
+{% endblock contenido %}

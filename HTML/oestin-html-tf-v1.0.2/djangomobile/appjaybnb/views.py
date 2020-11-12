@@ -90,7 +90,7 @@ def busqueda(request):
             return render(request, 'movil/result_busqueda.html', {'sinres':sinres})
     else:
         comuna = Comuna.objects.all()
-    return render(request, 'movil/busqueda.html')
+    return render(request, 'movil/buscar_propiedad.html')
 
 @login_required
 def resubusqueda(request):
@@ -176,7 +176,7 @@ def busqueda_out(request):
             return render(request, 'movil/result_busqueda_out.html', {'sinres':sinres})
     else:
         comuna = Comuna.objects.all()
-    return render(request, 'movil/busqueda_out.html')
+    return render(request, 'movil/buscar_propiedad_out.html')
 
 @login_required
 def aceptaCheckOut(request, pk):
@@ -185,6 +185,7 @@ def aceptaCheckOut(request, pk):
         idres = request.POST["idreserva"]
         detalle = request.POST["detalle"]
         montomulta = request.POST["montomulta"]
+        print(montomulta.replace('$',''))
         obs = request.POST["obs"]
 
         print("Print Acepta POST id reserva "+idres)
@@ -204,7 +205,7 @@ def aceptaCheckOut(request, pk):
             #connection = cx_Oracle.connect("hr", userpwd, "dbhost.example.com/orclpdb1", encoding="UTF-8")
 
             cur = conn.cursor()
-            cur.callproc('sp_crear_checklist', (now, detalle, obs, montomulta, res.id_reserva))
+            cur.callproc('sp_crear_checklist', (now, detalle, obs, montomulta.replace('$',''), res.id_reserva))
 
 
         except Exception as errr:

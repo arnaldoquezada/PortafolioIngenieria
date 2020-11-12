@@ -1,36 +1,31 @@
-{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
          <!-- Favicon Icon -->
-         <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
         <!--Iconos-->
         <script src="https://kit.fontawesome.com/d52d9be8d1.js" crossorigin="anonymous"></script>
         <!--CSS-->
-        <link rel="stylesheet" href="{% static 'css/style.css' %}" >
+        <link rel="stylesheet" href="css/style.css" >
         <title>Turismo Real</title>
     </head>
     <head class="header-area">
-        <img src="{% static 'img/logo/logo.png' %}" class="img-fluid" alt="Responsive image">
+        <img src="img/logo/logo.png" class="img-fluid" alt="Responsive image">
     </head>
 
     <body>
         <div class="formulario">
-            {% if form.errors %}
-                <p style="color:#FFFFFF"> <span class="fas fa-close"></span> &nbsp Su <b>Nombre de usuario y Contreseña</b> No Coinciden. Por favor intente nuevamente.</p>
-            {% endif %}
-            <form action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
+            <form action="/action_page.php">
                 <h2>Inicio de Sesión</h2>
                 <br>
                 <br>
                 <div class="form-group">
                   <i class="fa fa-user icon"></i>
-                  <input class="input-field" type="email" name="username" placeholder="usuario@turismo-real.cl" name="usuario">
+                  <input class="input-field" type="email" placeholder="usuario@turismo-real.cl" name="usuario">
                 </div>
                 <br>
                 <div class="form-group">
@@ -40,11 +35,11 @@
                 <div  class="form-group">
                     <i >Si no recuerdas tu contraseña, <br> contacta al administrador</i>
                 </div>
-                <button class="btn-lg btn-primary active" type="submit">Iniciar Sesión</button>
-
+                <a href="main_menu.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ingresar</a>
+                
             </form>
         </div>
-
+        
         <footer>
             <div class="footer-bottom-area bg-black">
                 <div class="container">
