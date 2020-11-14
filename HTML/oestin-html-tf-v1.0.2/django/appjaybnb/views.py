@@ -230,7 +230,6 @@ def preRoomDetail(request, pk):
             cur = conn.cursor()
             cur.callproc('pkg_reservas.sp_crear_reserva', (fini, ffin, cantidad, idpropiedad, idcliente))
 
-
         except Exception as errr:
             print("error: ", errr)
         else:
@@ -245,6 +244,17 @@ def preRoomDetail(request, pk):
                 reserva = Reserva.objects.latest('id_reserva')
                 print(reserva.id_reserva)
                 mitad_monto = reserva.monto_total / 2
+
+                #Enviar email al cliente con la info de la reserva
+                mensaje = "Se ha generado la reserva N°"+str(reserva.id_reserva)+", los datos han sido enviado a su email."
+                subject = "Creación de Reserva - Turismo Real"
+                message = "Desde nuestro portal usted ha realizado una reserva de la propiedad "+str(reserva.id_propiedad.nombre_propie)+". Su reserva es la N°"+str(reserva.id_reserva)+". Recuerde que debe cancelar el pago de la reserva antes de 3 horas, de lo contrario su reserva será anulada."
+                from_email = cliente.email
+                try:
+                    send_mail(subject, message, 'contacto@turismo-real.com', [from_email])
+                    messages.success(request, mensaje)
+                except BadHeaderError:
+                    return HttpResponse('Invalid header found.')
 
                 return redirect('pago')
             finally:
@@ -557,26 +567,31 @@ def Disponibilidad(request):
 
     return render(request, 'propiedades/room-details.html', {'prop':prop })
 
-
-
 def contacto(request):
     comu = Region()
     com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     prop = Propiedad.objects.all()
-    if request.method == 'GET':
-        form = ContactForm()
-    else:
-        request.method == 'POST'
+
+    if request.method == "POST":
         form = ContactForm()
         subject = request.POST['name']
         from_email = request.POST['email']
         message = request.POST['message']
-        try:
-            send_mail(subject, message, from_email, ['admin@example.com'])
-            return redirect('contacto')
-        except BadHeaderError:
-            return HttpResponse('Invalid header found.')
-        return redirect('success')
+        print(subject+" "+from_email+" "+message)
+        if subject and message and from_email:
+            try:
+                send_mail(subject, message, from_email, ['contacto@turismo-real.com'])
+                messages.success(request, 'Su Mensaje fue enviado con éxito, muy pronto se contactarán con usted.')
+                return redirect('contacto')
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('pagoexito')
+        else:
+            print("Entro al Else?")
+            return HttpResponse('Make sure all fields are entered and valid.')
+    else:
+        print("Es GET")
+        prop = Propiedad.objects.all()
     return render(request, "contacto/contact.html",{'prop': prop, 'com':com})
 
 def successView(request):

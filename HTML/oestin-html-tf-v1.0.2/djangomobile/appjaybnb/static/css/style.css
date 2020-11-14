@@ -81,4 +81,8 @@ input :disabled{
     background-color: -internal- lightgray
  }
 
-
+ .btn-primary.disabled, .btn-primary:disabled {
+     color: #fff;
+     background-color: #686b6d;
+     border-color: #007bff;
+ }
