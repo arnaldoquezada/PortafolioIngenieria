@@ -13,7 +13,7 @@ from django.views import generic
 import cx_Oracle
 from django.db.models.query import QuerySet
 from django_group_by import GroupByMixin
-from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, FormaPago, EstadoPago, Pago, ServicioAdicional, EmpresaExterna, Acompanante
+from .models import Imagen, Propiedad, DetallePropiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, FormaPago, EstadoPago, Pago, ServicioAdicional, EmpresaExterna, Acompanante
 from datetime import date
 
 #conexion base de datos
@@ -293,7 +293,9 @@ def preRoomDetail(request, pk):
         totestadia = totnoches.days * prop.valor_noche
         print(prop.id_propiedad)
         img = Imagen.objects.filter(id_propiedad=pk)
-    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'img':img, 'com':com, 'reserva':reserva, 'totnoches':totnoches, 'totestadia':totestadia, 'n':range(acomp)})
+        inv = DetallePropiedad.objects.filter(id_propiedad=pk)
+
+    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'inv':inv, 'img':img, 'com':com, 'reserva':reserva, 'totnoches':totnoches, 'totestadia':totestadia, 'n':range(acomp)})
 
 @login_required
 def Pagos(request):
@@ -319,7 +321,7 @@ def Pagos(request):
         try:
 
             cur = conn.cursor()
-            cur.callproc('pkg_pago.sp_realizar_pago', (int(montoapagar), 999, "A", id_mpago.id_formapag, id_reserva.id_reserva))
+            cur.callproc('pkg_pago.sp_realizar_pago', (int(montoapagar), 999, id_mpago.id_formapag, id_reserva.id_reserva))
 
             #Bloque Servicio Extras
             serv1 = request.POST.getlist('product')
@@ -398,34 +400,25 @@ def PagoReserva(request, pk):
         montoapagar = request.POST['montoapagar']
         mediopago = request.POST['formadepago']
         id_mpago = FormaPago.objects.get(id_formapag=mediopago)
-        idestadopago = EstadoPago.objects.get(idestadopago=1)
+
         try:
-            # create a connection to the Oracle Database
-            #connection = cx_Oracle.connect("hr", userpwd, "dbhost.example.com/orclpdb1", encoding="UTF-8")
 
             cur = conn.cursor()
-            cur.callproc('pkg_pago.sp_realizar_pago', (int(montoapagar), 999, "A", id_mpago.id_formapag, id_reserva.id_reserva))
-
+            cur.callproc('pkg_pago.sp_realizar_pago_faltante', (int(montoapagar), 999, id_mpago.id_formapag, id_reserva.id_reserva))
 
         except Exception as errr:
             print("error: ", errr)
         else:
             try:
-                #cur.callproc('pkg_reservas.sp_crear_reserva', (fechaini, fechafin, cantidad, idpropiedad, idcliente))
                 print("Pasó por aquí?")
             except:
                 print("No funciono")
             else:
                 print("Funciono el procedimiento")
-
-                reserva = Reserva.objects.latest('id_reserva')
-                print(reserva.id_reserva)
-                mitad_monto = reserva.monto_total / 2
-
                 if (id_mpago.id_formapag==3):
                     return redirect('transferencia')
                 else:
-                    return redirect('pagoexito')
+                    return redirect('pagopendienteexito')
             finally:
                 print("Cerrando Conexión")
                 cur.close()
@@ -433,15 +426,10 @@ def PagoReserva(request, pk):
             print("Termino el proceso")
 
     else:
-        print("Es GET EN PAGO")
-        prop = Propiedad.objects.all()
-        mitad_monto = id_reserva.monto_total / 2
-        print(int(mitad_monto))
-        emp1 = EmpresaExterna.objects.get(id_empresa_ext=1)
-        emp2 = EmpresaExterna.objects.get(id_empresa_ext=2)
-        serv1 = ServicioAdicional.objects.filter(id_empresa_ext=emp1);
-        serv2 = ServicioAdicional.objects.filter(id_empresa_ext=emp2);
-    return render(request, 'pagos/pagoreserva.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com, 'serv1':serv1, 'serv2':serv2 })
+        print("Es GET EN PAGO Pendiente")
+        pago = Pago.objects.get(id_reserva=id_reserva)
+
+    return render(request, 'pagos/pagoreserva.html',{'id_reserva': id_reserva, 'pago':pago})
 
 
 @login_required
@@ -450,6 +438,13 @@ def pagoexito(request):
     com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     prop = Propiedad.objects.all()
     return render(request, 'info/pagoExitoso.html',{'prop': prop, 'com':com})
+
+@login_required
+def pagopendienteexito(request):
+    comu = Region()
+    com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
+    prop = Propiedad.objects.all()
+    return render(request, 'info/pagoPendienteExitoso.html',{'prop': prop, 'com':com})
 
 @login_required
 def transferencia(request):
@@ -513,8 +508,9 @@ def detallePropiedad(request,pk):
         print("Es GET")
         prop = Propiedad.objects.all()
         img = Imagen.objects.filter(id_propiedad=pk)
+        inv = DetallePropiedad.objects.filter(id_propiedad=pk)
 
-    return render(request, 'propiedades/room-details.html', {'img': img, 'detalleprop':detalleprop, 'prop':prop, 'com':com })
+    return render(request, 'propiedades/room-details.html', {'img': img, 'inv':inv, 'detalleprop':detalleprop, 'prop':prop, 'com':com })
 
 @login_required
 def reservaexito(request):

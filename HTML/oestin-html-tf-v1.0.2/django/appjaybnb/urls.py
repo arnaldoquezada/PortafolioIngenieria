@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf import settings # new
 from django.conf.urls.static import static
-from .views import home, team, contacto, successView, roomGrid, detallePropiedad, perfil, register, Pagos, PagoReserva, reservaexito, preRoomDetail, pagoexito, transferencia, AgregaAcompanante
+from .views import home, team, contacto, successView, roomGrid, detallePropiedad, perfil, register, Pagos, PagoReserva, reservaexito, preRoomDetail, pagoexito, pagopendienteexito, transferencia, AgregaAcompanante
 
 urlpatterns = [
     path('', home, name='home'),
@@ -12,6 +12,7 @@ urlpatterns = [
     path('info/team/', team, name='team'),
     path('reserva/exito/', reservaexito, name='rexito'),
     path('reserva/pagoexito/', pagoexito, name='pagoexito'),
+    path('reserva/pagopendienteexito/', pagopendienteexito, name='pagopendienteexito'),
     path('reserva/transferencia/', transferencia, name='transferencia'),
     path('pagos/formas/', Pagos, name='pago'),
     path('pagos/pagoreserva/<int:pk>', PagoReserva, name='pagoreserva'),

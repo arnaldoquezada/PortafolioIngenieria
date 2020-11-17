@@ -52,22 +52,9 @@
                     <div class="room-facilities">
                         <h3 class="room-details-title">Instalaciones de la Propiedad</h3>
                         <div class="single-facility">
-                            <span><i class="zmdi zmdi-check"></i>2 Domitorios</span>
-                            <span><i class="zmdi zmdi-check"></i>50,27 mts<sup>2</sup></span>
-                            <span><i class="zmdi zmdi-check"></i>1 Baño</span>
-                            <span><i class="zmdi zmdi-check"></i>Wi-Fi Gratis</span>
-                        </div>
-                        <div class="single-facility">
-                            <span><i class="zmdi zmdi-check"></i>Estacionamiento</span>
-                            <span><i class="zmdi zmdi-close"></i>Piscina</span>
-                            <span><i class="zmdi zmdi-check"></i>Quincho Techado</span>
-                            <span><i class="zmdi zmdi-check"></i>Acceso Controlado</span>
-                        </div>
-                        <div class="single-facility">
-                            <span><i class="zmdi zmdi-check"></i>Full AC</span>
-                            <span><i class="zmdi zmdi-check"></i>Ascensores</span>
-                            <span><i class="zmdi zmdi-check"></i>Plaza Interior</span>
-                            <span><i class="zmdi zmdi-close"></i>Room Service</span>
+                          {% for inv in inv %}
+                            <span><i class="zmdi zmdi-check"></i>{{ inv.cantidad }} {{ inv.id_inventario.nombre_inven|title }}</span>
+                          {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -129,18 +116,6 @@
                                 <td style="font-size: 16px;" >Total Traslados</td>
                                 <td style="font-size: 16px;" >$0</td>
                             </tr>
-                            <!--
-                            <tr>
-                                <td><i  style="color: #00bcd4;" class="fas fa-file-invoice-dollar"></i></td>
-                                <td style="font-weight: 500; color: #00bcd4;">Total a Pagar:</td>
-                                <td style="font-weight: 500; color: #00bcd4;">$300.000</td>
-                            </tr>
-                            <tr>
-                                <td><i style="color: #00bcd4;" class="fas fa-money-check-alt"></i></td>
-                                <td style="font-weight: 500; color: #00bcd4;">Monto Abono:</td>
-                                <td style="font-weight: 500; color: #00bcd4;">$150.000</td>
-                            </tr>
-                            -->
                         </table>
                     </div>
                     <div class="sidebar-widget">
@@ -177,77 +152,14 @@
             <div class="row">
                 <div class="col-lg-9 col-md-8">
                     <h3 class="room-details-title">SERVICIOS ADICIONALES</h3>
-                    <!-- Tab links -->
-                    <div class="tab">
-                        <button class="tablinks" onclick="openCity(event, 'TOURS')">TOURS</button>
-                        <button class="tablinks" onclick="openCity(event, 'TRASLADO')">TRASLADOS</button>
-                    </div>
-                    <!-- Tab content -->
-                    <div id="TOURS" class="tabcontent">
-                        <h3>Organiza desde ya tu estadía con tours guiados</h3>
-                        <label for="tour" class="content-input">
-                            <input type="checkbox" name="tour" id="tour" value="tour">Tour 1
-                            <i></i>
-                        </label>
-                        <label for="tour2" class="content-input">
-                            <input type="checkbox" name="tour2" id="tour2" value="tour2">Tour 2
-                            <i></i>
-                        </label>
-                        <h3>Cantidad de Pasajeros</h3>
-                        <div class="content-select">
-                            <select>
-                                <option> 1</option>
-                                <option> 2</option>
-                                <option> 3</option>
-                                <option> 4</option>
-                            </select>
-                            <i></i>
-                        </div>
-                    </div>
-
-                    <div id="TRASLADO" class="tabcontent" style="background-color: #f1f1f1;">
-                        <h3>Llega a tiempo y seguro a los destinos</h3>
-                        <br>
-                        <label for="ida" class="content-input">
-                            <input type="checkbox" name="ida" id="ida" value="ida"> Traslado a la Propiedad
-                            <i></i>
-                        </label>
-                        <label for="vuelta" class="content-input">
-                            <input type="checkbox" name="vuelta" id="vuelta" value="vuelta">Traslado a Terminal / Aeropuerto
-                            <i></i>
-                        </label>
-                        <br>
-                        <h3>Cantidad de Pasajeros</h3>
-                        <div class="content-select">
-                            <select>
-                                <option> 1</option>
-                                <option> 2</option>
-                                <option> 3</option>
-                                <option> 4</option>
-                            </select>
-                            <i></i>
-                        </div>
-                 </div>
-
-                    <br>
-                    <div>
-                        <h3 class="room-details-title">INFORMACIÓN DE ACOMPAÑANTES  </h3>
-                        {% for x in n %}
-                          <div class="w3l-form-group">
-                              <i class="fas fa-user-plus"> Datos Acompañantes</i>
-                              <input type="text" class="form-control" placeholder="NOMBRES" required minlength="3" maxlength="50"   />
-                              <input type="text" class="form-control" placeholder="APELLIDOS MATERNO" required minlength="3" maxlength="50"   />
-                              <input type="text" class="form-control" placeholder="APELLIDOS PATERNO" required minlength="3" maxlength="50"   />
-                              <input type="number" class="form-control" placeholder="912345678" required minlength="9" maxlength="14" />
-                          </div>
-                        {% endfor %}
+                    <div class="single-facility">
+                        <span><i class="zmdi zmdi-check"></i>Tours</span>
+                        <span><i class="zmdi zmdi-check"></i>Traslados</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
     <!-- Modal -->
     <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

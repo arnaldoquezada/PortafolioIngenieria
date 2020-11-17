@@ -318,10 +318,10 @@ class Pago(models.Model):
     abono = models.TextField(blank=True, null=True)  # This field type is a guess.
     monto_pagar = models.IntegerField()
     id_transaccion = models.TextField()  # This field type is a guess.
-    estado = models.CharField(max_length=4)
     id_formapag = models.ForeignKey(FormaPago, models.DO_NOTHING, db_column='id_formapag')
     id_reserva = models.ForeignKey('Reserva', models.DO_NOTHING, db_column='id_reserva')
     idestadopago = models.ForeignKey(EstadoPago, models.DO_NOTHING, db_column='idestadopago')
+    fecha_pago = models.TextField()
 
     class Meta:
         managed = False
