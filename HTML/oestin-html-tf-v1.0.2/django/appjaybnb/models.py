@@ -359,6 +359,7 @@ class Propiedades(models.Model):
     id_estado_propi = models.ForeignKey(EstadoPropi, models.DO_NOTHING, db_column='id_estado_propi')
     id_comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='id_comuna')
     imagen_principal = models.TextField()
+    terminos = models.TextField()
 
     class Meta:
         managed = False
@@ -393,7 +394,8 @@ class Propiedad(models.Model):
     id_estado_propi = models.ForeignKey(EstadoPropi, models.DO_NOTHING, db_column='id_estado_propi')
     id_comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='id_comuna')
     imagen_principal = models.TextField()
-
+    terminos = models.TextField()
+    
     class Meta:
         managed = False
         db_table = 'propiedad'

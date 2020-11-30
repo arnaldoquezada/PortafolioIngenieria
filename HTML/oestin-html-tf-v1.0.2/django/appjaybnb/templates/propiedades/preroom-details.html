@@ -57,6 +57,14 @@
                           {% endfor %}
                         </div>
                     </div>
+                    <div class="room-facilities">
+                        <h3 class="room-details-title">NORMAS DE LA PROPIEDAD</h3>
+                        <div class="single-facility" style="width: 50%;">
+                          {% for terminos in terminos %}
+                            <span><i class="zmdi zmdi-assignment"></i>{{ terminos }}</span>
+                          {% endfor %}
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="sidebar-widget">
@@ -239,7 +247,7 @@
                     <input type="hidden" name="idprop" value="{{ prop.id_propiedad }}">
                     <input type="hidden" name="idcliente" value="{{ user.id }}">
                     <a href="javascript:;" onclick="document.getElementById('form1').submit();"  data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-lg search  btn-block default-btn" role="button">ACEPTO TÉRMINOS Y PAGAR</a>
-                    <a href="index.html" class="btn btn-danger btn-block " role="button" >CANCELAR</a>
+                    <a href="#" class="btn btn-danger btn-block" data-dismiss="modal" role="button" >CANCELAR</a>
                 </form>
             </div>
           </div>

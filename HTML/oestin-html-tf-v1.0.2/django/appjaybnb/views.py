@@ -294,15 +294,25 @@ def preRoomDetail(request, pk):
         print(prop.id_propiedad)
         img = Imagen.objects.filter(id_propiedad=pk)
         inv = DetallePropiedad.objects.filter(id_propiedad=pk)
+        term = prop.terminos
+        terminos = term.split("|")
 
-    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'inv':inv, 'img':img, 'com':com, 'reserva':reserva, 'totnoches':totnoches, 'totestadia':totestadia, 'n':range(acomp)})
+    return render(request, 'propiedades/preroom-details.html',{'prop': prop, 'inv':inv, 'img':img, 'com':com, 'reserva':reserva, 'totnoches':totnoches, 'totestadia':totestadia, 'n':range(acomp), 'terminos':terminos})
+
+class ServiEx():
+    id_serv = 0
+    nom_serv = ""
+    descrip_serv = ""
+    valor_serv = 0
+    id_tipo_serv = 0
+    foto = ""
 
 @login_required
 def Pagos(request):
     comu = Region()
     com = Propiedades.objects.group_by('id_comuna__id_comuna','id_comuna__nombre_comu').distinct()
     id_reserva = Reserva.objects.latest('id_reserva')
-    print(id_reserva)
+
     user = request.user
     print(user)
     if (id_reserva.id_cliente.email==user):
@@ -311,15 +321,13 @@ def Pagos(request):
     if request.method == "POST":
         print("ES POST EN PAGO")
         montoapagar = request.POST['montoapagar']
+        print(montoapagar)
         mediopago = request.POST['formadepago']
         id_mpago = FormaPago.objects.get(id_formapag=mediopago)
         idestadopago = EstadoPago.objects.get(idestadopago=1)
 
-
-
-
         try:
-
+            print(id_reserva.id_reserva)
             cur = conn.cursor()
             cur.callproc('pkg_pago.sp_realizar_pago', (int(montoapagar), 999, id_mpago.id_formapag, id_reserva.id_reserva))
 
@@ -329,7 +337,11 @@ def Pagos(request):
 
             if len(serv1) > 0:
                 for precio in serv1:
-                    servi1 = ServicioAdicional.objects.get(valor_servicio_extra=precio)
+                    print(precio)
+                    separa = precio.split(",")
+                    print(separa)
+                    idserv1 = separa[1]
+                    servi1 = ServicioAdicional.objects.get(id_servicio_extra=idserv1)
                     cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (servi1.id_servicio_extra, "", servi1canti, id_reserva.id_reserva))
 
 
@@ -341,7 +353,11 @@ def Pagos(request):
 
             if len(serv2) > 0:
                 for precio in serv2:
-                    servi2 = ServicioAdicional.objects.get(valor_servicio_extra=precio)
+                    print(precio)
+                    separa = precio.split(",")
+                    print(separa)
+                    idserv1 = separa[1]
+                    servi2 = ServicioAdicional.objects.get(id_servicio_extra=idserv1)
                     cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (servi2.id_servicio_extra, "", servi2canti, id_reserva.id_reserva))
             #if serv2 != "":
                 #cur.callproc('PKG_MANEJO_SERV_ADICIONALES.SP_CREAR_RESER_S_EXTRA', (serv2, "", servi2canti, id_reserva.id_reserva))
@@ -382,7 +398,63 @@ def Pagos(request):
         serv2 = ServicioAdicional.objects.filter(id_empresa_ext=emp2.id_empresa_ext);
         print(serv2)
         print(id_reserva.cantidad_acompa)
-    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com, 'serv1':serv1, 'serv2':serv2, 'n':range(1, id_reserva.cantidad_acompa+1) })
+
+        idprop = Propiedad.objects.get(id_propiedad=id_reserva.id_propiedad.id_propiedad)
+
+        obj1 = []
+        obj2 = []
+        try:
+
+            cursor = conn.cursor()
+            return_no = cursor.var(cx_Oracle.CURSOR)
+            cursor.callproc('pkg_servicio_adicional.SP_SERVICIOS_ADICIONALES', (idprop.id_propiedad, return_no))
+            resultado =  return_no.getvalue().fetchall()
+
+            for row in resultado:
+                se = ServiEx()
+                if row[5] == 1:
+                    se.id_serv = row[0]
+                    se.nom_serv = row[1]
+                    se.descrip_serv = row[2]
+                    se.valor_serv = row[3]
+                    se.id_tipo_serv = row[5]
+                    se.foto = row[4]
+                    obj1.append(se)
+                else:
+                    se.id_serv = row[0]
+                    se.nom_serv = row[1]
+                    se.descrip_serv = row[2]
+                    se.valor_serv = row[3]
+                    se.id_tipo_serv = row[5]
+                    se.foto = row[4]
+                    obj2.append(se)
+
+            for v in obj1:
+                print(v.nom_serv)
+
+            for v in obj2:
+                print(v.nom_serv)
+
+        except Exception as errr:
+
+            print(type(errr))
+            print(errr.args)
+            print("error: ", errr)
+        else:
+            try:
+                #cur.callproc('pkg_reservas.sp_crear_reserva', (fechaini, fechafin, cantidad, idpropiedad, idcliente))
+                print("Pasó por aquí?")
+            except:
+                print("No funciono")
+            else:
+                print("Funciono el procedimiento")
+            finally:
+                print("Cerrando Conexión")
+                cursor.close()
+        finally:
+            print("Termino el proceso")
+
+    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com, 'serv1':serv1, 'serv2':serv2, 'obj1':obj1, 'obj2':obj2, 'n':range(1, id_reserva.cantidad_acompa+1) })
 
 @login_required
 def PagoReserva(request, pk):
@@ -509,8 +581,10 @@ def detallePropiedad(request,pk):
         prop = Propiedad.objects.all()
         img = Imagen.objects.filter(id_propiedad=pk)
         inv = DetallePropiedad.objects.filter(id_propiedad=pk)
+        term = detalleprop.terminos
+        terminos = term.split("|")
 
-    return render(request, 'propiedades/room-details.html', {'img': img, 'inv':inv, 'detalleprop':detalleprop, 'prop':prop, 'com':com })
+    return render(request, 'propiedades/room-details.html', {'img': img, 'inv':inv, 'detalleprop':detalleprop, 'prop':prop, 'com':com, 'terminos':terminos })
 
 @login_required
 def reservaexito(request):

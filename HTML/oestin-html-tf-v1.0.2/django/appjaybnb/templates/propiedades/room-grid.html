@@ -42,12 +42,14 @@
                                 <img src="{% static '' %}{{ prop.imagen_principal }}" alt="" width="370" height="460">
                                 <div class="room-hover text-center">
                                     <div class="hover-text">
-                                        <h3><a href="{% url 'roomdetail' prop.id_propiedad %}">{{ prop.nombre_propie }}</a></h3>
+                                        <h3><a href="{% url 'roomdetail' prop.id_propiedad %}">                                          
+                                          {{ prop.id_comuna.nombre_comu }}
+                                          <br>
+                                          {{ prop.nombre_propie }}</a></h3>
                                         <div class="p-amount">
                                             <span>$ {{ prop.valor_noche }}</span>
                                             <span class="count">Por Noche</span>
                                         </div>
-                                        <p></p>
                                         <div class="room-btn">
                                             <a href="{%  url 'roomdetail' prop.id_propiedad %}" class="default-btn">DETALLES</a>
                                         </div>

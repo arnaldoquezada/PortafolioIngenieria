@@ -23,6 +23,7 @@
     </div>
 </section>
 <!-- Room Area End -->
+
 <section class="room-area pt-90">
     <div class="container">
       <form action="#" method="POST">
@@ -42,6 +43,7 @@
                         <br>
                         <h3 class="room-details-title">SERVICIOS ADICIONALES</h3>
                         <!-- Tab links -->
+
                         <div class="tab">
                             <button type="button" class="tablinks" onclick="openCity(event, 'TOURS')" style="font-size: 18px">TOURS</button>
                             <button type="button" class="tablinks" onclick="openCity(event, 'TRASLADO')" style="font-size: 18px">TRASLADOS</button>
@@ -52,7 +54,7 @@
                             <center><h3>Organiza desde ya tu estadía con tours guiados</h3></center>
                             <br>
                             <h3>Cantidad de Personas</h3>
-                            <div class="content-select" style="font-size:20px;padding-right: 45%">
+                            <div class="content-select" style="font-size:20px;padding-right: 90%">
                                 <select id="cant1" name="servi1canti">
                                   {% for x in n %}
                                     <option value="{{ x }}">{{ x }}</option>
@@ -60,22 +62,42 @@
                                 </select>
                                 <i></i>
                             </div>
-                            <h3>Tours Disponibles</h3>
-                            {% for serv1 in serv1 %}
-                              <div class="checkbox">
-                                <label style="font-size:20px;">
-                                  <input name="product" value="{{ serv1.valor_servicio_extra|floatformat:0 }}" type="checkbox" onclick="totalIt()" /> {{ serv1.nombre_servicio }} - $ {{ serv1.valor_servicio_extra }}
-                                </label>
-                                <input type="hidden" name="servicio1" value="{{ serv1.id_servicio_extra }}" />
-                              </div>
-                            {% endfor %}
+                            <br>
+                            <br>
+                            <section class="room-area">
+                            <div class="container">
+                                <div class="row">
+                            <h3 class="room-details-title">SELECCIONE TOURS DISPONIBLES</h3>
+                                  {% for obj1 in obj1 %}
+                                  <div class="col-md-4 col-sm-6 col-xs-12">
+                                      <div class="single-room small" style="width: 100%; margin-bottom: 50px;">
+                                          <img  src="{% static '' %}{{ obj1.foto }}" src="{% static '' %}{{ prop.imagen_principal }}" alt="Foto_Servicio_Extra" width="370" height="460" style=" filter: brightness(50%);">
+                                          <div class="room-hover text-center">
+                                              <div class="hover-text">
+                                                  <h3><a href="#">{{ obj1.nom_serv }}</a></h3>
+                                                  <p style="transform: translate(0%, 50%);">{{ obj1.descrip_serv }}</p>
+                                                  <input name="product" value="{{ obj1.valor_serv|floatformat:0 }},{{ obj1.id_serv }}" type="checkbox" onclick="totalIt()" style="height: 40px;margin: 380px 0 0;" />
+                                              </div>
+                                              <div class="p-amount">
+                                                  <span>${{ obj1.valor_serv }}</span>
+                                                  <span class="count">Por Persona</span>
+                                              </div>
+                                              <input type="hidden" name="servicio1" value="{{ obj1.id_serv }}" />
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {% endfor %}
+                                </div>
+                            </div>
+                            </section>
                         </div>
 
                         <div id="TRASLADO" class="tabcontent" style="background-color: #f1f1f1;">
                           <center><h3>Llega a tiempo y seguro a los destinos</h3></center>
                           <br>
+                          <br>
                           <h3>Cantidad de Pasajeros</h3>
-                          <div class="content-select" style="font-size:20px;;padding-right: 45%">
+                          <div class="content-select" style="font-size:20px;;padding-right: 90%">
                               <select id="cant2" name="servi2canti">
                                 {% for x in n %}
                                   <option value="{{ x }}">{{ x }}</option>
@@ -83,15 +105,34 @@
                               </select>
                               <i></i>
                           </div>
-                            <h3>Servicios de Traslados Disponibles</h3>
-                            {% for serv2 in serv2 %}
-                              <div class="checkbox">
-                                <label style="font-size:20px;">
-                                  <input name="producttraslado" value="{{ serv2.valor_servicio_extra|floatformat:0 }}" type="checkbox" onclick="totalIt()" /> {{ serv2.nombre_servicio }} - $ {{ serv2.valor_servicio_extra }}
-                                </label>
-                                <input type="hidden" name="servicio2" value="{{ serv2.id_servicio_extra }}" />
-                              </div>
-                            {% endfor %}
+                          <br>
+                          <br>
+                            <section class="room-area">
+                            <div class="container">
+                                <div class="row">
+                            <h3 class="room-details-title">Seleccione Servicios de Traslados Disponibles</h3>
+                                  {% for obj2 in obj2 %}
+                                  <div class="col-md-4 col-sm-6 col-xs-12">
+                                      <div class="single-room small" style="width: 100%; margin-bottom: 50px;">
+                                          <img  src="{% static '' %}{{ obj2.foto }}" alt="Foto_Servicio_Extra" width="370" height="460" style=" filter: brightness(50%);">
+                                          <div class="room-hover text-center">
+                                              <div class="hover-text">
+                                                  <h3><a href="#">{{ obj2.nom_serv }}</a></h3>
+                                                  <p style="transform: translate(0%, 50%);">{{ obj2.descrip_serv }}</p>
+                                                  <input name="product" value="{{ obj2.valor_serv|floatformat:0 }},{{ obj2.id_serv }}" type="checkbox" onclick="totalIt()" style="height: 40px;margin: 380px 0 0;" />
+                                              </div>
+                                              <div class="p-amount">
+                                                  <span>${{ obj2.valor_serv }}</span>
+                                                  <span class="count">Por Persona</span>
+                                              </div>
+                                              <input type="hidden" name="servicio2" value="{{ obj2.id_serv }}" />
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {% endfor %}
+                                </div>
+                            </div>
+                            </section>
                       </div>
 
                 </div>
@@ -160,6 +201,8 @@
         <script type="text/javascript">
             function totalIt() {
             var input = document.getElementsByName("product");
+
+
             var inputtraslado = document.getElementsByName("producttraslado");
             var totalpagar = document.getElementById("mtp");
             var mi = document.getElementById("mmp");
@@ -180,7 +223,10 @@
 
             for (var i = 0; i < input.length; i++) {
               if (input[i].checked) {
-                m1 = parseFloat(input[i].value*c1);
+                var inputaux = input[i].value;
+                var separa = inputaux.split(",")
+                var inp = separa[0];
+                m1 = parseFloat(inp*c1);
                 total += m1;
                 mitad += (m1/2);
               }
@@ -188,14 +234,19 @@
 
             for (var i = 0; i < inputtraslado.length; i++) {
               if (inputtraslado[i].checked) {
-                m2 = parseFloat(inputtraslado[i].value*c2);
+                var inputaux = inputtraslado[i].value;
+                var separa = inputaux.split(",")
+                var inputtras = separa[0];
+                m2 = parseFloat(inputtras.value*c2);
                 total += m2;
                 mitad += (m2/2);
               }
             }
 
             document.getElementsByName("total")[0].value = "$" + total.toFixed(0);
+            //document.getElementById("mtp").value = total.toFixed(0);
             document.getElementsByName("mitad")[0].value = "$" + mitad.toFixed(0);
+            //document.getElementById("mmp").value = total.toFixed(0);
           }
         </script>
 {% endblock contenido %}
