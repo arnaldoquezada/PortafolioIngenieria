@@ -14,7 +14,7 @@ import cx_Oracle
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.query import QuerySet
 from django_group_by import GroupByMixin
-from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, EstadoReserv, DetallePropiedad, CheckIn, CheckList
+from .models import Imagen, Propiedad, Cliente, Comuna, AuthUser, EstadoCli, Region, Reserva, Propiedades, EstadoReserv, DetallePropiedad, CheckIn, CheckList, Acompanante
 from datetime import date
 from django.core.validators import RegexValidator
 
@@ -83,7 +83,11 @@ def busqueda(request):
             idprop = Propiedad.objects.get(id_propiedad=idp)
             idestadores = EstadoReserv.objects.get(id_estado_rese=2)
             res = Reserva.objects.filter(id_propiedad=idprop.id_propiedad, id_estado_rese=idestadores)
-            return render(request, 'movil/result_busqueda.html', {'res':res})
+            acomp = Acompanante.objects.all()
+            acomplist = []
+            for ac in acomp:
+                acomplist.append(ac.id_reserva.id_reserva)
+            return render(request, 'movil/result_busqueda.html', {'res':res, 'acomplist':acomplist})
         except Propiedad.DoesNotExist as den:
             print(den)
             sinres = 0
@@ -109,6 +113,7 @@ def checkindatos(request, pk):
 @login_required
 def aceptaCheckin(request, pk):
     res = Reserva.objects.get(id_reserva=pk)
+    cliente = Cliente.objects.get(id_cliente=res.id_cliente.id_cliente)
     print(res.id_cliente.nombres_clien)
     if request.method == "POST":
         idres = request.POST["idreserva"]
@@ -120,7 +125,8 @@ def aceptaCheckin(request, pk):
         rese.save()
 
         now = datetime.now()
-
+        dia = now.strftime("%d/%m/%Y")
+        hora = now.strftime("%H:%M:%S")
 
         try:
             # create a connection to the Oracle Database
@@ -140,6 +146,20 @@ def aceptaCheckin(request, pk):
                 print("No funciono")
             else:
                 print("Funciono el procedimiento")
+
+
+                #Enviar email al cliente con la info de la reserva
+                mensaje = "Se ha generado la reserva N°"+str(rese.id_reserva)+", los datos han sido enviado a su email."
+                subject = "CHECK-IN de Reserva N°"+str(rese.id_reserva)+" - Turismo Real"
+                message = "Estimado(a) \n \n   "+rese.id_cliente.nombres_clien+" le escribimos para informar que a hoy "+dia+" a las "+hora+" se ha realizado con éxito el proceso de CHECK-IN para su Reserva N°"+str(res.id_reserva)+". Recuerde respetar las normas de la propiedad para evitar multas "+"\n"+"\n"+"Equipo de Turismo Real"
+                from_email = cliente.email
+                try:
+                    send_mail(subject, message, 'contacto@turismo-real.com', [from_email])
+                    messages.success(request, mensaje)
+                except BadHeaderError:
+                    print(BadHeaderError)
+                    return HttpResponse('Invalid header found.')
+
                 return redirect('checkinok')
 
             finally:
@@ -148,10 +168,9 @@ def aceptaCheckin(request, pk):
         finally:
             print("Termino el proceso")
 
-        #check = CheckIn(id_check_list=s_checklist.nextvalue, fecha_check=now, acepta_termino="S", id_reserva=res)
-        #check.save()
     else:
         prop = Propiedad.objects.all()
+
         return render(request, 'movil/aceptacion_in.html',{'res':res})
 
 @login_required
@@ -181,6 +200,7 @@ def busqueda_out(request):
 @login_required
 def aceptaCheckOut(request, pk):
     res = Reserva.objects.get(id_reserva=pk)
+    cliente = Cliente.objects.get(id_cliente=res.id_cliente.id_cliente)
     if request.method == "POST":
         idres = request.POST["idreserva"]
         detalle = request.POST["detalle"]
@@ -197,8 +217,8 @@ def aceptaCheckOut(request, pk):
         rese.save()
 
         now = datetime.now()
-        #print ("Current date and time : ")
-        #print (now.strftime("%Y-%m-%d %H:%M:%S")
+        dia = now.strftime("%d/%m/%Y")
+        hora = now.strftime("%H:%M:%S")
 
         try:
             # create a connection to the Oracle Database
@@ -218,6 +238,16 @@ def aceptaCheckOut(request, pk):
                 print("No funciono")
             else:
                 print("Funciono el procedimiento")
+                #Enviar email al cliente con la info de la reserva
+                mensaje = "Se ha generado la reserva N°"+str(rese.id_reserva)+", los datos han sido enviado a su email."
+                subject = "CHECK-OUT de Reserva N°"+str(rese.id_reserva)+" - Turismo Real"
+                message = "Estimado(a) \n \n   "+rese.id_cliente.nombres_clien+" le escribimos para informar que a hoy "+dia+" a las "+hora+" se ha realizado con éxito el proceso de CHECK-OUT para su Reserva N°"+str(res.id_reserva)+". Muchas gracias por preferir nuestras propiedades. "+"\n"+"\n"+"Equipo de Turismo Real"
+                from_email = cliente.email
+                try:
+                    send_mail(subject, message, 'contacto@turismo-real.com', [from_email])
+                except BadHeaderError:
+                    print(BadHeaderError)
+                    return HttpResponse('Invalid header found.')
                 return redirect('checkoutok')
 
             finally:

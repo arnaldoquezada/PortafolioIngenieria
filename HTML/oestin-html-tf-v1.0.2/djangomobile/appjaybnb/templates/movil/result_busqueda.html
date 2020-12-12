@@ -20,7 +20,7 @@
                         <tr class="bg-primary" >
                             <th scope="col">ID RES</th>
                             <th scope="col">IN</th>
-                            <th scope="col">OUT</th>
+                            <th scope="col">ACOMPA</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,9 +31,18 @@
                       {% else %}
                         {% for res in res %}
                         <tr>
-                          <td>{{ res.id_reserva }}</td>
-                          <td><a href="{% url 'aceptacheckin' res.id_reserva %}">{{ res.fecha_inicio_reser|date:"d-m-Y" }}</a></td>
-                          <td>{{ res.fecha_termino_reser|date:"d-m-Y" }}</td>
+
+                          {% if not res.id_reserva in acomplist %}
+                              {% if res.cantidad_acompa > 0 %}
+                                <td style="color: red"><b>{{ res.id_reserva }}</b></td>
+                                <td style="color: red"><b>{{ res.fecha_inicio_reser|date:"d-m-Y" }}</b></td>
+                                <td style="color: red"><b>PENDIENTE</b></td>
+                              {% else %}
+                                <td>{{ res.id_reserva }}</td>
+                                <td><b><a href="{% url 'aceptacheckin' res.id_reserva %}">{{ res.fecha_inicio_reser|date:"d-m-Y" }}</a></b></td>
+                                <td>OK</td>
+                              {% endif %}
+                          {% endif %}
                         </tr>
                         {% endfor %}
                       {% endif %}

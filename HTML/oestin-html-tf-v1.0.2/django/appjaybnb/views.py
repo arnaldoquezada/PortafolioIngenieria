@@ -123,6 +123,7 @@ def home(request):
             print(type(errr))
             print(errr.args)
             print("error: ", errr)
+            return render(request, 'propiedades/room-list_busqueda_vacio.html', {'reserva':reserva, 'com':com})
         else:
             try:
                 #cur.callproc('pkg_reservas.sp_crear_reserva', (fechaini, fechafin, cantidad, idpropiedad, idcliente))
@@ -173,7 +174,7 @@ def perfil(request):
         prop = Propiedad.objects.all()
         cli = Cliente.objects.get(id_cliente=user.id)
         print(cli.id_cliente)
-        res = Reserva.objects.filter(id_cliente=cli)
+        res = Reserva.objects.filter(id_cliente=cli).order_by('-id_reserva')
         comuna = Comuna.objects.all()
 
         comu = Region()
@@ -214,6 +215,7 @@ def preRoomDetail(request, pk):
         fechafin = request.POST["fechafin"]
         print(fechafin)
         cantidad = request.POST["huespedes"]
+        cantidad = int(cantidad) - 1
         idprop = Propiedad.objects.get(id_propiedad=pk)
         idpropiedad = idprop.id_propiedad
         print(idpropiedad)
@@ -252,7 +254,6 @@ def preRoomDetail(request, pk):
                 from_email = cliente.email
                 try:
                     send_mail(subject, message, 'contacto@turismo-real.com', [from_email])
-                    messages.success(request, mensaje)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
 
@@ -454,7 +455,7 @@ def Pagos(request):
         finally:
             print("Termino el proceso")
 
-    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com, 'serv1':serv1, 'serv2':serv2, 'obj1':obj1, 'obj2':obj2, 'n':range(1, id_reserva.cantidad_acompa+1) })
+    return render(request, 'pagos/pago.html',{'id_reserva': id_reserva, 'mitad_monto':int(mitad_monto), 'com':com, 'serv1':serv1, 'serv2':serv2, 'obj1':obj1, 'obj2':obj2, 'n':range(1, id_reserva.cantidad_acompa+2) })
 
 @login_required
 def PagoReserva(request, pk):
@@ -499,7 +500,14 @@ def PagoReserva(request, pk):
 
     else:
         print("Es GET EN PAGO Pendiente")
-        pago = Pago.objects.get(id_reserva=id_reserva)
+        try:
+            pago = Pago.objects.get(id_reserva=id_reserva)
+            if (pago.abono == 0):
+                pago.abono = id_reserva.monto_total
+            return render(request, 'pagos/pagoreserva.html',{'id_reserva': id_reserva, 'pago':pago})
+        except:
+            pagoTotal = id_reserva.monto_total
+            return render(request, 'pagos/pagoreserva_pend.html',{'id_reserva': id_reserva, 'pagoTotal':pagoTotal})
 
     return render(request, 'pagos/pagoreserva.html',{'id_reserva': id_reserva, 'pago':pago})
 
@@ -651,7 +659,6 @@ def contacto(request):
         if subject and message and from_email:
             try:
                 send_mail(subject, message, from_email, ['contacto@turismo-real.com'])
-                messages.success(request, 'Su Mensaje fue enviado con éxito, muy pronto se contactarán con usted.')
                 return redirect('contacto')
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
@@ -715,9 +722,6 @@ def AgregaAcompanante(request, pk):
 
         return redirect('home')
 
-
-
-
 #        split_strings = [] #El string lo dividimos en grupos de 5 caracateres
 #        n = 5
 #        for index in range(0, len(acomp), n): #Creamos una lista anidada para dividir los datos de los acompañantes por cada uno
@@ -727,7 +731,6 @@ def AgregaAcompanante(request, pk):
 #            for j in range(len(split_strings[i])):
 #                print("---Print Elements---")
 #                print(split_strings[i][j])
-
 
         return redirect('perfil')
 

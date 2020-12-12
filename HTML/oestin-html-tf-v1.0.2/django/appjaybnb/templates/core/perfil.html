@@ -64,10 +64,12 @@
                                 <td>{{ res.fecha_termino_reser|date:" d-m-Y" }}</td>
                                 <td>
                                 {% if not res.id_reserva in acomplist %}
-                                  <a class="btn btn-primary btn-lg center" href="{% url 'AgregaInfoAcompa' res.id_reserva %}">ACOMPAÑANTES</a>
+                                    {% if res.cantidad_acompa > 0 %}
+                                      <a class="btn btn-primary btn-lg center" href="{% url 'AgregaInfoAcompa' res.id_reserva %}">ACOMPAÑANTES</a>
+                                    {% endif %}    
                                 {% endif %}
 
-                                {% if res.id_estado_rese.id_estado_rese == 1 or res.id_estado_rese.id_estado_rese == 3  %}
+                                {% if res.id_estado_rese.id_estado_rese == 1 or res.id_estado_rese.id_estado_rese == 3 or res.id_estado_rese.id_estado_rese == 7 %}
                                   <a class="btn btn-primary btn-lg center" href="{% url 'pagoreserva' res.id_reserva %}">PAGAR</a>
                                 {% endif %}
                                 </td>
